@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import { Button } from 'antd';
 import styles from './App.module.scss';
+import classnames from 'classnames';
 
 export default function App() {
   return (
@@ -41,7 +42,7 @@ export default function App() {
 
 function Home() {
   return (
-    <h2 className={styles.title}>
+    <h2 className={classnames({ [styles.title]: true, [styles.button]: true })}>
       wsafas
       <Button className={styles.button} type="primary">
         Primary
