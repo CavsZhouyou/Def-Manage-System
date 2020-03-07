@@ -1,60 +1,14 @@
-import React from 'react';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
-import { Button } from 'antd';
-import styles from './App.module.scss';
-import classnames from 'classnames';
+import React, { Suspense } from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { renderRoutes } from 'react-router-config';
+import routes from '@/router';
 
-export default function App() {
+const App = (): JSX.Element => {
   return (
     <Router>
-      <div>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/about">About</Link>
-            </li>
-            <li>
-              <Link to="/users">Users</Link>
-            </li>
-          </ul>
-        </nav>
-
-        {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
-        <Switch>
-          <Route path="/about">
-            <About />
-          </Route>
-          <Route path="/users">
-            <Users />
-          </Route>
-          <Route path="/">
-            <Home />
-          </Route>
-        </Switch>
-      </div>
+      <Suspense fallback={null}>{renderRoutes(routes)}</Suspense>
     </Router>
   );
-}
+};
 
-function Home() {
-  return (
-    <h2 className={classnames({ [styles.title]: true, [styles.button]: true })}>
-      wsafas
-      <Button className={styles.button} type="primary">
-        Primary
-      </Button>
-    </h2>
-  );
-}
-
-function About() {
-  return <h2>About</h2>;
-}
-
-function Users() {
-  return <h2>Users</h2>;
-}
+export default App;

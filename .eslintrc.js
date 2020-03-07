@@ -3,10 +3,9 @@ module.exports = {
   extends: [
     'plugin:@typescript-eslint/recommended',
     'react-app',
-    'plugin:prettier/recommended',
-    'react-hooks'
+    'plugin:prettier/recommended'
   ],
-  plugins: ['@typescript-eslint', 'react'],
+  plugins: ['@typescript-eslint', 'react', 'react-hooks'],
   rules: {
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn'
