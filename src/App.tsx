@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import { Button } from 'antd';
-// import './App.scss';
+import styles from './App.module.scss';
 
 export default function App() {
   return (
@@ -41,9 +41,12 @@ export default function App() {
 
 function Home() {
   return (
-    // <h2 className="title">
-    <Button type="primary">Primary</Button>
-    // </h2>
+    <h2 className={styles.title}>
+      wsafas
+      <Button className={styles.button} type="primary">
+        Primary
+      </Button>
+    </h2>
   );
 }
 
