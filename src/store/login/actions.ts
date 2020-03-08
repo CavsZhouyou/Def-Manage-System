@@ -4,16 +4,27 @@
  * @TodoList: 无
  * @Date: 2020-03-08 17:41:17
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-08 17:56:41
+ * @Last Modified time: 2020-03-08 21:47:41
  */
 
-import * as types from './types';
+import {
+  UserInfo,
+  LoginRequestAction,
+  LOGIN_REQUEST,
+  LoginSuccessAction,
+  LOGIN_SUCCESS
+} from './types';
 
-export function loginRequest(
-  userInfo: types.UserInfo
-): types.LoginRequestAction {
+export function loginRequest(userInfo: UserInfo): LoginRequestAction {
   return {
-    type: types.LOGIN_REQUEST,
+    type: LOGIN_REQUEST,
     payload: userInfo
+  };
+}
+
+export function loginSuccess(status: string): LoginSuccessAction {
+  return {
+    type: LOGIN_SUCCESS,
+    payload: status
   };
 }

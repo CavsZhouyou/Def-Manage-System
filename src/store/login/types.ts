@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-08 17:37:49
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-08 17:56:31
+ * @Last Modified time: 2020-03-08 21:46:06
  */
 
 /**
@@ -34,4 +34,9 @@ export interface LoginRequestAction {
   payload: UserInfo;
 }
 
-export type LoginActionTypes = LoginRequestAction;
+export interface LoginSuccessAction {
+  type: typeof LOGIN_SUCCESS;
+  payload: string;
+}
+
+export type LoginActionTypes = LoginRequestAction | LoginSuccessAction;
