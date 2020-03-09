@@ -58,9 +58,11 @@
     ]
   },
   "devDependencies": {
+    "@types/redux-devtools-extension": "^2.13.2",
     "eslint-config-prettier": "^6.10.0",
     "eslint-plugin-prettier": "^3.1.2",
     "eslint-plugin-react-hooks": "^2.5.0",
-    "prettier": "^1.19.1"
+    "prettier": "^1.19.1",
+    "redux-devtools-extension": "^2.13.8"
   }
 }

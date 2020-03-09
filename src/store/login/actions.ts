@@ -1,10 +1,10 @@
 /*
  * @Author: zhouyou@werun
- * @Descriptions: login 模块 actions creators 定义文件
+ * @Descriptions: login actions creators 定义文件
  * @TodoList: 无
  * @Date: 2020-03-08 17:41:17
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-08 21:47:41
+ * @Last Modified time: 2020-03-09 12:06:56
  */
 
 import {
