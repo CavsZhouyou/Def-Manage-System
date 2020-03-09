@@ -1,0 +1,29 @@
+.formWrapper {
+  position: absolute;
+  top: 150px;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: 0 auto;
+  width: 400px;
+  height: 350px;
+  border-radius: 10px;
+  padding: 30px 50px;
+  background: #fff;
+}
+
+.title {
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.forget {
+  float: right;
+}
+
+.loginButton {
+  width: 100%;
+  font-weight: bold;
+}
