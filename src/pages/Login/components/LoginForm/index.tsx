@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-09 20:47:57
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-09 21:51:21
+ * @Last Modified time: 2020-03-09 22:03:40
  */
 import React from 'react';
 import { Form, Input, Button, Checkbox } from 'antd';
@@ -17,18 +17,22 @@ interface Store {
   remember?: boolean;
 }
 
+const onFinish = (values: Store): void => {
+  console.log('Received values of form: ', values);
+};
+
+const initialValues: Store = {
+  remember: true
+};
+
 const LoginForm = React.memo(
   (): JSX.Element => {
-    const onFinish = (values: Store): void => {
-      console.log('Received values of form: ', values);
-    };
-
     return (
       <div className={styles.formWrapper}>
         <Form
           name="normal_login"
           className="login-form"
-          initialValues={{ remember: true }}
+          initialValues={initialValues}
           onFinish={onFinish}
         >
           <div className={styles.title}> DEF 研发管理平台</div>

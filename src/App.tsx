@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { renderRoutes } from 'react-router-config';
-import routes from '@/router';
+import routes from '@/router/index.tsx';
 
 const App = (): JSX.Element => {
   return (
