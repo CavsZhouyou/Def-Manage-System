@@ -1,0 +1,45 @@
+$avatarWidth: 36px;
+
+.header {
+  padding: 0 24px;
+  background: #fff;
+
+  .trigger {
+    font-size: 18px;
+    line-height: 64px;
+    cursor: pointer;
+    transition: color 0.3s;
+  }
+
+  .trigger:hover {
+    color: #1890ff;
+  }
+
+  .userInfo {
+    float: right;
+    display: flex;
+    align-items: center;
+    height: 100%;
+
+    .avatar {
+      margin-right: 8px;
+      width: $avatarWidth;
+      height: $avatarWidth;
+      border-radius: $avatarWidth/2;
+    }
+
+    .down {
+      padding: 15px 0;
+      cursor: pointer;
+      font-size: 20px;
+    }
+
+    .down:hover {
+      color: #1890ff;
+    }
+  }
+}
+
+.menuIcon {
+  font-size: 14px !important;
+}
