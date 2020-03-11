@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-09 20:47:57
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-09 22:03:40
+ * @Last Modified time: 2020-03-11 21:49:23
  */
 import React from 'react';
 import { Form, Input, Button, Checkbox } from 'antd';
@@ -35,7 +35,7 @@ const LoginForm = React.memo(
           initialValues={initialValues}
           onFinish={onFinish}
         >
-          <div className={styles.title}> DEF 研发管理平台</div>
+          <div className={styles.title}>DEF 工程研发平台</div>
           <Form.Item
             name="username"
             rules={[{ required: true, message: '请输入账号!' }]}
