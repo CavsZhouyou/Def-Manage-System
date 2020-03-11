@@ -4,10 +4,11 @@
  * @TodoList: 无
  * @Date: 2020-03-10 10:20:58
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-10 11:25:40
+ * @Last Modified time: 2020-03-10 12:06:57
  */
 import React, { useState, useCallback } from 'react';
 import { Layout } from 'antd';
+import { renderRoutes } from 'react-router-config';
 import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons';
 import RouterMenu from './components/RouterMenu';
 import styles from './index.module.scss';
@@ -17,8 +18,6 @@ const { Header, Sider, Content, Footer } = Layout;
 const HomeLayout = (props: any): JSX.Element => {
   const [collapsed, updateCollapsed] = useState(false);
   const { route } = props;
-
-  console.log(props);
 
   const toggle = useCallback((): void => {
     updateCollapsed(prevState => {
@@ -33,10 +32,7 @@ const HomeLayout = (props: any): JSX.Element => {
         <RouterMenu routes={route.routes}></RouterMenu>
       </Sider>
       <Layout className="site-layout">
-        <Header
-          className={styles['site-layout-background']}
-          style={{ padding: 0 }}
-        >
+        <Header className={styles.header} style={{ padding: 0 }}>
           {React.createElement(
             collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
             {
@@ -45,15 +41,8 @@ const HomeLayout = (props: any): JSX.Element => {
             }
           )}
         </Header>
-        <Content
-          className={styles['site-layout-background']}
-          style={{
-            margin: '24px 16px',
-            padding: 24,
-            minHeight: 280
-          }}
-        >
-          Content
+        <Content className={styles.content}>
+          {renderRoutes(route.routes)}
         </Content>
         <Footer style={{ textAlign: 'center' }}>
           Copyright © 2019-现在，淘宝（中国）软件有限公司 版权所有 |

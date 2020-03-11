@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-09 12:08:16
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-10 11:56:38
+ * @Last Modified time: 2020-03-10 19:57:33
  */
 import React, { lazy } from 'react';
 import { Redirect } from 'react-router-dom';
@@ -28,28 +28,28 @@ export default [
   },
   {
     path: '/',
-    component: SuspenseWrapper(HomeLayout),
+    component: HomeLayout,
     routes: [
       {
         name: '工作台',
         icon: (): JSX.Element => <DeploymentUnitOutlined />,
         path: '/workBench',
         exact: true,
-        component: WorkBench
+        component: SuspenseWrapper(WorkBench)
       },
       {
         name: '项目管理',
         icon: (): JSX.Element => <AppstoreAddOutlined />,
         path: '/projectList',
         exact: true,
-        component: ProjectList
+        component: SuspenseWrapper(ProjectList)
       },
       {
         name: '迭代管理',
         icon: (): JSX.Element => <HistoryOutlined />,
         path: '/IterationList',
         exact: true,
-        component: IterationList
+        component: SuspenseWrapper(IterationList)
       }
     ]
   }
