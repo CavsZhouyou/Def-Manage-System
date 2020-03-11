@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-10 10:20:58
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-11 09:44:44
+ * @Last Modified time: 2020-03-11 21:17:08
  */
 import React, { useState, useCallback } from 'react';
 import { Layout } from 'antd';
@@ -17,7 +17,7 @@ const { Sider, Content, Footer } = Layout;
 
 const HomeLayout = React.memo(
   (props: any): JSX.Element => {
-    const [collapsed, updateCollapsed] = useState<boolean>(false);
+    const [collapsed, updateCollapsed] = useState<boolean>(true);
     const { route } = props;
 
     const toggle = useCallback((): void => {
