@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-11 17:10:08
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-11 21:22:16
+ * @Last Modified time: 2020-03-12 09:36:18
  */
 import React, { memo } from 'react';
 import { Table } from 'antd';
@@ -14,7 +14,7 @@ import {
   CloseCircleTwoTone,
   MinusCircleTwoTone
 } from '@ant-design/icons';
-import styles from './index.module.scss';
+import commonStyles from '../../index.module.scss';
 
 interface Iteration {
   key: number;
@@ -186,11 +186,11 @@ const data: Iteration[] = [
 
 const Header = memo(() => {
   return (
-    <div className={styles.header}>
-      <div className={styles.title}>进行中的迭代</div>
-      <div className={styles.actions}>
+    <div className={commonStyles.header}>
+      <div className={commonStyles.title}>进行中的迭代</div>
+      <div className={commonStyles.actions}>
         <a>新建迭代</a>
-        <div className={styles.divider}>|</div>
+        <div className={commonStyles.divider}>|</div>
         <a>全部迭代</a>
       </div>
     </div>
@@ -199,9 +199,9 @@ const Header = memo(() => {
 
 export default memo(function ProgressingIterationList() {
   return (
-    <div className={styles.wrapper}>
+    <div className={commonStyles.progressingIterationList}>
       <Header />
-      <div className={styles.tableWrapper}>
+      <div className={commonStyles.content}>
         <Table<Iteration>
           columns={columns}
           dataSource={data}
