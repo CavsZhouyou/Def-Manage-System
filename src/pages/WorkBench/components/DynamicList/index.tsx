@@ -4,15 +4,14 @@
  * @TodoList: 无
  * @Date: 2020-03-12 09:16:25
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-12 17:21:35
+ * @Last Modified time: 2020-03-12 20:20:27
  */
 
 import React, { memo, useEffect } from 'react';
-import { List, Avatar, Skeleton, Button } from 'antd';
+import { List, Avatar, Skeleton } from 'antd';
+import LoadMore from '@/components/LoadMore';
 import { useLoadMore } from '@/utils/hooks';
-import IconFont from '@/components/IconFont';
 import commonStyles from '../../index.module.scss';
-import styles from './index.module.scss';
 
 interface DynamicInfo {
   name: string;
@@ -42,24 +41,6 @@ const getData = (count: number): Promise<DynamicInfo[]> => {
   });
 };
 
-const LoadMore = (props: {
-  loading: boolean;
-  loadMore: () => void;
-}): JSX.Element | null => {
-  const { loading, loadMore } = props;
-
-  if (loading) return null;
-
-  return (
-    <div className={styles.loadMore}>
-      <Button className={styles.button} type="link" onClick={loadMore}>
-        <IconFont className={styles.down} type="icon-down" />
-        显示更多
-      </Button>
-    </div>
-  );
-};
-
 const Dynamic = memo((props: DynamicInfo) => {
   const { name, avatar, date, action, app, loading } = props;
 
@@ -82,7 +63,7 @@ export default memo(function DynamicList() {
   useEffect(() => {
     // 初始化列表数据
     loadMore(5);
-  }, [loadMore]);
+  }, []);
 
   return (
     <div className={commonStyles.dynamicList}>

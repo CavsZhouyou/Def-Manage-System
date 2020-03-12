@@ -15,6 +15,7 @@ import {
   MinusCircleTwoTone
 } from '@ant-design/icons';
 import commonStyles from '../../index.module.scss';
+import styles from './index.module.scss';
 
 interface Iteration {
   key: number;

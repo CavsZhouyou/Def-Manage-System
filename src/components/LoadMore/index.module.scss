@@ -1,0 +1,16 @@
+.loadMore {
+  margin-top: 12px;
+  height: 32px;
+  line-height: 32px;
+  text-align: center;
+
+  .button {
+    .down {
+      vertical-align: middle;
+      font-size: 20px;
+    }
+    span {
+      margin-left: 4px;
+    }
+  }
+}
