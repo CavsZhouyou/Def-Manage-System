@@ -4,11 +4,12 @@
  * @TodoList: 无
  * @Date: 2020-03-11 17:39:23
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-12 19:15:08
+ * @Last Modified time: 2020-03-12 20:37:34
  */
 
 import React, { memo, useEffect } from 'react';
-import { Skeleton, Avatar, List } from 'antd';
+import { Skeleton, Avatar, List, Button } from 'antd';
+import { RightOutlined } from '@ant-design/icons';
 import LoadMore from '@/components/LoadMore';
 import { useLoadMore } from '@/utils/hooks';
 import commonStyles from '../../index.module.scss';
@@ -42,7 +43,7 @@ const getData = (count: number): Promise<AppInfo[]> => {
 const Header = memo(() => {
   return (
     <div className={commonStyles.header}>
-      <div className={commonStyles.title}>新建应用</div>
+      <div className={commonStyles.title}>我的应用</div>
       <div className={commonStyles.actions}>
         <a>新建应用</a>
         <div className={commonStyles.divider}>|</div>
@@ -68,6 +69,10 @@ const App = memo((props: AppInfo) => {
           title={<a>{name}</a>}
           description={description}
         />
+        <Button className={styles.iteration} type="link">
+          {`${iterationCount} 个进行中的迭代`}
+          <RightOutlined className={styles.rightIcon} />
+        </Button>
       </Skeleton>
     </List.Item>
   );
