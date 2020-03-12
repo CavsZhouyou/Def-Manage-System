@@ -59,9 +59,10 @@ const LoginForm = React.memo(
             <Form.Item name="remember" valuePropName="checked" noStyle>
               <Checkbox>记住密码</Checkbox>
             </Form.Item>
-            <a className={styles.forget}>忘记密码</a>
+            <Button type="link" className={styles.forget}>
+              忘记密码
+            </Button>
           </Form.Item>
-
           <Form.Item>
             <Button
               type="primary"

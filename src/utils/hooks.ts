@@ -34,30 +34,33 @@ export function useLoadMore<T>(
   const [listData, setListData] = useState<T[]>(data);
   const listRef = useRef<T[]>(data);
 
-  const loadMore = useCallback((count = 3) => {
-    // 解决默认参数值没有生效问题
-    count = typeof count === 'number' ? count : 3;
+  const loadMore = useCallback(
+    (count = 3) => {
+      // 解决默认参数值没有生效问题
+      count = typeof count === 'number' ? count : 3;
 
-    // 展示 loading 动画
-    setLoading(true);
-    setListData(preState => {
-      return preState.concat(
-        [...new Array(count)].map(() => {
-          return { loading: true, ...data[0] };
-        })
-      );
-    });
-
-    // 获取 list 数据
-    getData(count).then(result => {
-      setLoading(false);
+      // 展示 loading 动画
+      setLoading(true);
       setListData(preState => {
-        listRef.current = listRef.current.concat(result);
-
-        return listRef.current;
+        return preState.concat(
+          [...new Array(count)].map(() => {
+            return { loading: true, ...data[0] };
+          })
+        );
       });
-    });
-  }, []);
+
+      // 获取 list 数据
+      getData(count).then(result => {
+        setLoading(false);
+        setListData(preState => {
+          listRef.current = listRef.current.concat(result);
+
+          return listRef.current;
+        });
+      });
+    },
+    [getData, data]
+  );
 
   return { loading, setLoading, listData, setListData, loadMore };
 }
