@@ -1,5 +1,3 @@
-$avatarWidth: 36px;
-
 .header {
   padding: 0 24px;
   background: #fff;
@@ -20,13 +18,6 @@ $avatarWidth: 36px;
     display: flex;
     align-items: center;
     height: 100%;
-
-    .avatar {
-      margin-right: 8px;
-      width: $avatarWidth;
-      height: $avatarWidth;
-      border-radius: $avatarWidth/2;
-    }
 
     .down {
       padding: 15px 0;

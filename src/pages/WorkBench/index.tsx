@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-10 10:51:05
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-12 09:19:29
+ * @Last Modified time: 2020-03-12 09:39:29
  */
 
 import React from 'react';
@@ -17,7 +17,7 @@ import DynamicList from './components/DynamicList';
 const WorkBench = React.memo(
   (): JSX.Element => {
     return (
-      <div className={styles.wrapper}>
+      <div className={styles.workBench}>
         <Row gutter={[32, 16]}>
           <Col span={16}>
             <ProgressingIterationList />

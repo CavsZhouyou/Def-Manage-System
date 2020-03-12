@@ -60,7 +60,6 @@ const columns: ColumnProps<Iteration>[] = [
     dataIndex: 'latestPublishStatus',
     align: 'center',
     render: (text: string): JSX.Element => {
-      console.log(text);
       switch (text) {
         case 'success':
           return <CheckCircleTwoTone twoToneColor="#52c41a" />;

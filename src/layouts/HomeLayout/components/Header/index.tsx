@@ -8,7 +8,7 @@
  */
 
 import React from 'react';
-import { Layout, Menu, Dropdown } from 'antd';
+import { Layout, Menu, Dropdown, Avatar } from 'antd';
 import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons';
 import Icon from '@/components/IconFont';
 import styles from './index.module.scss';
@@ -56,7 +56,7 @@ const CustomHeader = React.memo(
           toggle={toggle}
         ></CollapseTrigger>
         <div className={styles.userInfo}>
-          <img className={styles.avatar} src={avatar} alt="用户头像" />
+          <Avatar size={36} src={avatar} />
           <Dropdown overlay={menu}>
             <Icon className={styles.down} type="icon-down" />
           </Dropdown>
