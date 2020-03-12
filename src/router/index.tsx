@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-09 12:08:16
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-10 19:57:33
+ * @Last Modified time: 2020-03-12 09:09:29
  */
 import React, { lazy } from 'react';
 import { Redirect } from 'react-router-dom';
@@ -18,7 +18,7 @@ import {
 } from '@ant-design/icons';
 
 const WorkBench = lazy(() => import('@/pages/WorkBench'));
-const ProjectList = lazy(() => import('@/pages/ProjectList'));
+const AppList = lazy(() => import('@/pages/AppList'));
 const IterationList = lazy(() => import('@/pages/IterationList'));
 
 export default [
@@ -40,9 +40,9 @@ export default [
       {
         name: '项目管理',
         icon: (): JSX.Element => <AppstoreAddOutlined />,
-        path: '/projectList',
+        path: '/appList',
         exact: true,
-        component: SuspenseWrapper(ProjectList)
+        component: SuspenseWrapper(AppList)
       },
       {
         name: '迭代管理',

@@ -4,14 +4,14 @@
  * @TodoList: 无
  * @Date: 2020-03-10 10:51:05
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-11 18:08:01
+ * @Last Modified time: 2020-03-12 09:10:33
  */
 
 import React from 'react';
 import { Row, Col } from 'antd';
 import styles from './index.module.scss';
 import ProgressingIterationList from './components/ProgressingIterationList';
-import MyProjectList from './components/MyProjectList';
+import MyAppList from './components/MyAppList';
 
 const WorkBench = React.memo(
   (): JSX.Element => {
@@ -22,7 +22,7 @@ const WorkBench = React.memo(
             <ProgressingIterationList />
           </Col>
           <Col span={8}>
-            <MyProjectList />
+            <MyAppList />
           </Col>
         </Row>
       </div>
