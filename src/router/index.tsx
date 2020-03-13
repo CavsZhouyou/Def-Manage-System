@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-09 12:08:16
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-12 09:09:29
+ * @Last Modified time: 2020-03-13 19:43:40
  */
 import React, { lazy } from 'react';
 import { Redirect } from 'react-router-dom';
@@ -20,6 +20,7 @@ import {
 const WorkBench = lazy(() => import('@/pages/WorkBench'));
 const AppList = lazy(() => import('@/pages/AppList'));
 const IterationList = lazy(() => import('@/pages/IterationList'));
+const AppDetail = lazy(() => import('@/pages/AppDetail'));
 
 export default [
   {
@@ -33,6 +34,7 @@ export default [
       {
         name: '工作台',
         icon: (): JSX.Element => <DeploymentUnitOutlined />,
+        menu: true,
         path: '/workBench',
         exact: true,
         component: SuspenseWrapper(WorkBench)
@@ -40,6 +42,7 @@ export default [
       {
         name: '项目管理',
         icon: (): JSX.Element => <AppstoreAddOutlined />,
+        menu: true,
         path: '/appList',
         exact: true,
         component: SuspenseWrapper(AppList)
@@ -47,9 +50,16 @@ export default [
       {
         name: '迭代管理',
         icon: (): JSX.Element => <HistoryOutlined />,
-        path: '/IterationList',
+        menu: true,
+        path: '/iterationList',
         exact: true,
         component: SuspenseWrapper(IterationList)
+      },
+      {
+        menu: false,
+        path: '/appDetail',
+        exact: true,
+        component: SuspenseWrapper(AppDetail)
       }
     ]
   }

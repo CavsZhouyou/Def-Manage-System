@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-10 11:20:24
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-10 11:57:51
+ * @Last Modified time: 2020-03-13 19:08:01
  */
 
 import React from 'react';
@@ -12,6 +12,7 @@ import { Menu } from 'antd';
 import { NavLink } from 'react-router-dom';
 
 type RouteType = {
+  menu: boolean;
   name: string;
   path: string;
   icon: () => {};
@@ -26,7 +27,8 @@ const DEFAULT_SELECTED_KEYS = ['0'];
 
 const RouterMenu = React.memo(
   (props: Props): JSX.Element => {
-    const { routes } = props;
+    let { routes } = props;
+    routes = routes.filter(item => item.menu);
 
     return (
       <Menu
