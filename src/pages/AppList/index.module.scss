@@ -1,0 +1,73 @@
+.appList {
+  padding: 20px;
+  background-color: #fff;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+
+    .addButton {
+      span {
+        margin: 0;
+      }
+
+      .addIcon {
+        margin-right: 4px;
+      }
+    }
+
+    .label {
+      margin-right: 8px;
+    }
+
+    .typeSelect {
+      width: 140px;
+    }
+
+    .searchInput {
+      margin-left: 20px;
+      width: 250px;
+    }
+  }
+
+  .appCard {
+    margin-top: 15px;
+    height: 150px;
+
+    :global {
+      .ant-card-meta-description {
+        height: 78px;
+        display: -webkit-box;
+        overflow: hidden;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+      }
+      .ant-card-body {
+        padding: 15px;
+      }
+    }
+
+    .info {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+
+      .typeIcon {
+        margin-right: 4px;
+        font-size: 14px;
+      }
+
+      .iteration {
+        .count {
+          margin-right: 4px;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+
+  .footer {
+    margin-top: 20px;
+    text-align: right;
+  }
+}
