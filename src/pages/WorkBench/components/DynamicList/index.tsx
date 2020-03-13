@@ -4,12 +4,13 @@
  * @TodoList: 无
  * @Date: 2020-03-12 09:16:25
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-12 20:20:27
+ * @Last Modified time: 2020-03-13 11:08:04
  */
 
 import React, { memo, useEffect } from 'react';
 import { List, Avatar, Skeleton } from 'antd';
 import LoadMore from '@/components/LoadMore';
+import Title from '@/components/Title';
 import { useLoadMore } from '@/utils/hooks';
 import commonStyles from '../../index.module.scss';
 
@@ -68,7 +69,7 @@ export default memo(function DynamicList() {
   return (
     <div className={commonStyles.dynamicList}>
       <div className={commonStyles.header}>
-        <div className={commonStyles.title}>动态</div>
+        <Title title="动态" />
       </div>
       <div className={commonStyles.content}>
         <List

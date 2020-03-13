@@ -4,12 +4,13 @@
  * @TodoList: 无
  * @Date: 2020-03-12 20:45:18
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-12 21:54:32
+ * @Last Modified time: 2020-03-13 11:09:21
  */
 
 import React, { memo, useEffect } from 'react';
 import { Skeleton, List, Tag } from 'antd';
 import LoadMore from '@/components/LoadMore';
+import Title from '@/components/Title';
 import { useLoadMore } from '@/utils/hooks';
 import commonStyles from '../../index.module.scss';
 import styles from './index.module.scss';
@@ -65,7 +66,7 @@ const Message = memo((props: MessageInfo) => {
 const Header = memo(() => {
   return (
     <div className={commonStyles.header}>
-      <div className={commonStyles.title}>最新消息</div>
+      <Title title="最新消息" />
       <div className={commonStyles.actions}>
         <a>全部消息</a>
       </div>

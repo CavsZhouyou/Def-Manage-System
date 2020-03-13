@@ -4,18 +4,18 @@
  * @TodoList: 无
  * @Date: 2020-03-11 17:10:08
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-12 16:04:30
+ * @Last Modified time: 2020-03-13 11:05:50
  */
 import React, { memo } from 'react';
 import { Table } from 'antd';
 import { ColumnProps } from 'antd/es/table';
+import Title from '@/components/Title';
 import {
   CheckCircleTwoTone,
   CloseCircleTwoTone,
   MinusCircleTwoTone
 } from '@ant-design/icons';
 import commonStyles from '../../index.module.scss';
-import styles from './index.module.scss';
 
 interface Iteration {
   key: number;
@@ -187,7 +187,7 @@ const data: Iteration[] = [
 const Header = memo(() => {
   return (
     <div className={commonStyles.header}>
-      <div className={commonStyles.title}>进行中的迭代</div>
+      <Title title="进行中的迭代" />
       <div className={commonStyles.actions}>
         <a>新建迭代</a>
         <div className={commonStyles.divider}>|</div>
