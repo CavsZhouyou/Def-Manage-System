@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-13 19:55:33
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-13 20:16:24
+ * @Last Modified time: 2020-03-14 12:11:16
  */
 
 import React, { lazy } from 'react';
@@ -20,13 +20,14 @@ import {
 } from '@ant-design/icons';
 
 const WorkBench = lazy(() => import('@/pages/WorkBench'));
+const Overview = lazy(() => import('./components/Overview'));
 
 export default [
   {
     key: '1',
     name: '综合',
     icon: (): JSX.Element => <SwitcherFilled />,
-    component: SuspenseWrapper(WorkBench)
+    component: SuspenseWrapper(Overview)
   },
   {
     key: '2',
