@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-13 19:55:33
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-14 12:11:16
+ * @Last Modified time: 2020-03-15 11:50:52
  */
 
 import React, { lazy } from 'react';
@@ -21,6 +21,7 @@ import {
 
 const WorkBench = lazy(() => import('@/pages/WorkBench'));
 const Overview = lazy(() => import('./components/Overview'));
+const AppIterationList = lazy(() => import('./components/AppIterationList'));
 
 export default [
   {
@@ -33,7 +34,7 @@ export default [
     key: '2',
     name: '迭代',
     icon: (): JSX.Element => <GoldFilled />,
-    component: SuspenseWrapper(WorkBench)
+    component: SuspenseWrapper(AppIterationList)
   },
   {
     key: '3',

@@ -1,0 +1,39 @@
+.iterationList {
+  background-color: #fff;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+
+    .leftActions {
+      display: flex;
+      align-items: center;
+
+      .addButton {
+        span {
+          margin: 0;
+        }
+
+        .addIcon {
+          margin-right: 4px;
+        }
+      }
+    }
+
+    .label {
+      margin-right: 8px;
+    }
+
+    .typeSelect {
+      width: 140px;
+    }
+  }
+
+  .content {
+    margin-top: 15px;
+
+    .creatorAvatar {
+      margin-right: 5px;
+    }
+  }
+}
