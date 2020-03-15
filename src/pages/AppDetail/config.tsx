@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-13 19:55:33
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-15 19:08:48
+ * @Last Modified time: 2020-03-16 06:42:48
  */
 
 import React, { lazy } from 'react';
@@ -24,6 +24,7 @@ const Overview = lazy(() => import('./components/Overview'));
 const AppIterationList = lazy(() => import('./components/AppIterationList'));
 const MemberList = lazy(() => import('./components/MemberList'));
 const PublishList = lazy(() => import('./components/PublishList'));
+const CodeReviewList = lazy(() => import('./components/CodeReviewList'));
 
 export default [
   {
@@ -54,7 +55,7 @@ export default [
     key: '5',
     name: '代码审阅记录',
     icon: (): JSX.Element => <SecurityScanFilled />,
-    component: SuspenseWrapper(WorkBench)
+    component: SuspenseWrapper(CodeReviewList)
   },
   {
     key: '6',

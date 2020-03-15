@@ -1,0 +1,22 @@
+.codeReviewList {
+  .header {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .content {
+    margin-top: 15px;
+
+    .createTime {
+      margin-left: 4px;
+    }
+
+    .avatar {
+      margin-right: 5px;
+    }
+
+    .link {
+      padding: 0;
+    }
+  }
+}
