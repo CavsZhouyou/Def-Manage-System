@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-15 09:25:07
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-15 10:30:17
+ * @Last Modified time: 2020-03-15 10:53:45
  */
 
 import React, { memo, useMemo } from 'react';
@@ -19,6 +19,7 @@ import styles from './index.module.scss';
 
 export interface Iteration {
   id: number;
+  key: number;
   appLogo: string;
   appName: string;
   iterationName: string;
