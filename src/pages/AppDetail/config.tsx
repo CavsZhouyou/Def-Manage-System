@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-13 19:55:33
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-15 11:50:52
+ * @Last Modified time: 2020-03-15 12:03:08
  */
 
 import React, { lazy } from 'react';
@@ -22,6 +22,7 @@ import {
 const WorkBench = lazy(() => import('@/pages/WorkBench'));
 const Overview = lazy(() => import('./components/Overview'));
 const AppIterationList = lazy(() => import('./components/AppIterationList'));
+const MemberList = lazy(() => import('./components/MemberList'));
 
 export default [
   {
@@ -40,7 +41,7 @@ export default [
     key: '3',
     name: '成员',
     icon: (): JSX.Element => <TeamOutlined />,
-    component: SuspenseWrapper(WorkBench)
+    component: SuspenseWrapper(MemberList)
   },
   {
     key: '4',
