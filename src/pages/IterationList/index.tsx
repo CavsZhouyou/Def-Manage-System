@@ -4,123 +4,18 @@
  * @TodoList: 无
  * @Date: 2020-03-10 11:01:12
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-13 17:03:12
+ * @Last Modified time: 2020-03-15 10:24:50
  */
 
 import React, { memo } from 'react';
-import { Radio, Button, Select, Avatar, Tag, Table } from 'antd';
-import { ColumnProps } from 'antd/es/table';
-import {
-  CheckCircleTwoTone,
-  CloseCircleTwoTone,
-  MinusCircleTwoTone
-} from '@ant-design/icons';
+import { Radio, Button, Select } from 'antd';
+import IterationTable, { Iteration } from '@/components/IterationTable';
 import { PlusCircleOutlined } from '@ant-design/icons';
 import styles from './index.module.scss';
 
 const { Option } = Select;
-
-interface Iteration {
-  id: number;
-  appLogo: string;
-  appName: string;
-  iterationName: string;
-  createTime: string;
-  timeConsumption: string;
-  branch: string;
-  creator: string;
-  creatorAvatar: string;
-  iterationStatus: string;
-  latestPublish: string;
-  latestPublishStatus: string;
-}
-
-const columns: ColumnProps<Iteration>[] = [
-  {
-    title: '所属应用',
-    dataIndex: 'appName',
-    key: 'appName',
-    render: (text: string, record: Iteration): JSX.Element => (
-      <a>
-        <Avatar src={record.appLogo} />
-        {text}
-      </a>
-    )
-  },
-  {
-    title: '迭代名称',
-    dataIndex: 'iterationName',
-    key: 'iterationName',
-    render: (text: string): JSX.Element => <a>{text}</a>
-  },
-  {
-    title: '创建时间',
-    dataIndex: 'createTime',
-    key: 'createTime'
-  },
-  {
-    title: '耗时',
-    dataIndex: 'timeConsumption',
-    key: 'timeConsumption'
-  },
-  {
-    title: '分支',
-    key: 'branch',
-    dataIndex: 'branch'
-  },
-  {
-    title: '创建人',
-    dataIndex: 'creator',
-    key: 'creator',
-    render: (text: string, record: Iteration): JSX.Element => (
-      <div>
-        <Avatar
-          className={styles.creatorAvatar}
-          size={30}
-          src={record.creatorAvatar}
-        />
-        {text}
-      </div>
-    )
-  },
-  {
-    title: '迭代状态',
-    key: 'iterationStatus',
-    dataIndex: 'iterationStatus',
-    align: 'center',
-    render: (text: string): JSX.Element => {
-      switch (text) {
-        case 'success':
-          return <Tag color="green"> 已完成</Tag>;
-        case 'progressing':
-          return <Tag color="blue">进行中</Tag>;
-        default:
-          return <Tag color="red">已废弃</Tag>;
-      }
-    }
-  },
-  {
-    title: '最近发布',
-    key: 'latestPublish',
-    dataIndex: 'latestPublish'
-  },
-  {
-    title: '最近发布状态',
-    key: 'latestPublishStatus',
-    dataIndex: 'latestPublishStatus',
-    align: 'center',
-    render: (text: string): JSX.Element => {
-      switch (text) {
-        case 'success':
-          return <CheckCircleTwoTone twoToneColor="#52c41a" />;
-        case 'failed':
-          return <CloseCircleTwoTone twoToneColor="#FF4D50" />;
-        default:
-          return <MinusCircleTwoTone twoToneColor="#808080" />;
-      }
-    }
-  }
-];
+const excludeColumns: string[] = [];
+const pageSize = 7;
 
 const data: Iteration[] = [
   {
@@ -316,6 +211,7 @@ const data: Iteration[] = [
     latestPublishStatus: 'none'
   }
 ];
+
 const Header = memo(() => {
   return (
     <div className={styles.header}>
@@ -347,15 +243,10 @@ export default memo(function IterationList() {
     <div className={styles.iterationList}>
       <Header />
       <div className={styles.content}>
-        <Table<Iteration>
-          columns={columns}
-          dataSource={data}
-          pagination={{
-            total: data.length,
-            pageSize: 7,
-            showQuickJumper: true,
-            showTotal: (total: number): string => `共 ${total} 条`
-          }}
+        <IterationTable
+          data={data}
+          excludeColumns={excludeColumns}
+          pageSize={pageSize}
         />
       </div>
     </div>
