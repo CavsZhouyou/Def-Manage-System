@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-12 09:16:25
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-13 11:08:04
+ * @Last Modified time: 2020-03-15 11:28:34
  */
 
 import React, { memo, useEffect } from 'react';
@@ -12,7 +12,7 @@ import { List, Avatar, Skeleton } from 'antd';
 import LoadMore from '@/components/LoadMore';
 import Title from '@/components/Title';
 import { useLoadMore } from '@/utils/hooks';
-import commonStyles from '../../index.module.scss';
+import styles from './index.module.scss';
 
 interface DynamicInfo {
   name: string;
@@ -67,11 +67,11 @@ export default memo(function DynamicList() {
   }, []);
 
   return (
-    <div className={commonStyles.dynamicList}>
-      <div className={commonStyles.header}>
+    <div className={styles.dynamicList}>
+      <div className={styles.header}>
         <Title title="动态" />
       </div>
-      <div className={commonStyles.content}>
+      <div className={styles.content}>
         <List
           itemLayout="horizontal"
           loadMore={<LoadMore loading={loading} loadMore={loadMore} />}

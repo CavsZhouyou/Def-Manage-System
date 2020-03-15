@@ -1,0 +1,13 @@
+.dynamicList {
+  .header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  .content {
+    margin-bottom: 20px;
+    padding: 10px 25px 5px;
+    background-color: #fff;
+  }
+}
