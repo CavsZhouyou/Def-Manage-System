@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-13 19:55:33
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-15 12:03:08
+ * @Last Modified time: 2020-03-15 19:08:48
  */
 
 import React, { lazy } from 'react';
@@ -23,6 +23,7 @@ const WorkBench = lazy(() => import('@/pages/WorkBench'));
 const Overview = lazy(() => import('./components/Overview'));
 const AppIterationList = lazy(() => import('./components/AppIterationList'));
 const MemberList = lazy(() => import('./components/MemberList'));
+const PublishList = lazy(() => import('./components/PublishList'));
 
 export default [
   {
@@ -47,7 +48,7 @@ export default [
     key: '4',
     name: '发布记录',
     icon: (): JSX.Element => <HddFilled />,
-    component: SuspenseWrapper(WorkBench)
+    component: SuspenseWrapper(PublishList)
   },
   {
     key: '5',

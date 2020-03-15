@@ -1,0 +1,15 @@
+.publishList {
+  .header {
+    display: flex;
+    justify-content: space-between;
+
+    .typeSelect {
+      margin-left: 10px;
+      width: 110px;
+    }
+  }
+
+  .content {
+    margin-top: 15px;
+  }
+}
