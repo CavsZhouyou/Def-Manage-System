@@ -1,17 +1,19 @@
 /*
  * @Author: zhouyou@werun
- * @Descriptions: 进行中的迭代列表
+ * @Descriptions: 应用详情进行中的迭代列表
  * @TodoList: 无
- * @Date: 2020-03-11 17:10:08
+ * @Date: 2020-03-15 11:01:47
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-15 11:05:50
+ * @Last Modified time: 2020-03-15 11:09:45
  */
+
 import React, { memo } from 'react';
 import IterationTable, { Iteration } from '@/components/IterationTable';
 import Title from '@/components/Title';
-import commonStyles from '../../index.module.scss';
+import styles from './index.module.scss';
 
 const excludeColumns: string[] = [
+  'appName',
   'timeConsumption',
   'creator',
   'iterationStatus'
@@ -225,24 +227,13 @@ const data: Iteration[] = [
   }
 ];
 
-const Header = memo(() => {
+export default memo(function AppProgressingIterationList() {
   return (
-    <div className={commonStyles.header}>
-      <Title title="进行中的迭代" />
-      <div className={commonStyles.actions}>
-        <a>新建迭代</a>
-        <div className={commonStyles.divider}>|</div>
-        <a>全部迭代</a>
+    <div className={styles.appProgressingIterationList}>
+      <div className={styles.header}>
+        <Title title="进行中的迭代" />
       </div>
-    </div>
-  );
-});
-
-export default memo(function ProgressingIterationList() {
-  return (
-    <div className={commonStyles.progressingIterationList}>
-      <Header />
-      <div className={commonStyles.content}>
+      <div className={styles.content}>
         <IterationTable
           data={data}
           excludeColumns={excludeColumns}

@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-10 10:51:05
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-13 10:57:33
+ * @Last Modified time: 2020-03-15 11:25:41
  */
 
 import React from 'react';
@@ -12,7 +12,7 @@ import { Row, Col } from 'antd';
 import styles from './index.module.scss';
 import ProgressingIterationList from './components/ProgressingIterationList';
 import MyAppList from './components/MyAppList';
-import DynamicList from './components/DynamicList';
+import DynamicList from '../../components/DynamicList';
 import MessageList from './components/MessageList';
 
 const WorkBench = React.memo(
