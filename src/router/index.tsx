@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-09 12:08:16
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-16 17:04:13
+ * @Last Modified time: 2020-03-16 20:22:23
  */
 import React, { lazy } from 'react';
 import { Redirect } from 'react-router-dom';
@@ -22,6 +22,7 @@ const AppList = lazy(() => import('@/pages/AppList'));
 const IterationList = lazy(() => import('@/pages/IterationList'));
 const AppDetail = lazy(() => import('@/pages/AppDetail'));
 const IterationDetail = lazy(() => import('@/pages/IterationDetail'));
+const PublishDetail = lazy(() => import('@/pages/PublishDetail'));
 
 export default [
   {
@@ -67,6 +68,12 @@ export default [
         path: '/iterationDetail',
         exact: true,
         component: SuspenseWrapper(IterationDetail)
+      },
+      {
+        menu: false,
+        path: '/publishDetail',
+        exact: true,
+        component: SuspenseWrapper(PublishDetail)
       }
     ]
   }
