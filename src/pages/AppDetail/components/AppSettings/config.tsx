@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-16 09:16:30
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-16 09:39:55
+ * @Last Modified time: 2020-03-16 10:30:27
  */
 
 import { lazy } from 'react';
@@ -12,6 +12,7 @@ import SuspenseWrapper from '@/components/SuspenseWrapper';
 
 const WorkBench = lazy(() => import('@/pages/WorkBench'));
 const BasicSetting = lazy(() => import('../BasicSetting'));
+const CodeCheckSetting = lazy(() => import('../CodeCheckSetting'));
 
 export default [
   {
@@ -22,7 +23,7 @@ export default [
   {
     key: '2',
     name: '代码检查设置',
-    component: SuspenseWrapper(WorkBench)
+    component: SuspenseWrapper(CodeCheckSetting)
   },
   {
     key: '3',
