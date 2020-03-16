@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-13 19:55:33
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-16 08:40:57
+ * @Last Modified time: 2020-03-16 09:13:24
  */
 
 import React, { lazy } from 'react';
@@ -26,6 +26,7 @@ const MemberList = lazy(() => import('./components/MemberList'));
 const PublishList = lazy(() => import('./components/PublishList'));
 const CodeReviewList = lazy(() => import('./components/CodeReviewList'));
 const PageList = lazy(() => import('./components/PageList'));
+const AppSettings = lazy(() => import('./components/AppSettings'));
 
 export default [
   {
@@ -68,6 +69,6 @@ export default [
     key: '7',
     name: '设置',
     icon: (): JSX.Element => <SettingFilled />,
-    component: SuspenseWrapper(WorkBench)
+    component: SuspenseWrapper(AppSettings)
   }
 ];
