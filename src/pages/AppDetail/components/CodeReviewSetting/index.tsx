@@ -1,14 +1,14 @@
 /*
  * @Author: zhouyou@werun
- * @Descriptions: 应用基本设置
+ * @Descriptions: 代码审阅设置
  * @TodoList: 无
- * @Date: 2020-03-16 09:36:07
+ * @Date: 2020-03-16 10:32:44
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-16 10:49:26
+ * @Last Modified time: 2020-03-16 10:48:11
  */
 
 import React, { memo } from 'react';
-import { Form, Input, Button, Select } from 'antd';
+import { Form, Switch, Button, Select } from 'antd';
 import styles from './index.module.scss';
 
 const { Option } = Select;
@@ -21,7 +21,7 @@ const tailLayout = {
   wrapperCol: { offset: 4, span: 20 }
 };
 
-export default memo(function BasicSetting() {
+export default memo(function CodeReviewSetting() {
   const onFinish = () => {
     console.log('Success:');
   };
@@ -29,30 +29,23 @@ export default memo(function BasicSetting() {
   const onFinishFailed = () => {
     console.log('Failed:');
   };
-
   return (
-    <div className={styles.basicSetting}>
+    <div className={styles.codeReviewSetting}>
       <Form
         {...layout}
         name="basic"
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
       >
-        <Form.Item label="仓库" name="repository">
-          <a href="">https://github.com/CavsZhouyou/def-manage-system</a>
+        <Form.Item name="codeReview" label="开启代码审阅">
+          <Switch />
         </Form.Item>
-        <Form.Item
-          label="应用描述"
-          name="description"
-          rules={[
-            { required: true, message: '应用描述不能为空！' },
-            { max: 30, message: '应用描述不能超过 30 个字符！' }
-          ]}
-        >
-          <Input maxLength={30} />
-        </Form.Item>
-        <Form.Item name="product" label="产品关联">
-          <Select placeholder="请选择关联产品" allowClear>
+        <Form.Item name="product" label="可选审阅人">
+          <Select
+            className={styles.select}
+            placeholder="请选择审阅人范围"
+            allowClear
+          >
             <Option value="male">male</Option>
             <Option value="female">female</Option>
             <Option value="other">other</Option>

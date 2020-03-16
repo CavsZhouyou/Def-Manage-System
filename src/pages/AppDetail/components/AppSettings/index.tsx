@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-16 09:08:16
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-16 10:30:35
+ * @Last Modified time: 2020-03-16 10:49:46
  */
 
 import React, { memo } from 'react';
@@ -22,7 +22,7 @@ export default memo(function AppSettings() {
         <Title title="应用设置" />
       </div>
       <div className={styles.content}>
-        <Tabs defaultActiveKey="2" animated={true}>
+        <Tabs defaultActiveKey="1" animated={true}>
           {routes.map(route => (
             <TabPane tab={route.name} key={route.key}>
               {route.component()}
