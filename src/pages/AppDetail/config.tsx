@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-13 19:55:33
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-16 06:42:48
+ * @Last Modified time: 2020-03-16 08:40:57
  */
 
 import React, { lazy } from 'react';
@@ -25,6 +25,7 @@ const AppIterationList = lazy(() => import('./components/AppIterationList'));
 const MemberList = lazy(() => import('./components/MemberList'));
 const PublishList = lazy(() => import('./components/PublishList'));
 const CodeReviewList = lazy(() => import('./components/CodeReviewList'));
+const PageList = lazy(() => import('./components/PageList'));
 
 export default [
   {
@@ -61,7 +62,7 @@ export default [
     key: '6',
     name: '页面列表',
     icon: (): JSX.Element => <FileFilled />,
-    component: SuspenseWrapper(WorkBench)
+    component: SuspenseWrapper(PageList)
   },
   {
     key: '7',

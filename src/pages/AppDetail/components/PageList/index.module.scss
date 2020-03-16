@@ -1,0 +1,15 @@
+.pageList {
+  .header {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .content {
+    margin-top: 15px;
+
+    .link {
+      margin-right: 5px;
+      padding: 0;
+    }
+  }
+}
