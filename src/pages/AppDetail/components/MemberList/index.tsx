@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-15 11:59:22
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-15 19:07:21
+ * @Last Modified time: 2020-03-17 11:04:32
  */
 
 import React, { memo } from 'react';
@@ -97,10 +97,12 @@ const columns: ColumnProps<Member>[] = [
     key: 'action',
     render: (text, record) => (
       <span>
-        <Button type="link" style={{ marginRight: 16 }}>
+        <Button className={styles.link} type="link">
           修改权限
         </Button>
-        <Button type="link">删除</Button>
+        <Button className={styles.link} type="link">
+          删除
+        </Button>
       </span>
     )
   }
