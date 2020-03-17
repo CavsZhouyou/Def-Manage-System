@@ -15,7 +15,8 @@ import {
   DeploymentUnitOutlined,
   AppstoreAddOutlined,
   HistoryOutlined,
-  BellOutlined
+  BellOutlined,
+  UserOutlined
 } from '@ant-design/icons';
 
 const WorkBench = lazy(() => import('@/pages/WorkBench'));
@@ -25,6 +26,7 @@ const AppDetail = lazy(() => import('@/pages/AppDetail'));
 const IterationDetail = lazy(() => import('@/pages/IterationDetail'));
 const PublishDetail = lazy(() => import('@/pages/PublishDetail'));
 const MessageList = lazy(() => import('@/pages/MessageList'));
+const UserList = lazy(() => import('@/pages/UserList'));
 
 export default [
   {
@@ -66,6 +68,14 @@ export default [
         path: '/messageList',
         exact: true,
         component: SuspenseWrapper(MessageList)
+      },
+      {
+        name: '人员管理',
+        icon: (): JSX.Element => <UserOutlined />,
+        menu: true,
+        path: '/userList',
+        exact: true,
+        component: SuspenseWrapper(UserList)
       },
       {
         menu: false,

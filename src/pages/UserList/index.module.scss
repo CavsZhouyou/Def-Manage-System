@@ -1,0 +1,22 @@
+.userList {
+  padding: 20px;
+  background-color: #fff;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .content {
+    margin-top: 15px;
+
+    .userAvatar {
+      margin-right: 8px;
+    }
+
+    .link {
+      margin-right: 10px;
+      padding: 0;
+    }
+  }
+}
