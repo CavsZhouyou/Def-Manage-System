@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-09 12:08:16
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-16 20:22:23
+ * @Last Modified time: 2020-03-17 10:33:52
  */
 import React, { lazy } from 'react';
 import { Redirect } from 'react-router-dom';
@@ -14,7 +14,8 @@ import SuspenseWrapper from '@/components/SuspenseWrapper';
 import {
   DeploymentUnitOutlined,
   AppstoreAddOutlined,
-  HistoryOutlined
+  HistoryOutlined,
+  BellOutlined
 } from '@ant-design/icons';
 
 const WorkBench = lazy(() => import('@/pages/WorkBench'));
@@ -23,6 +24,7 @@ const IterationList = lazy(() => import('@/pages/IterationList'));
 const AppDetail = lazy(() => import('@/pages/AppDetail'));
 const IterationDetail = lazy(() => import('@/pages/IterationDetail'));
 const PublishDetail = lazy(() => import('@/pages/PublishDetail'));
+const MessageList = lazy(() => import('@/pages/MessageList'));
 
 export default [
   {
@@ -56,6 +58,14 @@ export default [
         path: '/iterationList',
         exact: true,
         component: SuspenseWrapper(IterationList)
+      },
+      {
+        name: '消息管理',
+        icon: (): JSX.Element => <BellOutlined />,
+        menu: true,
+        path: '/messageList',
+        exact: true,
+        component: SuspenseWrapper(MessageList)
       },
       {
         menu: false,

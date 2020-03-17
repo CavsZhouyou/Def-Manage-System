@@ -1,20 +1,19 @@
 /*
  * @Author: zhouyou@werun
- * @Descriptions: 动态列表
+ * @Descriptions:  消息列表
  * @TodoList: 无
- * @Date: 2020-03-12 09:16:25
+ * @Date: 2020-03-17 10:27:49
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-17 10:39:26
+ * @Last Modified time: 2020-03-17 11:01:31
  */
 
 import React, { memo, useEffect } from 'react';
-import { List, Avatar, Skeleton } from 'antd';
+import { Radio, List, Avatar, Skeleton } from 'antd';
 import LoadMore from '@/components/LoadMore';
-import Title from '@/components/Title';
 import { useLoadMore } from '@/utils/hooks';
 import styles from './index.module.scss';
 
-interface DynamicInfo {
+interface Message {
   name: string;
   avatar: string;
   date: string;
@@ -23,7 +22,7 @@ interface DynamicInfo {
   loading?: boolean;
 }
 
-const data: DynamicInfo[] = [
+const data: Message[] = [
   {
     name: '晓天',
     avatar:
@@ -34,19 +33,19 @@ const data: DynamicInfo[] = [
   }
 ];
 
-const getData = (count: number): Promise<DynamicInfo[]> => {
-  return new Promise<DynamicInfo[]>((resolve, reject) => {
+const getData = (count: number): Promise<Message[]> => {
+  return new Promise<Message[]>((resolve, reject) => {
     setTimeout(() => {
       resolve([...new Array(count)].map(() => data[0]));
     }, 2000);
   });
 };
 
-const Dynamic = memo((props: DynamicInfo) => {
+const MessageItem = memo((props: Message) => {
   const { name, avatar, date, action, app, loading } = props;
 
   return (
-    <List.Item>
+    <List.Item actions={[<a href="">通过</a>, <a>不通过</a>]}>
       <Skeleton avatar title={false} loading={loading} active>
         <List.Item.Meta
           avatar={<Avatar size={40} src={avatar} />}
@@ -58,25 +57,27 @@ const Dynamic = memo((props: DynamicInfo) => {
   );
 });
 
-export default memo(function DynamicList() {
-  const { loading, listData, loadMore } = useLoadMore<DynamicInfo>([], getData);
+export default memo(function MessageList() {
+  const { loading, listData, loadMore } = useLoadMore<Message>([], getData);
 
   useEffect(() => {
     // 初始化列表数据
-    loadMore(5);
+    loadMore(7);
   }, []);
-
   return (
-    <div className={styles.dynamicList}>
+    <div className={styles.messageList}>
       <div className={styles.header}>
-        <Title title="动态" />
+        <Radio.Group defaultValue="a" buttonStyle="solid" size="middle">
+          <Radio.Button value="a">审核消息</Radio.Button>
+          <Radio.Button value="b">系统消息</Radio.Button>
+        </Radio.Group>
       </div>
       <div className={styles.content}>
         <List
           itemLayout="horizontal"
           loadMore={<LoadMore loading={loading} loadMore={loadMore} />}
           dataSource={listData}
-          renderItem={(item: DynamicInfo): JSX.Element => <Dynamic {...item} />}
+          renderItem={(item: Message): JSX.Element => <MessageItem {...item} />}
         />
       </div>
     </div>
