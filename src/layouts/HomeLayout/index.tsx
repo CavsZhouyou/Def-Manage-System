@@ -8,6 +8,7 @@
  */
 import React, { useState, useCallback } from 'react';
 import { Layout } from 'antd';
+import { ThunderboltFilled } from '@ant-design/icons';
 import { renderRoutes } from 'react-router-config';
 import RouterMenu from './components/RouterMenu';
 import CustomHeader from './components/Header';
@@ -29,7 +30,10 @@ const HomeLayout = React.memo(
     return (
       <Layout className={styles.wrapper}>
         <Sider trigger={null} collapsible collapsed={collapsed}>
-          <div className={styles.logo} />
+          <div className={styles.logo}>
+            <span className={styles.logoIcon}>DEF</span>
+            工程研发平台
+          </div>
           <RouterMenu routes={route.routes}></RouterMenu>
         </Sider>
         <Layout className="site-layout">

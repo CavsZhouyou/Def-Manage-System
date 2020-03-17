@@ -2,15 +2,23 @@
   height: 100vh;
 
   .logo {
-    height: 32px;
-    background: rgba(255, 255, 255, 0.2);
     margin: 16px;
+    height: 32px;
+    background: rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+    line-height: 32px;
+    color: #a7adb5;
+    font-size: 16px;
+    font-weight: 800;
+
+    .logoIcon {
+      margin-right: 8px;
+      margin-left: 8px;
+    }
   }
 
   .content {
-    // margin: 24px 16px;
     padding: 28px;
     min-height: unset !important;
-    // background: #fff;
   }
 }
