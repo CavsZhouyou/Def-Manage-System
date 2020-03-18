@@ -1,6 +1,6 @@
 /*
  * @Author: zhouyou@werun
- * @Descriptions: response types 定义文件
+ * @Descriptions: request 和 response types 定义文件
  * @TodoList: 无
  * @Date: 2020-03-09 19:00:23
  * @Last Modified by: zhouyou@werun
@@ -17,4 +17,20 @@ export interface BaseResponse<T> {
 // get Token 返回数据格式
 export interface TokenResponse {
   token: string;
+}
+
+// 登录返回数据格式
+export interface LoginParams {
+  account: string;
+  password: string;
+}
+
+// 登录返回数据格式
+export interface LoginResponse {
+  userInfo: {
+    userName: string;
+    userId: number;
+    avatar: string;
+    token: string;
+  };
 }

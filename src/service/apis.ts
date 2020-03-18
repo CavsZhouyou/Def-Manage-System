@@ -8,8 +8,22 @@
  */
 
 import axios from './request';
-import { TokenResponse, BaseResponse } from './types';
+import {
+  TokenResponse,
+  BaseResponse,
+  LoginResponse,
+  LoginParams
+} from './types';
 
 export function getToken(): Promise<BaseResponse<TokenResponse>> {
   return axios.get<TokenResponse>('/def/getToken');
+}
+
+/**
+ * 登录请求
+ */
+export function loginRequest(
+  params: LoginParams
+): Promise<BaseResponse<LoginResponse>> {
+  return axios.post<LoginResponse>('/def/login', { params });
 }

@@ -4,78 +4,109 @@
  * @TodoList: 无
  * @Date: 2020-03-09 20:47:57
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-11 21:49:23
+ * @Last Modified time: 2020-03-18 18:22:39
  */
-import React from 'react';
-import { Form, Input, Button, Checkbox } from 'antd';
+import React, { memo, useState, useCallback } from 'react';
+import { useHistory } from 'react-router-dom';
+import { Form, Input, Button, Checkbox, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import { loginRequest } from '@/service/apis';
+import { LoginParams, LoginResponse } from '@/service/types';
+import { delay } from '@/utils';
+import md5 from 'md5';
 import styles from './index.module.scss';
 
-interface Store {
-  username?: string;
-  password?: string;
-  remember?: boolean;
-}
-
-const onFinish = (values: Store): void => {
-  console.log('Received values of form: ', values);
-};
-
-const initialValues: Store = {
+const initialValues = {
   remember: true
 };
 
-const LoginForm = React.memo(
-  (): JSX.Element => {
-    return (
-      <div className={styles.formWrapper}>
-        <Form
-          name="normal_login"
-          className="login-form"
-          initialValues={initialValues}
-          onFinish={onFinish}
-        >
-          <div className={styles.title}>DEF 工程研发平台</div>
-          <Form.Item
-            name="username"
-            rules={[{ required: true, message: '请输入账号!' }]}
-          >
-            <Input
-              prefix={<UserOutlined className="site-form-item-icon" />}
-              placeholder="账号"
-            />
-          </Form.Item>
-          <Form.Item
-            name="password"
-            rules={[{ required: true, message: '请输入密码!' }]}
-          >
-            <Input
-              prefix={<LockOutlined className="site-form-item-icon" />}
-              type="password"
-              placeholder="密码"
-            />
-          </Form.Item>
-          <Form.Item>
-            <Form.Item name="remember" valuePropName="checked" noStyle>
-              <Checkbox>记住密码</Checkbox>
-            </Form.Item>
-            <Button type="link" className={styles.forget}>
-              忘记密码
-            </Button>
-          </Form.Item>
-          <Form.Item>
-            <Button
-              type="primary"
-              htmlType="submit"
-              className={styles.loginButton}
-            >
-              登录
-            </Button>
-          </Form.Item>
-        </Form>
-      </div>
-    );
-  }
-);
+/**
+ * 保存用户数据到 sessionStorage
+ */
+const saveGlobalData = (data: LoginResponse): void => {
+  const {
+    userInfo: { userName, userId, avatar, token }
+  } = data;
 
-export default LoginForm;
+  sessionStorage.setItem('userName', userName);
+  sessionStorage.setItem('userId', String(userId));
+  sessionStorage.setItem('avatar', avatar);
+  sessionStorage.setItem('token', token);
+};
+
+export default memo(function LoginForm() {
+  const [loading, setLoading] = useState(false);
+  const history = useHistory();
+
+  const submit = useCallback((values): void => {
+    const { account, password } = values;
+    login({ account, password: md5(password) });
+  }, []);
+
+  const login = async (params: LoginParams): Promise<void> => {
+    setLoading(true);
+
+    const result = await loginRequest(params);
+
+    if (result.success) {
+      message.success('登录成功');
+      saveGlobalData(result.data);
+      await delay(1000);
+      history.push('/workBench');
+    } else {
+      message.error(result.message);
+    }
+
+    setLoading(false);
+  };
+
+  return (
+    <div className={styles.formWrapper}>
+      <Form
+        name="normal_login"
+        className="login-form"
+        initialValues={initialValues}
+        onFinish={submit}
+      >
+        <div className={styles.title}>DEF 工程研发平台</div>
+        <Form.Item
+          name="account"
+          rules={[{ required: true, message: '请输入账号!' }]}
+        >
+          <Input
+            prefix={<UserOutlined className="site-form-item-icon" />}
+            placeholder="账号"
+          />
+        </Form.Item>
+        <Form.Item
+          name="password"
+          rules={[{ required: true, message: '请输入密码!' }]}
+        >
+          <Input
+            prefix={<LockOutlined className="site-form-item-icon" />}
+            type="password"
+            placeholder="密码"
+          />
+        </Form.Item>
+        <Form.Item>
+          <Form.Item name="remember" valuePropName="checked" noStyle>
+            <Checkbox>记住密码</Checkbox>
+          </Form.Item>
+          <Button type="link" className={styles.forget}>
+            忘记密码
+          </Button>
+        </Form.Item>
+        <Form.Item>
+          <Button
+            type="primary"
+            htmlType="submit"
+            className={styles.loginButton}
+            loading={loading}
+          >
+            登录
+          </Button>
+        </Form.Item>
+      </Form>
+    </div>
+  );
+});
