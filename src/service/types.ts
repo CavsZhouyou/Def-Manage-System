@@ -19,7 +19,7 @@ export interface TokenResponse {
   token: string;
 }
 
-// 登录返回数据格式
+// 登录请求参数格式
 export interface LoginParams {
   account: string;
   password: string;
@@ -33,4 +33,15 @@ export interface LoginResponse {
     avatar: string;
     token: string;
   };
+}
+
+// 退出登录请求参数格式
+export interface LogoutParams {
+  userId: string;
+}
+
+// 修改密码请求参数格式
+export interface ChangePasswordParams {
+  oldPassword: string;
+  newPassword: string;
 }

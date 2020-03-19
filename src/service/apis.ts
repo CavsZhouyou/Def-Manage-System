@@ -12,7 +12,9 @@ import {
   TokenResponse,
   BaseResponse,
   LoginResponse,
-  LoginParams
+  LoginParams,
+  LogoutParams,
+  ChangePasswordParams
 } from './types';
 
 export function getToken(): Promise<BaseResponse<TokenResponse>> {
@@ -25,5 +27,23 @@ export function getToken(): Promise<BaseResponse<TokenResponse>> {
 export function loginRequest(
   params: LoginParams
 ): Promise<BaseResponse<LoginResponse>> {
-  return axios.post<LoginResponse>('/def/login', { params });
+  return axios.post<LoginResponse>('/def/login', { ...params });
+}
+
+/**
+ * 退出登录请求
+ */
+export function logoutRequest(
+  params: LogoutParams
+): Promise<BaseResponse<void>> {
+  return axios.post<void>('/def/logout', { ...params });
+}
+
+/**
+ * 修改密码请求
+ */
+export function changePasswordRequest(
+  params: ChangePasswordParams
+): Promise<BaseResponse<void>> {
+  return axios.post<void>('/def/changePassword', { ...params });
 }

@@ -50,6 +50,7 @@ export default memo(function LoginForm() {
 
     if (result.success) {
       message.success('登录成功');
+
       saveGlobalData(result.data);
       await delay(1000);
       history.push('/home/workBench');
@@ -71,6 +72,7 @@ export default memo(function LoginForm() {
         <Form.Item
           name="account"
           rules={[{ required: true, message: '请输入账号!' }]}
+          hasFeedback
         >
           <Input
             prefix={<UserOutlined className="site-form-item-icon" />}
@@ -80,10 +82,10 @@ export default memo(function LoginForm() {
         <Form.Item
           name="password"
           rules={[{ required: true, message: '请输入密码!' }]}
+          hasFeedback
         >
-          <Input
+          <Input.Password
             prefix={<LockOutlined className="site-form-item-icon" />}
-            type="password"
             placeholder="密码"
           />
         </Form.Item>
