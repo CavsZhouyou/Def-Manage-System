@@ -4,15 +4,20 @@
  * @TodoList: 无
  * @Date: 2020-03-11 09:34:27
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-11 16:47:16
+ * @Last Modified time: 2020-03-19 17:31:09
  */
 
-import React from 'react';
-import { Layout, Menu, Dropdown, Avatar } from 'antd';
-import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons';
+import React, { memo } from 'react';
+import { Layout, Menu, Dropdown, Avatar, Modal } from 'antd';
+import {
+  MenuUnfoldOutlined,
+  MenuFoldOutlined,
+  ExclamationCircleOutlined
+} from '@ant-design/icons';
 import Icon from '@/components/IconFont';
 import styles from './index.module.scss';
 
+const { confirm } = Modal;
 const { Header } = Layout;
 
 type Props = {
@@ -31,6 +36,19 @@ const CollapseTrigger = React.memo(({ collapsed, toggle }: Props) => {
   );
 });
 
+const logout = () => {
+  confirm({
+    title: '提示',
+    icon: <ExclamationCircleOutlined />,
+    content: '确定要退出吗？',
+    onOk() {
+      // 清除用户数据
+      sessionStorage.clear();
+      window.location.reload();
+    }
+  });
+};
+
 const menu = (
   <Menu>
     <Menu.Item>
@@ -38,32 +56,27 @@ const menu = (
       修改密码
     </Menu.Item>
     <Menu.Divider />
-    <Menu.Item>
+    <Menu.Item onClick={logout}>
       <Icon className={styles.menuIcon} type="icon-logout" />
-      登出
+      退出登录
     </Menu.Item>
   </Menu>
 );
 
-const CustomHeader = React.memo(
-  ({ collapsed, toggle }: Props): JSX.Element => {
-    const avatar =
-      'https://cavszhouyou-1254093697.cos.ap-chongqing.myqcloud.com/avatar';
-    return (
-      <Header className={styles.header}>
-        <CollapseTrigger
-          collapsed={collapsed}
-          toggle={toggle}
-        ></CollapseTrigger>
-        <div className={styles.userInfo}>
-          <Avatar size={36} src={avatar} />
-          <Dropdown overlay={menu}>
-            <Icon className={styles.down} type="icon-down" />
-          </Dropdown>
-        </div>
-      </Header>
-    );
-  }
-);
+export default memo(function CustomHeader({ collapsed, toggle }: Props) {
+  const avatar = sessionStorage.getItem('avatar') || undefined;
+  const userName = sessionStorage.getItem('userName') || undefined;
 
-export default CustomHeader;
+  return (
+    <Header className={styles.header}>
+      <CollapseTrigger collapsed={collapsed} toggle={toggle}></CollapseTrigger>
+      <div className={styles.userInfo}>
+        <Avatar size={36} src={avatar} />
+        <span className={styles.userName}>{userName}</span>
+        <Dropdown overlay={menu}>
+          <Icon className={styles.down} type="icon-down" />
+        </Dropdown>
+      </div>
+    </Header>
+  );
+});
