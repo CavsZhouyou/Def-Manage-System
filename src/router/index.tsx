@@ -4,97 +4,41 @@
  * @TodoList: 无
  * @Date: 2020-03-09 12:08:16
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-17 10:33:52
+ * @Last Modified time: 2020-03-19 12:04:46
  */
-import React, { lazy } from 'react';
-import { Redirect } from 'react-router-dom';
-import HomeLayout from '@/layouts/HomeLayout';
-import LoginLayout from '@/layouts/LoginLayout';
-import SuspenseWrapper from '@/components/SuspenseWrapper';
-import {
-  DeploymentUnitOutlined,
-  AppstoreAddOutlined,
-  HistoryOutlined,
-  BellOutlined,
-  UserOutlined
-} from '@ant-design/icons';
+import React from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
+import { renderRoutes } from 'react-router-config';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
+import routes from './config';
+import './index.scss';
 
-const WorkBench = lazy(() => import('@/pages/WorkBench'));
-const AppList = lazy(() => import('@/pages/AppList'));
-const IterationList = lazy(() => import('@/pages/IterationList'));
-const AppDetail = lazy(() => import('@/pages/AppDetail'));
-const IterationDetail = lazy(() => import('@/pages/IterationDetail'));
-const PublishDetail = lazy(() => import('@/pages/PublishDetail'));
-const MessageList = lazy(() => import('@/pages/MessageList'));
-const UserList = lazy(() => import('@/pages/UserList'));
+const ANIMATION_MAP = {
+  PUSH: 'forward',
+  POP: 'back',
+  REPLACE: 'forward'
+};
 
-export default [
-  {
-    path: '/login',
-    component: LoginLayout
-  },
-  {
-    path: '/',
-    component: HomeLayout,
-    routes: [
-      {
-        name: '工作台',
-        icon: (): JSX.Element => <DeploymentUnitOutlined />,
-        menu: true,
-        path: '/workBench',
-        exact: true,
-        component: SuspenseWrapper(WorkBench)
-      },
-      {
-        name: '项目管理',
-        icon: (): JSX.Element => <AppstoreAddOutlined />,
-        menu: true,
-        path: '/appList',
-        exact: true,
-        component: SuspenseWrapper(AppList)
-      },
-      {
-        name: '迭代管理',
-        icon: (): JSX.Element => <HistoryOutlined />,
-        menu: true,
-        path: '/iterationList',
-        exact: true,
-        component: SuspenseWrapper(IterationList)
-      },
-      {
-        name: '消息管理',
-        icon: (): JSX.Element => <BellOutlined />,
-        menu: true,
-        path: '/messageList',
-        exact: true,
-        component: SuspenseWrapper(MessageList)
-      },
-      {
-        name: '人员管理',
-        icon: (): JSX.Element => <UserOutlined />,
-        menu: true,
-        path: '/userList',
-        exact: true,
-        component: SuspenseWrapper(UserList)
-      },
-      {
-        menu: false,
-        path: '/appDetail',
-        exact: true,
-        component: SuspenseWrapper(AppDetail)
-      },
-      {
-        menu: false,
-        path: '/iterationDetail',
-        exact: true,
-        component: SuspenseWrapper(IterationDetail)
-      },
-      {
-        menu: false,
-        path: '/publishDetail',
-        exact: true,
-        component: SuspenseWrapper(PublishDetail)
+const Routes = (): JSX.Element => {
+  const history = useHistory();
+  const location = useLocation();
+
+  console.log(location.pathname.split('/')[1]);
+
+  return (
+    <TransitionGroup
+      className={'router-wrapper'}
+      childFactory={child =>
+        React.cloneElement(child, {
+          classNames: ANIMATION_MAP[history.action]
+        })
       }
-    ]
-  }
-];
+    >
+      <CSSTransition timeout={500} key={location.pathname.split('/')[1]}>
+        {renderRoutes(routes, {}, { location })}
+      </CSSTransition>
+    </TransitionGroup>
+  );
+};
+
+export default Routes;

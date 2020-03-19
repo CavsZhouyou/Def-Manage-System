@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-09 20:47:57
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-18 18:22:39
+ * @Last Modified time: 2020-03-18 21:42:04
  */
 import React, { memo, useState, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
@@ -52,12 +52,11 @@ export default memo(function LoginForm() {
       message.success('登录成功');
       saveGlobalData(result.data);
       await delay(1000);
-      history.push('/workBench');
+      history.push('/home/workBench');
     } else {
       message.error(result.message);
+      setLoading(false);
     }
-
-    setLoading(false);
   };
 
   return (
