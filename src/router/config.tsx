@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-19 12:01:39
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-19 12:03:25
+ * @Last Modified time: 2020-03-19 17:00:46
  */
 
 import React, { lazy } from 'react';
@@ -29,6 +29,17 @@ const PublishDetail = lazy(() => import('@/pages/PublishDetail'));
 const MessageList = lazy(() => import('@/pages/MessageList'));
 const UserList = lazy(() => import('@/pages/UserList'));
 
+/**
+ * 登录权限验证
+ */
+const requireAuth = (Layout: React.ComponentType, props: any) => {
+  if (sessionStorage.getItem('token')) {
+    return <Layout {...props} />;
+  } else {
+    return <Redirect to="/login" />;
+  }
+};
+
 export default [
   {
     path: '/login',
@@ -36,7 +47,7 @@ export default [
   },
   {
     path: '/home',
-    component: HomeLayout,
+    component: (props: any): JSX.Element => requireAuth(HomeLayout, props),
     routes: [
       {
         name: '工作台',
