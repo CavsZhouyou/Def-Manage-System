@@ -12,7 +12,7 @@ import { Skeleton, Avatar, List, Button } from 'antd';
 import { RightOutlined } from '@ant-design/icons';
 import LoadMore from '@/components/LoadMore';
 import Title from '@/components/Title';
-import { useLoadMore } from '@/utils/hooks';
+import { useLoadMore } from '@/utils/hooks/useLoadMore';
 import commonStyles from '../../index.module.scss';
 import styles from './index.module.scss';
 

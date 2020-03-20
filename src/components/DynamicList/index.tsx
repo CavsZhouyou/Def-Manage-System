@@ -11,7 +11,7 @@ import React, { memo, useEffect } from 'react';
 import { List, Avatar, Skeleton } from 'antd';
 import LoadMore from '@/components/LoadMore';
 import Title from '@/components/Title';
-import { useLoadMore } from '@/utils/hooks';
+import { useLoadMore } from '@/utils/hooks/useLoadMore';
 import styles from './index.module.scss';
 
 interface DynamicInfo {

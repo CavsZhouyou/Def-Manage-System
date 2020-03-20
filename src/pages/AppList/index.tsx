@@ -4,9 +4,9 @@
  * @TodoList: 无
  * @Date: 2020-03-10 10:54:17
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-19 21:28:47
+ * @Last Modified time: 2020-03-20 18:43:19
  */
-import React, { memo, useState, useCallback, useRef, useEffect } from 'react';
+import React, { memo } from 'react';
 import {
   Radio,
   Button,
@@ -19,40 +19,35 @@ import {
   Pagination,
   Form,
   Spin,
-  Empty,
-  message
+  Empty
 } from 'antd';
 import {
   PlusCircleOutlined,
   RocketFilled,
   RightOutlined
 } from '@ant-design/icons';
+import useList from '@/utils/hooks/useList';
 import { getAppListRequest } from '@/service/apis';
 import { AppInfo, GetAppListParams } from '@/service/types';
 import { publishTypes } from '@/constants';
 import styles from './index.module.scss';
 
-const PAGE_SIZE = 12;
+interface FormValues {
+  appType: 'mine' | 'all';
+  publishType: string;
+  appName?: string;
+}
 
+interface InitParams {
+  userId?: number;
+  publishType: string[];
+  appName?: string;
+}
+
+const PAGE_SIZE = 12;
 const { Option } = Select;
 const { Meta } = Card;
 const { Search } = Input;
-
-const data: AppInfo[] = [
-  {
-    appId: 1,
-    appLogo:
-      'https://cavszhouyou-1254093697.cos.ap-chongqing.myqcloud.com/html_logo.png',
-    appName: 'homeai-fe/design-serice',
-    publishType: 'WebApp',
-    description: '轻应用 weex 页面版本控制',
-    iterationCount: 10
-  }
-];
-
-const getData = (): AppInfo[] => {
-  return [...new Array(12)].map(() => data[0]);
-};
 
 const initialValues = {
   appType: 'mine',
@@ -161,76 +156,42 @@ const List = memo((props: { list: AppInfo[] }) => {
   );
 });
 
+const initParams = (formValues: FormValues): InitParams => {
+  const { appType, publishType, appName } = formValues;
+  const params: any = {};
+
+  // 查询我的应用时，传入 userId
+  if (appType === 'mine') {
+    params.userId = sessionStorage.getItem('userId');
+  }
+
+  // 查询所有发布类型时，传入 []
+  if (publishType === 'all') {
+    params.publishType = [];
+  } else {
+    params.publishType = [publishType];
+  }
+
+  if (appName) {
+    params.appName = appName;
+  }
+
+  return params;
+};
+
 export default memo(function AppList() {
-  const [form] = Form.useForm();
-  const [page, setPage] = useState<number>(1);
-  const [loading, setLoading] = useState(false);
-  const [list, setList] = useState<AppInfo[]>([]);
-  const [total, setTotal] = useState<number>(0);
-  const latestValues = useRef({ page });
-  latestValues.current.page = page; // 保存最新的 page
-
-  // 模拟 componentDidmount
-  useEffect(() => {
-    updateList();
-  }, []);
-
-  const getQueryParams = useCallback((): GetAppListParams => {
-    const values = form.getFieldsValue();
-    const { appType, publishType, appName } = values;
-    let params: any = {};
-
-    // 查询我的应用时，传入 userId
-    if (appType === 'mine') {
-      params.userId = sessionStorage.getItem('userId');
-    }
-
-    // 查询所有发布类型时，传入 []
-    if (publishType === 'all') {
-      params.publishType = [];
-    } else {
-      params.publishType = [publishType];
-    }
-
-    if (appName) {
-      params.appName = appName;
-    }
-
-    params = Object.assign(params, {
-      page: latestValues.current.page,
-      pageSize: PAGE_SIZE
-    });
-
-    return params;
-  }, [form]);
-
-  const updateList = useCallback(async () => {
-    setLoading(true);
-
-    const params = getQueryParams();
-    const result = await getAppListRequest(params);
-
-    if (result.success) {
-      const { list, total } = result.data;
-      setTotal(total);
-      setList(list);
-    } else {
-      message.error(result.message);
-    }
-
-    setLoading(false);
-  }, [form]);
-
-  const onPageChange = useCallback(
-    (current: number, pageSize?: number | undefined): void => {
-      // 更新 page 值
-      setPage(current);
-      latestValues.current.page = current;
-
-      // 更新列表
-      updateList();
-    },
-    [setPage, updateList]
+  const {
+    form,
+    loading,
+    list,
+    total,
+    page,
+    updateList,
+    onPageChange
+  } = useList<AppInfo, GetAppListParams>(
+    PAGE_SIZE,
+    initParams,
+    getAppListRequest
   );
 
   return (

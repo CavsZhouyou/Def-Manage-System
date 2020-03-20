@@ -11,7 +11,7 @@ import React, { memo, useEffect } from 'react';
 import { Skeleton, List, Tag } from 'antd';
 import LoadMore from '@/components/LoadMore';
 import Title from '@/components/Title';
-import { useLoadMore } from '@/utils/hooks';
+import { useLoadMore } from '@/utils/hooks/useLoadMore';
 import commonStyles from '../../index.module.scss';
 import styles from './index.module.scss';
 
