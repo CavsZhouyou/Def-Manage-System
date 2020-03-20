@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-19 17:37:30
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-19 18:30:58
+ * @Last Modified time: 2020-03-20 21:37:39
  */
 
 import React, { memo, useState, useCallback } from 'react';
@@ -79,7 +79,12 @@ export default memo(function ChangePasswordModal(props: Props) {
         confirmLoading={loading}
         className={styles.changePasswordModal}
       >
-        <Form {...formItemLayout} form={form} onFinish={submit}>
+        <Form
+          {...formItemLayout}
+          form={form}
+          onFinish={submit}
+          labelAlign="left"
+        >
           <Form.Item
             name="oldPassword"
             label="原密码"

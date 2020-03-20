@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-19 20:38:22
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-19 20:47:48
+ * @Last Modified time: 2020-03-20 21:51:04
  */
 
 export const publishTypes = [
@@ -32,5 +32,20 @@ export const publishTypes = [
   {
     name: 'Assets 非覆盖发布',
     value: '1006'
+  }
+];
+
+export const productTypes = [
+  {
+    name: '淘系技术部 - 行业 - iHome - 家居家装导购',
+    value: '2001'
+  },
+  {
+    name: '淘系技术部 - 行业 - 极有家',
+    value: '2002'
+  },
+  {
+    name: '淘系技术部 - 行业 - 闲鱼',
+    value: '2003'
   }
 ];

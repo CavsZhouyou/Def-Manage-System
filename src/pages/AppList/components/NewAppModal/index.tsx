@@ -4,13 +4,15 @@
  * @TodoList: 无
  * @Date: 2020-03-20 20:17:26
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-20 20:20:41
+ * @Last Modified time: 2020-03-20 21:57:54
  */
 
 import React, { memo, useState, useCallback } from 'react';
-import { Modal, Form, Input, message } from 'antd';
-import { LockOutlined } from '@ant-design/icons';
+import { Modal, Form, Input, Select, message } from 'antd';
+import { publishTypes, productTypes } from '@/constants';
 import styles from './index.module.scss';
+
+const { Option } = Select;
 
 interface Props {
   visible: boolean;
@@ -20,11 +22,11 @@ interface Props {
 const formItemLayout = {
   labelCol: {
     xs: { span: 24 },
-    sm: { span: 24 }
+    sm: { span: 4 }
   },
   wrapperCol: {
     xs: { span: 24 },
-    sm: { span: 24 }
+    sm: { span: 20 }
   }
 };
 
@@ -34,7 +36,9 @@ export default memo(function NewAppModal(props: Props) {
   const [form] = Form.useForm();
 
   const submit = useCallback(() => {
-    form.validateFields().then(values => {});
+    form.validateFields().then(values => {
+      console.log(values);
+    });
   }, []);
 
   const onCancel = useCallback(() => {
@@ -53,61 +57,95 @@ export default memo(function NewAppModal(props: Props) {
       >
         <Form {...formItemLayout} form={form} onFinish={submit}>
           <Form.Item
-            name="oldPassword"
-            label="原密码"
+            name="appName"
+            label="应用名称"
             rules={[
               {
                 required: true,
-                message: '原密码不能为空！'
+                message: '应用名称不能为空！'
               }
             ]}
             hasFeedback
           >
-            <Input.Password
-              prefix={<LockOutlined className={styles.lockIcon} />}
-              placeholder="原密码"
-            />
+            <Input placeholder="请输入应用名称" />
           </Form.Item>
           <Form.Item
-            name="newPassword"
-            label="新密码"
+            name="repository"
+            label="应用仓库"
             rules={[
               {
                 required: true,
-                message: '请输入新密码！'
+                message: '应用仓库不能为空！'
               }
             ]}
             hasFeedback
           >
-            <Input.Password
-              prefix={<LockOutlined className={styles.lockIcon} />}
-              placeholder="新密码"
-            />
+            <Input placeholder="请输入应用仓库地址" />
           </Form.Item>
           <Form.Item
-            name="confirmNewPassword"
-            label="确认新密码"
-            dependencies={['password']}
-            hasFeedback
+            name="description"
+            label="应用描述"
             rules={[
               {
                 required: true,
-                message: '请确认新密码！'
+                message: '应用描述不能为空！'
               },
-              ({ getFieldValue }) => ({
-                validator(rule, value) {
-                  if (!value || getFieldValue('newPassword') === value) {
-                    return Promise.resolve();
-                  }
-                  return Promise.reject('两次输入的新密码不一致！');
-                }
-              })
+              { max: 30, message: '应用描述不能超过 30 个字符！' }
             ]}
+            hasFeedback
           >
-            <Input.Password
-              prefix={<LockOutlined className={styles.lockIcon} />}
-              placeholder="新密码"
-            />
+            <Input placeholder="请输入应用描述" />
+          </Form.Item>
+          <Form.Item
+            name="productTypes"
+            label="产品"
+            rules={[
+              {
+                required: true,
+                message: '发布类型不能为空！'
+              }
+            ]}
+            hasFeedback
+          >
+            <Select placeholder="请选择产品">
+              {productTypes.map((type, index) => (
+                <Option value={type.value} key={index}>
+                  {type.name}
+                </Option>
+              ))}
+            </Select>
+          </Form.Item>
+          <Form.Item
+            name="publishType"
+            label="发布类型"
+            rules={[
+              {
+                required: true,
+                message: '发布类型不能为空！'
+              }
+            ]}
+            hasFeedback
+          >
+            <Select placeholder="请选择发布类型">
+              {publishTypes.map((type, index) => (
+                <Option value={type.value} key={index}>
+                  {type.name}
+                </Option>
+              ))}
+            </Select>
+          </Form.Item>
+          <Form.Item
+            name="pagePrefix"
+            label="页面前缀"
+            rules={[
+              {
+                required: true,
+                message: '页面前缀不能为空！'
+              }
+            ]}
+            hasFeedback
+          >
+            <Input placeholder="请输入页面前缀" />
           </Form.Item>
         </Form>
       </Modal>
