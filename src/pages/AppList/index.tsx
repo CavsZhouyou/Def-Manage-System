@@ -4,9 +4,9 @@
  * @TodoList: 无
  * @Date: 2020-03-10 10:54:17
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-20 18:43:19
+ * @Last Modified time: 2020-03-20 20:51:01
  */
-import React, { memo } from 'react';
+import React, { memo, useCallback } from 'react';
 import {
   Radio,
   Button,
@@ -26,10 +26,13 @@ import {
   RocketFilled,
   RightOutlined
 } from '@ant-design/icons';
+import { useHistory } from 'react-router-dom';
 import useList from '@/utils/hooks/useList';
 import { getAppListRequest } from '@/service/apis';
 import { AppInfo, GetAppListParams } from '@/service/types';
 import { publishTypes } from '@/constants';
+import useModal from '@/utils/hooks/useModal';
+import NewAppModal from './components/NewAppModal';
 import styles from './index.module.scss';
 
 interface FormValues {
@@ -58,6 +61,7 @@ const showTotal = (total: number): string => `共 ${total} 条`;
 
 const SearchForm = memo((props: { form: any; updateList: () => void }) => {
   const { form, updateList } = props;
+  const [visible, showModal, hideModal] = useModal();
 
   return (
     <Form
@@ -73,10 +77,11 @@ const SearchForm = memo((props: { form: any; updateList: () => void }) => {
             <Radio.Button value="all">全部应用</Radio.Button>
           </Radio.Group>
         </Form.Item>
-        <Button className={styles.addButton} type="link">
+        <Button className={styles.addButton} type="link" onClick={showModal}>
           <PlusCircleOutlined className={styles.addIcon} />
           新建应用
         </Button>
+        <NewAppModal visible={visible} hideModal={hideModal} />
       </div>
       <div className={styles.rightActions}>
         <Form.Item
@@ -107,13 +112,25 @@ const SearchForm = memo((props: { form: any; updateList: () => void }) => {
 });
 
 const AppCard = memo((props: AppInfo) => {
-  const { appName, appLogo, publishType, iterationCount, description } = props;
+  const {
+    appId,
+    appName,
+    appLogo,
+    publishType,
+    iterationCount,
+    description
+  } = props;
+  const history = useHistory();
   const publishTypeName = publishTypes.filter(
     item => item.value === publishType
   )[0].name;
 
+  const viewDetail = useCallback(() => {
+    history.push(`/home/appDetail/${appId}`);
+  }, [history]);
+
   return (
-    <Card className={styles.appCard} hoverable>
+    <Card className={styles.appCard} onClick={viewDetail} hoverable>
       <Meta
         avatar={<Avatar src={appLogo} />}
         title={appName}

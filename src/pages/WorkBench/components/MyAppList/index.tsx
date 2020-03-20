@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-11 17:39:23
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-15 10:46:54
+ * @Last Modified time: 2020-03-20 20:37:19
  */
 
 import React, { memo, useEffect } from 'react';
@@ -12,7 +12,7 @@ import { Skeleton, Avatar, List, Button } from 'antd';
 import { RightOutlined } from '@ant-design/icons';
 import LoadMore from '@/components/LoadMore';
 import Title from '@/components/Title';
-import { useLoadMore } from '@/utils/hooks/useLoadMore';
+import useLoadMore from '@/utils/hooks/useLoadMore';
 import commonStyles from '../../index.module.scss';
 import styles from './index.module.scss';
 

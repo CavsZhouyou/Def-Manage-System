@@ -4,14 +4,14 @@
  * @TodoList: 无
  * @Date: 2020-03-12 09:16:25
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-17 10:39:26
+ * @Last Modified time: 2020-03-20 20:37:36
  */
 
 import React, { memo, useEffect } from 'react';
 import { List, Avatar, Skeleton } from 'antd';
 import LoadMore from '@/components/LoadMore';
 import Title from '@/components/Title';
-import { useLoadMore } from '@/utils/hooks/useLoadMore';
+import useLoadMore from '@/utils/hooks/useLoadMore';
 import styles from './index.module.scss';
 
 interface DynamicInfo {

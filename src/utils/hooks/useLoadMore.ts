@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-12 16:20:46
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-20 18:00:21
+ * @Last Modified time: 2020-03-20 20:36:37
  */
 
 import { useState, useCallback, useRef } from 'react';
@@ -26,7 +26,7 @@ export interface UseLoadMoreReturnValue<T> {
  * @param {() => Promise<T[]>} getData 获取更多数据函数
  * @returns {UseLoadMoreReturnValue<T>}
  */
-export function useLoadMore<T>(
+export default function useLoadMore<T>(
   data: T[],
   getData: (count: number) => Promise<T[]>
 ): UseLoadMoreReturnValue<T> {

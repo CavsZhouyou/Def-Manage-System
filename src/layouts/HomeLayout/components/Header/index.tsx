@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-11 09:34:27
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-19 17:54:09
+ * @Last Modified time: 2020-03-20 20:35:50
  */
 
 import React, { memo, useState, useCallback, useMemo } from 'react';
@@ -16,6 +16,7 @@ import {
 } from '@ant-design/icons';
 import Icon from '@/components/IconFont';
 import { logoutRequest } from '@/service/apis';
+import useModal from '@/utils/hooks/useModal';
 import ChangePasswordModal from '../ChangePasswordModal';
 import styles from './index.module.scss';
 
@@ -61,15 +62,7 @@ const CollapseTrigger = React.memo(({ collapsed, toggle }: Props) => {
 export default memo(function CustomHeader({ collapsed, toggle }: Props) {
   const avatar = sessionStorage.getItem('avatar') || undefined;
   const userName = sessionStorage.getItem('userName') || undefined;
-  const [cpModalVisible, setCpModalVisible] = useState(false);
-
-  const hideCpModal = useCallback(() => {
-    setCpModalVisible(false);
-  }, []);
-
-  const showCpModal = useCallback(() => {
-    setCpModalVisible(true);
-  }, []);
+  const [cpModalVisible, showCpModal, hideCpModal] = useModal();
 
   const menu = useMemo(
     () => (

@@ -4,14 +4,14 @@
  * @TodoList: 无
  * @Date: 2020-03-12 20:45:18
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-13 11:09:21
+ * @Last Modified time: 2020-03-20 20:46:28
  */
 
 import React, { memo, useEffect } from 'react';
 import { Skeleton, List, Tag } from 'antd';
 import LoadMore from '@/components/LoadMore';
 import Title from '@/components/Title';
-import { useLoadMore } from '@/utils/hooks/useLoadMore';
+import useLoadMore from '@/utils/hooks/useLoadMore';
 import commonStyles from '../../index.module.scss';
 import styles from './index.module.scss';
 

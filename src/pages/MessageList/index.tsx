@@ -4,13 +4,13 @@
  * @TodoList: 无
  * @Date: 2020-03-17 10:27:49
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-17 11:01:31
+ * @Last Modified time: 2020-03-20 20:44:38
  */
 
 import React, { memo, useEffect } from 'react';
 import { Radio, List, Avatar, Skeleton } from 'antd';
 import LoadMore from '@/components/LoadMore';
-import { useLoadMore } from '@/utils/hooks/useLoadMore';
+import useLoadMore from '@/utils/hooks/useLoadMore';
 import styles from './index.module.scss';
 
 interface Message {
