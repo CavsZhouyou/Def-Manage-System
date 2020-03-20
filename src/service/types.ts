@@ -14,6 +14,14 @@ export interface BaseResponse<T> {
   message?: string;
 }
 
+// 应用列表返回数据格式
+export interface ListResponse<T> {
+  page: number;
+  pageSize: number;
+  total: number;
+  list: T[];
+}
+
 // get Token 返回数据格式
 export interface TokenResponse {
   token: string;
@@ -45,3 +53,23 @@ export interface ChangePasswordParams {
   oldPassword: string;
   newPassword: string;
 }
+
+// 请求应用列表参数格式
+export interface GetAppListParams {
+  userId?: string; // 含有 userId 则为我的应用
+  appName?: string;
+  publishType: string[];
+  page: number;
+  pageSize: number;
+}
+
+// 请求应用列表返回数据格式
+export interface AppInfo {
+  appId: number;
+  appLogo: string;
+  appName: string;
+  publishType: string;
+  iterationCount: number;
+  description: string;
+}
+export type GetAppListResponse = ListResponse<AppInfo>;

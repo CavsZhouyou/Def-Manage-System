@@ -14,7 +14,9 @@ import {
   LoginResponse,
   LoginParams,
   LogoutParams,
-  ChangePasswordParams
+  ChangePasswordParams,
+  GetAppListParams,
+  GetAppListResponse
 } from './types';
 
 export function getToken(): Promise<BaseResponse<TokenResponse>> {
@@ -46,4 +48,13 @@ export function changePasswordRequest(
   params: ChangePasswordParams
 ): Promise<BaseResponse<void>> {
   return axios.post<void>('/def/changePassword', { ...params });
+}
+
+/**
+ * 获取应用列表请求
+ */
+export function getAppListRequest(
+  params: GetAppListParams
+): Promise<BaseResponse<GetAppListResponse>> {
+  return axios.post<GetAppListResponse>('/def/getAppList', { ...params });
 }

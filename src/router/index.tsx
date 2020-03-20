@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-09 12:08:16
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-19 12:04:46
+ * @Last Modified time: 2020-03-19 21:20:28
  */
 import React from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
@@ -22,8 +22,6 @@ const ANIMATION_MAP = {
 const Routes = (): JSX.Element => {
   const history = useHistory();
   const location = useLocation();
-
-  console.log(location.pathname.split('/')[1]);
 
   return (
     <TransitionGroup
