@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-19 17:37:30
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-20 21:37:39
+ * @Last Modified time: 2020-03-22 12:34:57
  */
 
 import React, { memo, useState, useCallback } from 'react';
@@ -36,7 +36,7 @@ export default memo(function ChangePasswordModal(props: Props) {
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
 
-  const changePassword = useCallback(async (props: ChangePasswordParams) => {
+  const changePassword = async (props: ChangePasswordParams): Promise<void> => {
     setLoading(true);
 
     const result = await changePasswordRequest(props);
@@ -51,7 +51,7 @@ export default memo(function ChangePasswordModal(props: Props) {
       message.error(result.message);
       setLoading(false);
     }
-  }, []);
+  };
 
   const submit = useCallback(() => {
     form.validateFields().then(values => {

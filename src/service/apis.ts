@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-09 17:00:55
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-09 19:04:50
+ * @Last Modified time: 2020-03-22 12:31:52
  */
 
 import axios from './request';
@@ -16,7 +16,9 @@ import {
   LogoutParams,
   ChangePasswordParams,
   GetAppListParams,
-  GetAppListResponse
+  GetAppListResponse,
+  CreateAppParams,
+  CreateAppResponse
 } from './types';
 
 export function getToken(): Promise<BaseResponse<TokenResponse>> {
@@ -57,4 +59,13 @@ export function getAppListRequest(
   params: GetAppListParams
 ): Promise<BaseResponse<GetAppListResponse>> {
   return axios.post<GetAppListResponse>('/def/getAppList', { ...params });
+}
+
+/**
+ * 创建应用请求
+ */
+export function createAppRequest(
+  params: CreateAppParams
+): Promise<BaseResponse<CreateAppResponse>> {
+  return axios.post<CreateAppResponse>('/def/createApp', { ...params });
 }
