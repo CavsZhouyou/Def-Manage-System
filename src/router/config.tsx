@@ -58,7 +58,7 @@ export default [
         component: SuspenseWrapper(WorkBench)
       },
       {
-        name: '项目管理',
+        name: '应用管理',
         icon: (): JSX.Element => <AppstoreAddOutlined />,
         menu: true,
         path: '/home/appList',
@@ -74,20 +74,20 @@ export default [
         component: SuspenseWrapper(IterationList)
       },
       {
-        name: '消息管理',
-        icon: (): JSX.Element => <BellOutlined />,
-        menu: true,
-        path: '/home/messageList',
-        exact: true,
-        component: SuspenseWrapper(MessageList)
-      },
-      {
         name: '人员管理',
         icon: (): JSX.Element => <UserOutlined />,
         menu: true,
         path: '/home/userList',
         exact: true,
         component: SuspenseWrapper(UserList)
+      },
+      {
+        name: '消息管理',
+        icon: (): JSX.Element => <BellOutlined />,
+        menu: true,
+        path: '/home/messageList',
+        exact: true,
+        component: SuspenseWrapper(MessageList)
       },
       {
         menu: false,
