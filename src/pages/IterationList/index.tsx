@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-10 11:01:12
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-15 19:40:20
+ * @Last Modified time: 2020-03-22 20:29:16
  */
 
 import React, { memo } from 'react';
@@ -16,6 +16,7 @@ import { IterationInfo, GetIterationListParams } from '@/service/types';
 import useList from '@/utils/hooks/useList';
 import useModal from '@/utils/hooks/useModal';
 import { iterationTypes } from '@/constants';
+import NewIterationModal from './components/NewIterationModal';
 import styles from './index.module.scss';
 
 interface FormValues {
@@ -61,7 +62,7 @@ const SearchForm = memo((props: { form: any; updateList: () => void }) => {
           <PlusCircleOutlined className={styles.addIcon} />
           新建迭代
         </Button>
-        {/* <NewAppModal visible={visible} hideModal={hideModal} /> */}
+        <NewIterationModal visible={visible} hideModal={hideModal} />
       </div>
       <div className={styles.rightActions}>
         <Form.Item

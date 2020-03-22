@@ -4,13 +4,12 @@
  * @TodoList: 无
  * @Date: 2020-03-20 20:17:26
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-22 13:12:09
+ * @Last Modified time: 2020-03-22 21:03:59
  */
 
 import React, { memo, useState, useCallback } from 'react';
 import { Modal, Form, Input, Select, message } from 'antd';
 import { publishTypes, productTypes } from '@/constants';
-import styles from './index.module.scss';
 import { CreateAppParams } from '@/service/types';
 import { createAppRequest } from '@/service/apis';
 import { useHistory } from 'react-router-dom';
@@ -144,7 +143,6 @@ export default memo(function NewAppModal(props: Props) {
                 message: '关联产品不能为空！'
               }
             ]}
-            hasFeedback
           >
             <Select placeholder="请关联产品">
               {productTypes.map((type, index) => (
@@ -163,7 +161,6 @@ export default memo(function NewAppModal(props: Props) {
                 message: '发布类型不能为空！'
               }
             ]}
-            hasFeedback
           >
             <Select placeholder="请选择发布类型">
               {publishTypes.map((type, index) => (

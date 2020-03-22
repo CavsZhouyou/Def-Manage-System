@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-09 19:00:23
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-22 12:29:19
+ * @Last Modified time: 2020-03-22 20:27:00
  */
 
 // 基本返回数据格式
@@ -116,3 +116,45 @@ export interface IterationInfo {
 }
 
 export type GetIterationListResponse = ListResponse<IterationInfo>;
+
+// 新建迭代请求参数格式
+export interface CreateIterationParams {
+  appId: number;
+  userId: number;
+  branch: string;
+  iterationName: string;
+  description: string;
+}
+
+// 新建迭代返回数据格式
+export interface CreateIterationResponse {
+  iterationId: number;
+}
+
+// 请求我的应用列表参数格式
+export interface GetMyAppListParams {
+  userId: number;
+}
+
+// 请求我的应用列表返回数据格式
+export interface AppOption {
+  appId: number;
+  appName: string;
+}
+export interface GetMyAppListResponse {
+  list: AppOption[];
+}
+
+// 请求应用分支列表参数格式
+export interface GetAppBranchesParams {
+  appId: number;
+}
+
+// 请求应用分支列表返回数据格式
+export interface BranchOption {
+  branchId: number;
+  branchName: string;
+}
+export interface GetAppBranchesResponse {
+  list: BranchOption[];
+}

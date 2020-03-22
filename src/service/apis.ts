@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-09 17:00:55
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-22 12:31:52
+ * @Last Modified time: 2020-03-22 20:19:22
  */
 
 import axios from './request';
@@ -20,7 +20,13 @@ import {
   CreateAppParams,
   CreateAppResponse,
   GetIterationListParams,
-  GetIterationListResponse
+  GetIterationListResponse,
+  CreateIterationParams,
+  CreateIterationResponse,
+  GetMyAppListParams,
+  GetMyAppListResponse,
+  GetAppBranchesParams,
+  GetAppBranchesResponse
 } from './types';
 
 export function getToken(): Promise<BaseResponse<TokenResponse>> {
@@ -79,6 +85,39 @@ export function getIterationListRequest(
   params: GetIterationListParams
 ): Promise<BaseResponse<GetIterationListResponse>> {
   return axios.post<GetIterationListResponse>('/def/getIterationList', {
+    ...params
+  });
+}
+
+/**
+ * 创建迭代请求
+ */
+export function createIterationRequest(
+  params: CreateIterationParams
+): Promise<BaseResponse<CreateIterationResponse>> {
+  return axios.post<CreateIterationResponse>('/def/createIteration', {
+    ...params
+  });
+}
+
+/**
+ * 获取我的应用列表请求
+ */
+export function getMyAppListRequest(
+  params: GetMyAppListParams
+): Promise<BaseResponse<GetMyAppListResponse>> {
+  return axios.post<GetMyAppListResponse>('/def/getMyAppList', {
+    ...params
+  });
+}
+
+/**
+ * 获取应用分支列表请求
+ */
+export function getAppBranchesRequest(
+  params: GetAppBranchesParams
+): Promise<BaseResponse<GetAppBranchesResponse>> {
+  return axios.post<GetAppBranchesResponse>('/def/getAppBranches', {
     ...params
   });
 }
