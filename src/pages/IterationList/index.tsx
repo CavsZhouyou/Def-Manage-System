@@ -8,257 +8,129 @@
  */
 
 import React, { memo } from 'react';
-import { Radio, Button, Select } from 'antd';
-import IterationTable, { Iteration } from '@/components/IterationTable';
+import { Radio, Button, Select, Form } from 'antd';
 import { PlusCircleOutlined } from '@ant-design/icons';
+import IterationTable from '@/components/IterationTable';
+import { getIterationListRequest } from '@/service/apis';
+import { IterationInfo, GetIterationListParams } from '@/service/types';
+import useList from '@/utils/hooks/useList';
+import useModal from '@/utils/hooks/useModal';
+import { iterationTypes } from '@/constants';
 import styles from './index.module.scss';
+
+interface FormValues {
+  creator: 'mine' | 'all';
+  iterationType: string;
+}
+
+interface InitParams {
+  userId: number;
+  appName?: string;
+  creator?: string;
+  iterationType: string[];
+}
 
 const { Option } = Select;
 const excludeColumns: string[] = [];
-const pageSize = 7;
+const PAGE_SIZE = 7;
 
-const data: Iteration[] = [
-  {
-    id: 0,
-    key: 0,
-    appLogo:
-      'https://cavszhouyou-1254093697.cos.ap-chongqing.myqcloud.com/html_logo.png',
-    appName: 'homeai-fe/design-service',
-    iterationName: '修复锚点偏移问题',
-    createTime: '2020/02/02',
-    timeConsumption: '15天',
-    branch: 'daily/0.0.8',
-    creatorAvatar:
-      'https://cavszhouyou-1254093697.cos.ap-chongqing.myqcloud.com/avatar',
-    creator: '晓天',
-    iterationStatus: 'success',
-    latestPublish: '2020/02/12',
-    latestPublishStatus: 'success'
-  },
-  {
-    id: 1,
-    key: 1,
-    appLogo:
-      'https://cavszhouyou-1254093697.cos.ap-chongqing.myqcloud.com/html_logo.png',
-    appName: 'homeai-fe/design-service',
-    iterationName: '修复锚点偏移问题',
-    createTime: '2020/02/02',
-    timeConsumption: '15天',
-    branch: 'daily/0.0.8',
-    creatorAvatar:
-      'https://cavszhouyou-1254093697.cos.ap-chongqing.myqcloud.com/avatar',
-    creator: '晓天',
-    iterationStatus: 'failed',
-    latestPublish: '2020/02/12',
-    latestPublishStatus: 'success'
-  },
-  {
-    id: 2,
-    key: 2,
-    appLogo:
-      'https://cavszhouyou-1254093697.cos.ap-chongqing.myqcloud.com/html_logo.png',
-    appName: 'homeai-fe/design-service',
-    iterationName: '修复锚点偏移问题',
-    createTime: '2020/02/02',
-    timeConsumption: '15天',
-    branch: 'daily/0.0.8',
-    creatorAvatar:
-      'https://cavszhouyou-1254093697.cos.ap-chongqing.myqcloud.com/avatar',
-    creator: '晓天',
-    iterationStatus: 'progressing',
-    latestPublish: '2020/02/12',
-    latestPublishStatus: 'success'
-  },
-  {
-    id: 3,
-    key: 3,
-    appLogo:
-      'https://cavszhouyou-1254093697.cos.ap-chongqing.myqcloud.com/html_logo.png',
-    appName: 'homeai-fe/design-service',
-    iterationName: '修复锚点偏移问题',
-    createTime: '2020/02/02',
-    timeConsumption: '15天',
-    branch: 'daily/0.0.8',
-    creatorAvatar:
-      'https://cavszhouyou-1254093697.cos.ap-chongqing.myqcloud.com/avatar',
-    creator: '晓天',
-    iterationStatus: 'success',
-    latestPublish: '2020/02/12',
-    latestPublishStatus: 'failed'
-  },
-  {
-    id: 4,
-    key: 4,
-    appLogo:
-      'https://cavszhouyou-1254093697.cos.ap-chongqing.myqcloud.com/html_logo.png',
-    appName: 'homeai-fe/design-service',
-    iterationName: '修复锚点偏移问题',
-    createTime: '2020/02/02',
-    timeConsumption: '15天',
-    branch: 'daily/0.0.8',
-    creatorAvatar:
-      'https://cavszhouyou-1254093697.cos.ap-chongqing.myqcloud.com/avatar',
-    creator: '晓天',
-    iterationStatus: 'failed',
-    latestPublish: '2020/02/12',
-    latestPublishStatus: 'success'
-  },
-  {
-    id: 5,
-    key: 5,
-    appLogo:
-      'https://cavszhouyou-1254093697.cos.ap-chongqing.myqcloud.com/html_logo.png',
-    appName: 'homeai-fe/design-service',
-    iterationName: '修复锚点偏移问题',
-    createTime: '2020/02/02',
-    timeConsumption: '15天',
-    branch: 'daily/0.0.8',
-    creatorAvatar:
-      'https://cavszhouyou-1254093697.cos.ap-chongqing.myqcloud.com/avatar',
-    creator: '晓天',
-    iterationStatus: 'progressing',
-    latestPublish: '2020/02/12',
-    latestPublishStatus: 'none'
-  },
-  {
-    id: 6,
-    key: 6,
-    appLogo:
-      'https://cavszhouyou-1254093697.cos.ap-chongqing.myqcloud.com/html_logo.png',
-    appName: 'homeai-fe/design-service',
-    iterationName: '修复锚点偏移问题',
-    createTime: '2020/02/02',
-    timeConsumption: '15天',
-    branch: 'daily/0.0.8',
-    creatorAvatar:
-      'https://cavszhouyou-1254093697.cos.ap-chongqing.myqcloud.com/avatar',
-    creator: '晓天',
-    iterationStatus: 'success',
-    latestPublish: '2020/02/12',
-    latestPublishStatus: 'success'
-  },
-  {
-    id: 7,
-    key: 7,
-    appLogo:
-      'https://cavszhouyou-1254093697.cos.ap-chongqing.myqcloud.com/html_logo.png',
-    appName: 'homeai-fe/design-service',
-    iterationName: '修复锚点偏移问题',
-    createTime: '2020/02/02',
-    timeConsumption: '15天',
-    branch: 'daily/0.0.8',
-    creatorAvatar:
-      'https://cavszhouyou-1254093697.cos.ap-chongqing.myqcloud.com/avatar',
-    creator: '晓天',
-    iterationStatus: 'failed',
-    latestPublish: '2020/02/12',
-    latestPublishStatus: 'success'
-  },
-  {
-    id: 8,
-    key: 8,
-    appLogo:
-      'https://cavszhouyou-1254093697.cos.ap-chongqing.myqcloud.com/html_logo.png',
-    appName: 'homeai-fe/design-service',
-    iterationName: '修复锚点偏移问题',
-    createTime: '2020/02/02',
-    timeConsumption: '15天',
-    branch: 'daily/0.0.8',
-    creatorAvatar:
-      'https://cavszhouyou-1254093697.cos.ap-chongqing.myqcloud.com/avatar',
-    creator: '晓天',
-    iterationStatus: 'progressing',
-    latestPublish: '2020/02/12',
-    latestPublishStatus: 'success'
-  },
-  {
-    id: 9,
-    key: 9,
-    appLogo:
-      'https://cavszhouyou-1254093697.cos.ap-chongqing.myqcloud.com/html_logo.png',
-    appName: 'homeai-fe/design-service',
-    iterationName: '修复锚点偏移问题',
-    createTime: '2020/02/02',
-    timeConsumption: '15天',
-    branch: 'daily/0.0.8',
-    creatorAvatar:
-      'https://cavszhouyou-1254093697.cos.ap-chongqing.myqcloud.com/avatar',
-    creator: '晓天',
-    iterationStatus: 'success',
-    latestPublish: '2020/02/12',
-    latestPublishStatus: 'failed'
-  },
-  {
-    id: 10,
-    key: 10,
-    appLogo:
-      'https://cavszhouyou-1254093697.cos.ap-chongqing.myqcloud.com/html_logo.png',
-    appName: 'homeai-fe/design-service',
-    iterationName: '修复锚点偏移问题',
-    createTime: '2020/02/02',
-    timeConsumption: '15天',
-    branch: 'daily/0.0.8',
-    creatorAvatar:
-      'https://cavszhouyou-1254093697.cos.ap-chongqing.myqcloud.com/avatar',
-    creator: '晓天',
-    iterationStatus: 'failed',
-    latestPublish: '2020/02/12',
-    latestPublishStatus: 'success'
-  },
-  {
-    id: 11,
-    key: 11,
-    appLogo:
-      'https://cavszhouyou-1254093697.cos.ap-chongqing.myqcloud.com/html_logo.png',
-    appName: 'homeai-fe/design-service',
-    iterationName: '修复锚点偏移问题',
-    createTime: '2020/02/02',
-    timeConsumption: '15天',
-    branch: 'daily/0.0.8',
-    creatorAvatar:
-      'https://cavszhouyou-1254093697.cos.ap-chongqing.myqcloud.com/avatar',
-    creator: '晓天',
-    iterationStatus: 'progressing',
-    latestPublish: '2020/02/12',
-    latestPublishStatus: 'none'
-  }
-];
+const initialValues = {
+  creator: 'mine',
+  iterationType: 'all'
+};
 
-const Header = memo(() => {
+const SearchForm = memo((props: { form: any; updateList: () => void }) => {
+  const { form, updateList } = props;
+  const [visible, showModal, hideModal] = useModal();
+
   return (
-    <div className={styles.header}>
+    <Form
+      layout="inline"
+      form={form}
+      className={styles.form}
+      initialValues={initialValues}
+    >
       <div className={styles.leftActions}>
-        <Radio.Group defaultValue="a" buttonStyle="solid" size="middle">
-          <Radio.Button value="a">我参与的</Radio.Button>
-          <Radio.Button value="b">我创建的</Radio.Button>
-        </Radio.Group>
-        <Button className={styles.addButton} type="link">
+        <Form.Item name="creator">
+          <Radio.Group buttonStyle="solid" size="middle" onChange={updateList}>
+            <Radio.Button value="mine">我参与的</Radio.Button>
+            <Radio.Button value="all">我创建的</Radio.Button>
+          </Radio.Group>
+        </Form.Item>
+        <Button className={styles.addButton} type="link" onClick={showModal}>
           <PlusCircleOutlined className={styles.addIcon} />
           新建迭代
         </Button>
+        {/* <NewAppModal visible={visible} hideModal={hideModal} /> */}
       </div>
       <div className={styles.rightActions}>
-        <span className={styles.label}>迭代状态:</span>
-        <Select className={styles.typeSelect} defaultValue="001">
-          <Option value="001">全部</Option>
-          <Option value="002">已完成</Option>
-          <Option value="003">进行中</Option>
-          <Option value="004">已废弃</Option>
-        </Select>
+        <Form.Item
+          name="iterationType"
+          label="迭代类型"
+          className={styles.iterationType}
+        >
+          <Select className={styles.typeSelect} onChange={updateList}>
+            <Option value="all">全部</Option>
+            {iterationTypes.map((type, index) => (
+              <Option value={type.value} key={index}>
+                {type.name}
+              </Option>
+            ))}
+          </Select>
+        </Form.Item>
       </div>
-    </div>
+    </Form>
   );
 });
 
+const initParams = (formValues: FormValues): InitParams => {
+  const { creator, iterationType } = formValues;
+  const params: any = {};
+
+  params.userId = parseInt(sessionStorage.getItem('userId') || '');
+
+  // 查询我创建的迭代时，creator 传入 userId
+  if (creator === 'mine') {
+    params.creator = params.userId;
+  }
+
+  // 查询所有状态时，传入 []
+  if (iterationType === 'all') {
+    params.iterationType = [];
+  } else {
+    params.iterationType = [iterationType];
+  }
+
+  return params;
+};
+
 export default memo(function IterationList() {
+  const {
+    form,
+    loading,
+    list,
+    total,
+    page,
+    updateList,
+    onPageChange
+  } = useList<IterationInfo, GetIterationListParams>(
+    PAGE_SIZE,
+    initParams,
+    getIterationListRequest
+  );
+
   return (
     <div className={styles.iterationList}>
-      <Header />
+      <SearchForm form={form} updateList={updateList} />
       <div className={styles.content}>
         <IterationTable
-          data={data}
           excludeColumns={excludeColumns}
-          pageSize={pageSize}
+          data={list}
+          loading={loading}
+          total={total}
+          page={page}
+          pageSize={PAGE_SIZE}
+          onPageChange={onPageChange}
         />
       </div>
     </div>

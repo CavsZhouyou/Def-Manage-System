@@ -97,7 +97,7 @@ export default [
       },
       {
         menu: false,
-        path: '/home/iterationDetail',
+        path: '/home/iterationDetail/:iterationId',
         exact: true,
         component: SuspenseWrapper(IterationDetail)
       },

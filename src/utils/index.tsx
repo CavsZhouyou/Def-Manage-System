@@ -9,6 +9,45 @@
 
 /**
  * 延迟 ms 时间
+ *
+ * @param {number} ms
+ * @returns {Promise<void>}
  */
 export const delay = (ms: number): Promise<void> =>
   new Promise(resolve => setTimeout(resolve, ms));
+
+/**
+ * 获取时间间隔
+ *
+ * @param {number} startTime 开始时间
+ * @param {number} endTime 结束时间
+ * @returns {string}
+ */
+export const getTimeInterval = (startTime: number, endTime: number): string => {
+  const interval = Math.round((endTime - startTime) / 1000);
+  const intervalTexts = ['年', '个月', '星期', '天', '小时', '分钟', '秒'];
+  const intervalValues = [31536000, 2592000, 604800, 86400, 3600, 60, 1];
+
+  for (let i = 0; i <= intervalValues.length; i++) {
+    const count = Math.floor(interval / intervalValues[i]);
+    if (count !== 0) {
+      return count + intervalTexts[i];
+    }
+  }
+
+  return '刚刚';
+};
+
+/**
+ * 格式化时间为 多久前
+ *
+ * @param {number} startTime
+ * @returns {string}
+ */
+export const formatTimeToInterval = (startTime: number): string => {
+  // 获取当前时间为结束时间，转换为秒
+  const endTime = new Date().getTime();
+  const interval = getTimeInterval(startTime, endTime);
+
+  return interval === '刚刚' ? interval : interval + '前';
+};

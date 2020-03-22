@@ -49,3 +49,33 @@ export const productTypes = [
     value: '2003'
   }
 ];
+
+export const iterationTypes = [
+  {
+    name: '已完成',
+    value: '3001'
+  },
+  {
+    name: '进行中',
+    value: '3002'
+  },
+  {
+    name: '已废弃',
+    value: '3003'
+  }
+];
+
+export const publishStatus = [
+  {
+    name: '发布成功',
+    value: '4001'
+  },
+  {
+    name: '发布失败',
+    value: '4002'
+  },
+  {
+    name: '未发布',
+    value: '4003'
+  }
+];

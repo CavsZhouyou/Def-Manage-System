@@ -27,9 +27,9 @@ import {
   RightOutlined
 } from '@ant-design/icons';
 import { useHistory } from 'react-router-dom';
-import useList from '@/utils/hooks/useList';
 import { getAppListRequest } from '@/service/apis';
 import { AppInfo, GetAppListParams } from '@/service/types';
+import useList from '@/utils/hooks/useList';
 import { publishTypes } from '@/constants';
 import useModal from '@/utils/hooks/useModal';
 import NewAppModal from './components/NewAppModal';
@@ -179,7 +179,7 @@ const initParams = (formValues: FormValues): InitParams => {
 
   // 查询我的应用时，传入 userId
   if (appType === 'mine') {
-    params.userId = sessionStorage.getItem('userId');
+    params.userId = parseInt(sessionStorage.getItem('userId') || '');
   }
 
   // 查询所有发布类型时，传入 []

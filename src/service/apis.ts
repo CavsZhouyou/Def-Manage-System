@@ -18,7 +18,9 @@ import {
   GetAppListParams,
   GetAppListResponse,
   CreateAppParams,
-  CreateAppResponse
+  CreateAppResponse,
+  GetIterationListParams,
+  GetIterationListResponse
 } from './types';
 
 export function getToken(): Promise<BaseResponse<TokenResponse>> {
@@ -68,4 +70,15 @@ export function createAppRequest(
   params: CreateAppParams
 ): Promise<BaseResponse<CreateAppResponse>> {
   return axios.post<CreateAppResponse>('/def/createApp', { ...params });
+}
+
+/**
+ * 获取迭代列表请求
+ */
+export function getIterationListRequest(
+  params: GetIterationListParams
+): Promise<BaseResponse<GetIterationListResponse>> {
+  return axios.post<GetIterationListResponse>('/def/getIterationList', {
+    ...params
+  });
 }

@@ -36,7 +36,7 @@ const logout = () => {
     onOk() {
       // 退出登录
       logoutRequest({
-        userId: sessionStorage.getItem('userId') || ''
+        userId: parseInt(sessionStorage.getItem('userId') || '')
       });
       // 清除用户数据
       sessionStorage.clear();

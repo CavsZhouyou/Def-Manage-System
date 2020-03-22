@@ -45,7 +45,7 @@ export interface LoginResponse {
 
 // 退出登录请求参数格式
 export interface LogoutParams {
-  userId: string;
+  userId: number;
 }
 
 // 修改密码请求参数格式
@@ -56,7 +56,7 @@ export interface ChangePasswordParams {
 
 // 请求应用列表参数格式
 export interface GetAppListParams {
-  userId?: string; // 含有 userId 则为我的应用
+  userId?: number;
   appName?: string;
   publishType: string[];
   page: number;
@@ -87,3 +87,32 @@ export interface CreateAppParams {
 export interface CreateAppResponse {
   appId: number;
 }
+
+// 获取迭代列表请求参数格式
+export interface GetIterationListParams {
+  userId: number;
+  appName?: string;
+  creator?: string;
+  iterationType: string[];
+  page: number;
+  pageSize: number;
+}
+
+// 请求迭代列表返回数据格式
+export interface IterationInfo {
+  iterationId: number;
+  appId: number;
+  appLogo: string;
+  appName: string;
+  iterationName: string;
+  createTime: string;
+  endTime: string;
+  branch: string;
+  creator: string;
+  creatorAvatar: string;
+  iterationStatus: string;
+  latestPublish: string;
+  latestPublishStatus: string;
+}
+
+export type GetIterationListResponse = ListResponse<IterationInfo>;
