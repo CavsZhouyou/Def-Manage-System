@@ -4,12 +4,11 @@
  * @TodoList: 无
  * @Date: 2020-03-22 18:16:23
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-22 21:03:21
+ * @Last Modified time: 2020-03-22 21:06:06
  */
 
 import React, { memo, useState, useCallback, useEffect } from 'react';
 import { Modal, Form, Input, Select, message } from 'antd';
-import { publishTypes, productTypes } from '@/constants';
 import {
   CreateIterationParams,
   AppOption,
