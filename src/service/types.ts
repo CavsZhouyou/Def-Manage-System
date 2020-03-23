@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-09 19:00:23
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-23 14:52:03
+ * @Last Modified time: 2020-03-23 16:07:38
  */
 
 // 基本返回数据格式
@@ -182,5 +182,33 @@ export interface ResetPasswordParams {
 
 // 删除用户参数格式
 export interface DeleteUserParams {
+  userId: number;
+}
+
+// 请求部门列表返回数据格式
+export interface DepartmentOption {
+  departmentId: number;
+  departmentName: string;
+}
+
+export type GetDepartmentListResponse = ListResponse<DepartmentOption>;
+
+// 请求职位列表返回数据格式
+export interface PostOption {
+  postId: number;
+  postName: string;
+}
+
+export type GetPostListResponse = ListResponse<PostOption>;
+
+// 添加用户参数格式
+export interface AddUserParams {
+  userName: string;
+  department: number;
+  post: number;
+}
+
+// 新建迭代返回数据格式
+export interface AddUserResponse {
   userId: number;
 }

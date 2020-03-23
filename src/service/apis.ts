@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-09 17:00:55
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-23 15:21:33
+ * @Last Modified time: 2020-03-23 16:09:03
  */
 
 import axios from './request';
@@ -30,7 +30,11 @@ import {
   GetUserListResponse,
   GetUserListParams,
   ResetPasswordParams,
-  DeleteUserParams
+  DeleteUserParams,
+  GetDepartmentListResponse,
+  GetPostListResponse,
+  AddUserParams,
+  AddUserResponse
 } from './types';
 
 export function getToken(): Promise<BaseResponse<TokenResponse>> {
@@ -153,4 +157,31 @@ export function deleteUserRequest(
   params: DeleteUserParams
 ): Promise<BaseResponse<void>> {
   return axios.post<void>('/def/deleteUser', { ...params });
+}
+
+/**
+ * 获取部门列表请求
+ */
+export function getDepartmentListRequest(): Promise<
+  BaseResponse<GetDepartmentListResponse>
+> {
+  return axios.get<GetDepartmentListResponse>('/def/getDepartmentList');
+}
+
+/**
+ * 获取职位列表请求
+ */
+export function getPostListRequest(): Promise<
+  BaseResponse<GetPostListResponse>
+> {
+  return axios.get<GetPostListResponse>('/def/getPostList');
+}
+
+/**
+ * 添加用户请求
+ */
+export function addUserRequest(
+  params: AddUserParams
+): Promise<BaseResponse<AddUserResponse>> {
+  return axios.post<AddUserResponse>('/def/addUser', { ...params });
 }

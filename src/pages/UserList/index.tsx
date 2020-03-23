@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-17 11:32:50
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-23 15:25:16
+ * @Last Modified time: 2020-03-23 16:30:45
  */
 
 import React, { memo, useMemo } from 'react';
@@ -20,6 +20,7 @@ import {
 import { UserInfo, GetUserListParams } from '@/service/types';
 import useList from '@/utils/hooks/useList';
 import useModal from '@/utils/hooks/useModal';
+import AddUserModal from './components/AddUserModal';
 import styles from './index.module.scss';
 
 interface FormValues {
@@ -158,8 +159,8 @@ const SearchForm = memo((props: { form: any; updateList: () => void }) => {
         <Title title="用户列表" />
       </div>
       <div className={styles.rightActions}>
-        <Button className={styles.addButton} type="primary">
-          添加成员
+        <Button className={styles.addButton} type="primary" onClick={showModal}>
+          添加用户
         </Button>
         <Form.Item name="userName">
           <Search
@@ -169,8 +170,12 @@ const SearchForm = memo((props: { form: any; updateList: () => void }) => {
             enterButton
           />
         </Form.Item>
+        <AddUserModal
+          visible={visible}
+          hideModal={hideModal}
+          updateList={updateList}
+        />
       </div>
-      {/* <NewIterationModal visible={visible} hideModal={hideModal} /> */}
     </Form>
   );
 });
