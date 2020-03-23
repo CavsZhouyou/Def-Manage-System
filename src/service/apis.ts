@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-09 17:00:55
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-23 11:52:35
+ * @Last Modified time: 2020-03-23 15:21:33
  */
 
 import axios from './request';
@@ -28,7 +28,9 @@ import {
   GetAppBranchesParams,
   GetAppBranchesResponse,
   GetUserListResponse,
-  GetUserListParams
+  GetUserListParams,
+  ResetPasswordParams,
+  DeleteUserParams
 } from './types';
 
 export function getToken(): Promise<BaseResponse<TokenResponse>> {
@@ -133,4 +135,22 @@ export function getUserListRequest(
   return axios.post<GetUserListResponse>('/def/getUserList', {
     ...params
   });
+}
+
+/**
+ * 重置密码请求
+ */
+export function resetPasswordRequest(
+  params: ResetPasswordParams
+): Promise<BaseResponse<void>> {
+  return axios.post<void>('/def/resetPassword', { ...params });
+}
+
+/**
+ * 删除用户请求
+ */
+export function deleteUserRequest(
+  params: DeleteUserParams
+): Promise<BaseResponse<void>> {
+  return axios.post<void>('/def/deleteUser', { ...params });
 }

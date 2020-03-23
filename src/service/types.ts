@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-09 19:00:23
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-23 11:50:31
+ * @Last Modified time: 2020-03-23 14:52:03
  */
 
 // 基本返回数据格式
@@ -174,3 +174,13 @@ export interface UserInfo {
 }
 
 export type GetUserListResponse = ListResponse<UserInfo>;
+
+// 重置密码参数格式
+export interface ResetPasswordParams {
+  userId: number;
+}
+
+// 删除用户参数格式
+export interface DeleteUserParams {
+  userId: number;
+}
