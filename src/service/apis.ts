@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-09 17:00:55
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-22 20:19:22
+ * @Last Modified time: 2020-03-23 11:52:35
  */
 
 import axios from './request';
@@ -26,7 +26,9 @@ import {
   GetMyAppListParams,
   GetMyAppListResponse,
   GetAppBranchesParams,
-  GetAppBranchesResponse
+  GetAppBranchesResponse,
+  GetUserListResponse,
+  GetUserListParams
 } from './types';
 
 export function getToken(): Promise<BaseResponse<TokenResponse>> {
@@ -118,6 +120,17 @@ export function getAppBranchesRequest(
   params: GetAppBranchesParams
 ): Promise<BaseResponse<GetAppBranchesResponse>> {
   return axios.post<GetAppBranchesResponse>('/def/getAppBranches', {
+    ...params
+  });
+}
+
+/**
+ * 获取用户列表请求
+ */
+export function getUserListRequest(
+  params: GetUserListParams
+): Promise<BaseResponse<GetUserListResponse>> {
+  return axios.post<GetUserListResponse>('/def/getUserList', {
     ...params
   });
 }

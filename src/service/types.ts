@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-09 19:00:23
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-22 20:27:00
+ * @Last Modified time: 2020-03-23 11:50:31
  */
 
 // 基本返回数据格式
@@ -158,3 +158,19 @@ export interface BranchOption {
 export interface GetAppBranchesResponse {
   list: BranchOption[];
 }
+
+// 请求用户列表参数格式
+export interface GetUserListParams {
+  userName?: string;
+}
+
+// 请求用户列表返回数据格式
+export interface UserInfo {
+  userId: number;
+  userName: string;
+  userAvatar: string;
+  department: string;
+  post: string;
+}
+
+export type GetUserListResponse = ListResponse<UserInfo>;

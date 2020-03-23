@@ -4,70 +4,50 @@
  * @TodoList: 无
  * @Date: 2020-03-17 11:32:50
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-17 11:34:05
+ * @Last Modified time: 2020-03-23 12:22:59
  */
 
 import React, { memo } from 'react';
-import { Table, Avatar, Button } from 'antd';
+import { Form, Table, Avatar, Button, Input } from 'antd';
 import { ColumnProps } from 'antd/es/table';
 import Title from '@/components/Title';
+import { getUserListRequest } from '@/service/apis';
+import { UserInfo, GetUserListParams } from '@/service/types';
+import useList from '@/utils/hooks/useList';
+import useModal from '@/utils/hooks/useModal';
 import styles from './index.module.scss';
 
-interface User {
-  key: number;
-  id: number;
-  name: string;
-  avatar: string;
-  department: string;
-  post: string;
+interface FormValues {
+  userName?: string;
 }
 
-const data: User[] = [
-  {
-    key: 0,
-    id: 0,
-    name: '晓天',
-    avatar:
-      'https://cavszhouyou-1254093697.cos.ap-chongqing.myqcloud.com/avatar',
-    department: '淘系技术部',
-    post: '实习前端工程师'
-  },
-  {
-    key: 0,
-    id: 0,
-    name: '晓天',
-    avatar:
-      'https://cavszhouyou-1254093697.cos.ap-chongqing.myqcloud.com/avatar',
-    department: '淘系技术部',
-    post: '实习前端工程师'
-  },
-  {
-    key: 0,
-    id: 0,
-    name: '晓天',
-    avatar:
-      'https://cavszhouyou-1254093697.cos.ap-chongqing.myqcloud.com/avatar',
-    department: '淘系技术部',
-    post: '实习前端工程师'
-  }
-];
+interface InitParams {
+  userName?: string;
+}
 
-const columns: ColumnProps<User>[] = [
+const { Search } = Input;
+const PAGE_SIZE = 7;
+
+const columns: ColumnProps<UserInfo>[] = [
   {
     title: '用户',
-    dataIndex: 'name',
-    key: 'name',
-    render: (text: string, record: User): JSX.Element => (
+    dataIndex: 'userName',
+    key: 'userName',
+    render: (text: string, record: UserInfo): JSX.Element => (
       <div>
-        <Avatar className={styles.userAvatar} size={30} src={record.avatar} />
+        <Avatar
+          className={styles.userAvatar}
+          size={30}
+          src={record.userAvatar}
+        />
         {text}
       </div>
     )
   },
   {
     title: '工号',
-    dataIndex: 'id',
-    key: 'id'
+    dataIndex: 'userId',
+    key: 'userId'
   },
   {
     title: '部门',
@@ -95,22 +75,78 @@ const columns: ColumnProps<User>[] = [
   }
 ];
 
+const showTotal = (total: number): string => `共 ${total} 条`;
+const rowKey = (record: UserInfo): number => record.userId;
+
+const initParams = (formValues: FormValues): InitParams => {
+  const { userName } = formValues;
+  const params: any = {};
+
+  if (userName) {
+    params.userName = userName;
+  }
+
+  return params;
+};
+
+const SearchForm = memo((props: { form: any; updateList: () => void }) => {
+  const { form, updateList } = props;
+  const [visible, showModal, hideModal] = useModal();
+
+  return (
+    <Form layout="inline" form={form} className={styles.form}>
+      <div className={styles.leftActions}>
+        <Title title="用户列表" />
+      </div>
+      <div className={styles.rightActions}>
+        <Button className={styles.addButton} type="primary">
+          添加成员
+        </Button>
+        <Form.Item name="userName">
+          <Search
+            className={styles.searchInput}
+            placeholder="请输入用户名"
+            onSearch={updateList}
+            enterButton
+          />
+        </Form.Item>
+      </div>
+      {/* <NewIterationModal visible={visible} hideModal={hideModal} /> */}
+    </Form>
+  );
+});
+
 export default memo(function UserList() {
+  const {
+    form,
+    loading,
+    list,
+    total,
+    page,
+    updateList,
+    onPageChange
+  } = useList<UserInfo, GetUserListParams>(
+    PAGE_SIZE,
+    initParams,
+    getUserListRequest
+  );
+
   return (
     <div className={styles.userList}>
-      <div className={styles.header}>
-        <Title title="用户列表" />
-        <Button type="primary">添加成员</Button>
-      </div>
+      <SearchForm form={form} updateList={updateList} />
       <div className={styles.content}>
-        <Table<User>
+        <Table<UserInfo>
+          rowKey={rowKey}
           columns={columns}
-          dataSource={data}
+          dataSource={list}
+          loading={loading}
           pagination={{
-            total: data.length,
-            pageSize: 5,
+            current: page,
+            pageSize: PAGE_SIZE,
+            total: total,
+            showTotal: showTotal,
             showQuickJumper: true,
-            showTotal: (total: number): string => `共 ${total} 条`
+            onChange: onPageChange
           }}
         />
       </div>

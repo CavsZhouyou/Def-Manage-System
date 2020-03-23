@@ -2,9 +2,19 @@
   padding: 20px;
   background-color: #fff;
 
-  .header {
+  .form {
+    width: 100%;
     display: flex;
     justify-content: space-between;
+
+    .rightActions {
+      display: flex;
+
+      .searchInput {
+        margin-left: 20px;
+        width: 250px;
+      }
+    }
   }
 
   .content {
