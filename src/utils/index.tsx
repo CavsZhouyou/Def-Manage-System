@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-18 17:06:13
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-18 17:09:28
+ * @Last Modified time: 2020-03-23 18:17:25
  */
 
 /**
@@ -50,4 +50,27 @@ export const formatTimeToInterval = (startTime: number): string => {
   const interval = getTimeInterval(startTime, endTime);
 
   return interval === '刚刚' ? interval : interval + '前';
+};
+
+/**
+ * 格式化时间戳成格式 YYYY-MM-DD hh:mm:ss
+ *
+ * @param {number} timestamp
+ * @returns
+ */
+export const formatTimestamp = (timestamp: number): string => {
+  const date = new Date(timestamp);
+  const Y = date.getFullYear() + '-';
+  const M =
+    (date.getMonth() + 1 < 10
+      ? '0' + (date.getMonth() + 1)
+      : date.getMonth() + 1) + '-';
+  const D = date.getDate() + ' ';
+  const h = date.getHours() + ':';
+  const m =
+    (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) +
+    ':';
+  const s =
+    date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds();
+  return Y + M + D + h + m + s;
 };

@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-09 17:00:55
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-23 16:09:03
+ * @Last Modified time: 2020-03-23 17:45:01
  */
 
 import axios from './request';
@@ -34,7 +34,9 @@ import {
   GetDepartmentListResponse,
   GetPostListResponse,
   AddUserParams,
-  AddUserResponse
+  AddUserResponse,
+  GetAppBasicInfoParams,
+  GetAppBasicInfoResponse
 } from './types';
 
 export function getToken(): Promise<BaseResponse<TokenResponse>> {
@@ -184,4 +186,15 @@ export function addUserRequest(
   params: AddUserParams
 ): Promise<BaseResponse<AddUserResponse>> {
   return axios.post<AddUserResponse>('/def/addUser', { ...params });
+}
+
+/**
+ * 获取应用基本信息请求
+ */
+export function getAppBasicInfoRequest(
+  params: GetAppBasicInfoParams
+): Promise<BaseResponse<GetAppBasicInfoResponse>> {
+  return axios.post<GetAppBasicInfoResponse>('/def/getAppBasicInfo', {
+    ...params
+  });
 }

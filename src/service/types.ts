@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-09 19:00:23
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-23 16:07:38
+ * @Last Modified time: 2020-03-23 17:46:49
  */
 
 // 基本返回数据格式
@@ -68,7 +68,7 @@ export interface AppInfo {
   appId: number;
   appLogo: string;
   appName: string;
-  publishType: string;
+  publishType: number;
   iterationCount: number;
   description: string;
 }
@@ -212,3 +212,22 @@ export interface AddUserParams {
 export interface AddUserResponse {
   userId: number;
 }
+
+// 请求应用基本信息参数格式
+export interface GetAppBasicInfoParams {
+  userId: number;
+  appId: number;
+}
+
+// 请求应用信息返回数据格式
+export interface GetAppBasicInfo {
+  description: string;
+  product: number;
+  repository: string;
+  isJoin: boolean;
+  joinTime?: string;
+  publishType: number;
+  pagePrefix: string;
+}
+
+export type GetAppBasicInfoResponse = GetAppBasicInfo;

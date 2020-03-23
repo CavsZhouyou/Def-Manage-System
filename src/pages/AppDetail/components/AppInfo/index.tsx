@@ -4,11 +4,17 @@
  * @TodoList: 无
  * @Date: 2020-03-14 12:15:33
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-16 09:40:58
+ * @Last Modified time: 2020-03-23 18:17:53
  */
 
-import React, { memo } from 'react';
+import React, { memo, useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { message } from 'antd';
 import Title from '@/components/Title';
+import { publishTypes, productTypes } from '@/constants';
+import { GetAppBasicInfo } from '@/service/types';
+import { getAppBasicInfoRequest } from '@/service/apis';
+import { formatTimestamp } from '@/utils';
 import styles from './index.module.scss';
 
 interface DescriptionProps {
@@ -27,30 +33,75 @@ const Description = (props: DescriptionProps): JSX.Element => {
   );
 };
 
+const initState = {
+  description: '暂无',
+  product: 2001,
+  repository: '暂无',
+  isJoin: false,
+  joinTime: '',
+  publishType: 1002,
+  pagePrefix: '暂无'
+};
+
 export default memo(function AppInfo() {
+  const [appInfo, setAppInfo] = useState<GetAppBasicInfo>(initState);
+  const {
+    description,
+    product,
+    repository,
+    isJoin,
+    joinTime,
+    publishType,
+    pagePrefix
+  } = appInfo;
+  const publishTypeName = publishTypes.filter(
+    item => item.value === publishType
+  )[0].name;
+  const productName = productTypes.filter(item => item.value === product)[0]
+    .name;
+
+  const { appInfo: app } = useParams();
+
+  useEffect(() => {
+    getAppBasicInfo();
+  }, []);
+
+  // 获取应用信息
+  const getAppBasicInfo = async (): Promise<void> => {
+    const { appId } = JSON.parse(app || '');
+    const userId = parseInt(sessionStorage.getItem('userId') || '');
+    const params = {
+      appId,
+      userId
+    };
+
+    const result = await getAppBasicInfoRequest(params);
+
+    if (result.success) {
+      setAppInfo(result.data);
+    } else {
+      message.error(result.message);
+    }
+  };
+
   return (
     <div className={styles.appInfo}>
       <div className={styles.header}>
         <Title title={'应用信息'} />
       </div>
       <div className={styles.content}>
-        <Description label="应用描述" value="iHome 店铺二楼 全景漫游" />
-        <Description
-          label="产品"
-          value="淘系技术部 - 行业 - iHome - 家居家装导购"
-        />
+        <Description label="应用描述" value={description} />
+        <Description label="产品" value={productName} />
         <Description
           label="仓库"
-          value={
-            <a href="">https://github.com/CavsZhouyou/def-manage-system</a>
-          }
+          value={<a href={repository}>{repository}</a>}
         />
-        <Description label="加入时间" value="2019-08-07 14:07:10" />
-        <Description label="发布类型" value="WebApp" />
         <Description
-          label="页面前缀"
-          value="app/homeai-fe/iHome-shop-panorama"
+          label="加入时间"
+          value={formatTimestamp(parseInt(joinTime || ''))}
         />
+        <Description label="发布类型" value={publishTypeName} />
+        <Description label="页面前缀" value={pagePrefix} />
       </div>
     </div>
   );

@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-13 19:09:13
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-23 17:12:16
+ * @Last Modified time: 2020-03-23 17:18:53
  */
 
 import React, { memo } from 'react';
@@ -23,7 +23,7 @@ const NavBar = (): JSX.Element => {
   return (
     <Breadcrumb>
       <Breadcrumb.Item>
-        <Link to="/appList">应用列表</Link>
+        <Link to="/home/appList">应用列表</Link>
       </Breadcrumb.Item>
       <Breadcrumb.Item>{appName}</Breadcrumb.Item>
     </Breadcrumb>
