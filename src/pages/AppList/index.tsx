@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-10 10:54:17
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-23 11:53:22
+ * @Last Modified time: 2020-03-23 17:07:32
  */
 import React, { memo, useCallback } from 'react';
 import {
@@ -126,7 +126,12 @@ const AppCard = memo((props: AppInfo) => {
   )[0].name;
 
   const viewDetail = useCallback(() => {
-    history.push(`/home/appDetail/${appId}`);
+    history.push(
+      `/home/appDetail/${JSON.stringify({
+        appId,
+        appName: encodeURIComponent(appName)
+      })}`
+    );
   }, [history]);
 
   return (

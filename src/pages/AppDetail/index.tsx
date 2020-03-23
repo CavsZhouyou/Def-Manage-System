@@ -4,11 +4,11 @@
  * @TodoList: 无
  * @Date: 2020-03-13 19:09:13
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-16 17:02:28
+ * @Last Modified time: 2020-03-23 17:12:16
  */
 
 import React, { memo } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { Tabs, Breadcrumb } from 'antd';
 import styles from './index.module.scss';
 import routes from './config';
@@ -16,12 +16,16 @@ import routes from './config';
 const { TabPane } = Tabs;
 
 const NavBar = (): JSX.Element => {
+  const { appInfo } = useParams();
+  let { appName } = JSON.parse(appInfo || '');
+  appName = decodeURIComponent(appName);
+
   return (
     <Breadcrumb>
       <Breadcrumb.Item>
         <Link to="/appList">应用列表</Link>
       </Breadcrumb.Item>
-      <Breadcrumb.Item>ihome-fe/design-service</Breadcrumb.Item>
+      <Breadcrumb.Item>{appName}</Breadcrumb.Item>
     </Breadcrumb>
   );
 };
