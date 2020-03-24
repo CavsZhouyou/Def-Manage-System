@@ -1,7 +1,8 @@
 .iterationList {
   background-color: #fff;
 
-  .header {
+  .form {
+    width: 100%;
     display: flex;
     justify-content: space-between;
 
@@ -20,12 +21,16 @@
       }
     }
 
-    .label {
-      margin-right: 8px;
-    }
+    .rightActions {
+      display: flex;
 
-    .typeSelect {
-      width: 140px;
+      .label {
+        margin-right: 8px;
+      }
+
+      .typeSelect {
+        width: 140px;
+      }
     }
   }
 

@@ -8,222 +8,82 @@
  */
 
 import React, { memo } from 'react';
-import { Button, Select } from 'antd';
+import { Button, Select, Form } from 'antd';
 import Title from '@/components/Title';
 import IterationTable, { Iteration } from '@/components/IterationTable';
+import useModal from '@/utils/hooks/useModal';
+import { iterationTypes } from '@/constants';
+import NewIterationModal from '@/components/NewIterationModal';
 import { PlusCircleOutlined } from '@ant-design/icons';
+import { useParams } from 'react-router-dom';
+import { getIterationListRequest } from '@/service/apis';
+import { IterationInfo, GetIterationListParams } from '@/service/types';
+import useList from '@/utils/hooks/useList';
 import styles from './index.module.scss';
+
+interface FormValues {
+  creator: 'mine' | 'all';
+  iterationType: string;
+}
+
+interface InitParams {
+  userId: number;
+  appId: number;
+  iterationType: string[];
+}
 
 const { Option } = Select;
 const excludeColumns: string[] = ['appName'];
-const pageSize = 7;
+const PAGE_SIZE = 7;
 
-const data: Iteration[] = [
-  // {
-  //   id: 0,
-  //   key: 0,
-  //   appLogo:
-  //     'https://cavszhouyou-1254093697.cos.ap-chongqing.myqcloud.com/html_logo.png',
-  //   appName: 'homeai-fe/design-service',
-  //   iterationName: '修复锚点偏移问题',
-  //   createTime: '2020/02/02',
-  //   endTime: '15天',
-  //   branch: 'daily/0.0.8',
-  //   creatorAvatar:
-  //     'https://cavszhouyou-1254093697.cos.ap-chongqing.myqcloud.com/avatar',
-  //   creator: '晓天',
-  //   iterationStatus: 'success',
-  //   latestPublish: '2020/02/12',
-  //   latestPublishStatus: 'success'
-  // },
-  // {
-  //   id: 1,
-  //   key: 1,
-  //   appLogo:
-  //     'https://cavszhouyou-1254093697.cos.ap-chongqing.myqcloud.com/html_logo.png',
-  //   appName: 'homeai-fe/design-service',
-  //   iterationName: '修复锚点偏移问题',
-  //   createTime: '2020/02/02',
-  //   endTime: '15天',
-  //   branch: 'daily/0.0.8',
-  //   creatorAvatar:
-  //     'https://cavszhouyou-1254093697.cos.ap-chongqing.myqcloud.com/avatar',
-  //   creator: '晓天',
-  //   iterationStatus: 'failed',
-  //   latestPublish: '2020/02/12',
-  //   latestPublishStatus: 'success'
-  // },
-  // {
-  //   id: 2,
-  //   key: 2,
-  //   appLogo:
-  //     'https://cavszhouyou-1254093697.cos.ap-chongqing.myqcloud.com/html_logo.png',
-  //   appName: 'homeai-fe/design-service',
-  //   iterationName: '修复锚点偏移问题',
-  //   createTime: '2020/02/02',
-  //   endTime: '15天',
-  //   branch: 'daily/0.0.8',
-  //   creatorAvatar:
-  //     'https://cavszhouyou-1254093697.cos.ap-chongqing.myqcloud.com/avatar',
-  //   creator: '晓天',
-  //   iterationStatus: 'progressing',
-  //   latestPublish: '2020/02/12',
-  //   latestPublishStatus: 'success'
-  // },
-  // {
-  //   id: 3,
-  //   key: 3,
-  //   appLogo:
-  //     'https://cavszhouyou-1254093697.cos.ap-chongqing.myqcloud.com/html_logo.png',
-  //   appName: 'homeai-fe/design-service',
-  //   iterationName: '修复锚点偏移问题',
-  //   createTime: '2020/02/02',
-  //   endTime: '15天',
-  //   branch: 'daily/0.0.8',
-  //   creatorAvatar:
-  //     'https://cavszhouyou-1254093697.cos.ap-chongqing.myqcloud.com/avatar',
-  //   creator: '晓天',
-  //   iterationStatus: 'success',
-  //   latestPublish: '2020/02/12',
-  //   latestPublishStatus: 'failed'
-  // },
-  // {
-  //   id: 4,
-  //   key: 4,
-  //   appLogo:
-  //     'https://cavszhouyou-1254093697.cos.ap-chongqing.myqcloud.com/html_logo.png',
-  //   appName: 'homeai-fe/design-service',
-  //   iterationName: '修复锚点偏移问题',
-  //   createTime: '2020/02/02',
-  //   endTime: '15天',
-  //   branch: 'daily/0.0.8',
-  //   creatorAvatar:
-  //     'https://cavszhouyou-1254093697.cos.ap-chongqing.myqcloud.com/avatar',
-  //   creator: '晓天',
-  //   iterationStatus: 'failed',
-  //   latestPublish: '2020/02/12',
-  //   latestPublishStatus: 'success'
-  // },
-  // {
-  //   id: 5,
-  //   key: 5,
-  //   appLogo:
-  //     'https://cavszhouyou-1254093697.cos.ap-chongqing.myqcloud.com/html_logo.png',
-  //   appName: 'homeai-fe/design-service',
-  //   iterationName: '修复锚点偏移问题',
-  //   createTime: '2020/02/02',
-  //   endTime: '15天',
-  //   branch: 'daily/0.0.8',
-  //   creatorAvatar:
-  //     'https://cavszhouyou-1254093697.cos.ap-chongqing.myqcloud.com/avatar',
-  //   creator: '晓天',
-  //   iterationStatus: 'progressing',
-  //   latestPublish: '2020/02/12',
-  //   latestPublishStatus: 'none'
-  // },
-  // {
-  //   id: 6,
-  //   key: 6,
-  //   appLogo:
-  //     'https://cavszhouyou-1254093697.cos.ap-chongqing.myqcloud.com/html_logo.png',
-  //   appName: 'homeai-fe/design-service',
-  //   iterationName: '修复锚点偏移问题',
-  //   createTime: '2020/02/02',
-  //   endTime: '15天',
-  //   branch: 'daily/0.0.8',
-  //   creatorAvatar:
-  //     'https://cavszhouyou-1254093697.cos.ap-chongqing.myqcloud.com/avatar',
-  //   creator: '晓天',
-  //   iterationStatus: 'success',
-  //   latestPublish: '2020/02/12',
-  //   latestPublishStatus: 'success'
-  // },
-  // {
-  //   id: 7,
-  //   key: 7,
-  //   appLogo:
-  //     'https://cavszhouyou-1254093697.cos.ap-chongqing.myqcloud.com/html_logo.png',
-  //   appName: 'homeai-fe/design-service',
-  //   iterationName: '修复锚点偏移问题',
-  //   createTime: '2020/02/02',
-  //   endTime: '15天',
-  //   branch: 'daily/0.0.8',
-  //   creatorAvatar:
-  //     'https://cavszhouyou-1254093697.cos.ap-chongqing.myqcloud.com/avatar',
-  //   creator: '晓天',
-  //   iterationStatus: 'failed',
-  //   latestPublish: '2020/02/12',
-  //   latestPublishStatus: 'success'
-  // },
-  // {
-  //   id: 8,
-  //   key: 8,
-  //   appLogo:
-  //     'https://cavszhouyou-1254093697.cos.ap-chongqing.myqcloud.com/html_logo.png',
-  //   appName: 'homeai-fe/design-service',
-  //   iterationName: '修复锚点偏移问题',
-  //   createTime: '2020/02/02',
-  //   endTime: '15天',
-  //   branch: 'daily/0.0.8',
-  //   creatorAvatar:
-  //     'https://cavszhouyou-1254093697.cos.ap-chongqing.myqcloud.com/avatar',
-  //   creator: '晓天',
-  //   iterationStatus: 'progressing',
-  //   latestPublish: '2020/02/12',
-  //   latestPublishStatus: 'success'
-  // },
-  // {
-  //   id: 9,
-  //   key: 9,
-  //   appLogo:
-  //     'https://cavszhouyou-1254093697.cos.ap-chongqing.myqcloud.com/html_logo.png',
-  //   appName: 'homeai-fe/design-service',
-  //   iterationName: '修复锚点偏移问题',
-  //   createTime: '2020/02/02',
-  //   endTime: '15天',
-  //   branch: 'daily/0.0.8',
-  //   creatorAvatar:
-  //     'https://cavszhouyou-1254093697.cos.ap-chongqing.myqcloud.com/avatar',
-  //   creator: '晓天',
-  //   iterationStatus: 'success',
-  //   latestPublish: '2020/02/12',
-  //   latestPublishStatus: 'failed'
-  // },
-  // {
-  //   id: 10,
-  //   key: 10,
-  //   appLogo:
-  //     'https://cavszhouyou-1254093697.cos.ap-chongqing.myqcloud.com/html_logo.png',
-  //   appName: 'homeai-fe/design-service',
-  //   iterationName: '修复锚点偏移问题',
-  //   createTime: '2020/02/02',
-  //   endTime: '15天',
-  //   branch: 'daily/0.0.8',
-  //   creatorAvatar:
-  //     'https://cavszhouyou-1254093697.cos.ap-chongqing.myqcloud.com/avatar',
-  //   creator: '晓天',
-  //   iterationStatus: 'failed',
-  //   latestPublish: '2020/02/12',
-  //   latestPublishStatus: 'success'
-  // },
-  // {
-  //   id: 11,
-  //   key: 11,
-  //   appLogo:
-  //     'https://cavszhouyou-1254093697.cos.ap-chongqing.myqcloud.com/html_logo.png',
-  //   appName: 'homeai-fe/design-service',
-  //   iterationName: '修复锚点偏移问题',
-  //   createTime: '2020/02/02',
-  //   endTime: '15天',
-  //   branch: 'daily/0.0.8',
-  //   creatorAvatar:
-  //     'https://cavszhouyou-1254093697.cos.ap-chongqing.myqcloud.com/avatar',
-  //   creator: '晓天',
-  //   iterationStatus: 'progressing',
-  //   latestPublish: '2020/02/12',
-  //   latestPublishStatus: 'none'
-  // }
-];
+const initialValues = {
+  iterationType: 'all'
+};
+
+const SearchForm = memo(
+  (props: { form: any; appId: number; updateList: () => void }) => {
+    const { form, updateList, appId } = props;
+    const [visible, showModal, hideModal] = useModal();
+
+    return (
+      <Form
+        layout="inline"
+        form={form}
+        className={styles.form}
+        initialValues={initialValues}
+      >
+        <div className={styles.leftActions}>
+          <Title title="迭代" />
+          <Button className={styles.addButton} type="link" onClick={showModal}>
+            <PlusCircleOutlined className={styles.addIcon} />
+            新建迭代
+          </Button>
+          <NewIterationModal
+            visible={visible}
+            hideModal={hideModal}
+            appId={appId}
+          />
+        </div>
+        <div className={styles.rightActions}>
+          <Form.Item
+            name="iterationType"
+            label="迭代类型"
+            className={styles.iterationType}
+          >
+            <Select className={styles.typeSelect} onChange={updateList}>
+              <Option value="all">全部</Option>
+              {iterationTypes.map((type, index) => (
+                <Option value={type.value} key={index}>
+                  {type.name}
+                </Option>
+              ))}
+            </Select>
+          </Form.Item>
+        </div>
+      </Form>
+    );
+  }
+);
 
 const Header = memo(() => {
   return (
@@ -249,15 +109,52 @@ const Header = memo(() => {
 });
 
 export default memo(function IterationList() {
+  const { appInfo: app } = useParams();
+  const { appId } = JSON.parse(app || '');
+  const initParams = (formValues: FormValues): InitParams => {
+    const userId = parseInt(sessionStorage.getItem('userId') || '');
+    const { iterationType } = formValues;
+    const params: any = {
+      userId,
+      appId
+    };
+
+    // 查询所有状态时，传入 []
+    if (iterationType === 'all') {
+      params.iterationType = [];
+    } else {
+      params.iterationType = [iterationType];
+    }
+
+    return params;
+  };
+  const {
+    form,
+    loading,
+    list,
+    total,
+    page,
+    updateList,
+    onPageChange
+  } = useList<IterationInfo, GetIterationListParams>(
+    PAGE_SIZE,
+    initParams,
+    getIterationListRequest
+  );
+
   return (
     <div className={styles.iterationList}>
-      <Header />
+      <SearchForm form={form} updateList={updateList} appId={appId} />
       <div className={styles.content}>
-        {/* <IterationTable
-          data={data}
+        <IterationTable
           excludeColumns={excludeColumns}
-          pageSize={pageSize}
-        /> */}
+          data={list}
+          loading={loading}
+          total={total}
+          page={page}
+          pageSize={PAGE_SIZE}
+          onPageChange={onPageChange}
+        />
       </div>
     </div>
   );

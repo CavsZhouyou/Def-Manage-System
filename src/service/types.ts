@@ -92,7 +92,7 @@ export interface CreateAppResponse {
 // 获取迭代列表请求参数格式
 export interface GetIterationListParams {
   userId: number;
-  appName?: string;
+  appId?: number;
   creator?: string;
   iterationType: string[];
   page: number;

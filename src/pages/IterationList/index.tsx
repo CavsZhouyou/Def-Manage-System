@@ -16,7 +16,7 @@ import { IterationInfo, GetIterationListParams } from '@/service/types';
 import useList from '@/utils/hooks/useList';
 import useModal from '@/utils/hooks/useModal';
 import { iterationTypes } from '@/constants';
-import NewIterationModal from './components/NewIterationModal';
+import NewIterationModal from '@/components/NewIterationModal';
 import styles from './index.module.scss';
 
 interface FormValues {
@@ -26,8 +26,7 @@ interface FormValues {
 
 interface InitParams {
   userId: number;
-  appName?: string;
-  creator?: string;
+  appId: string;
   iterationType: string[];
 }
 

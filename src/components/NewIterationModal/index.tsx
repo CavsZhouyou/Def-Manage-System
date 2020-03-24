@@ -25,6 +25,7 @@ import { delay } from '@/utils';
 const { Option } = Select;
 
 interface Props {
+  appId?: number;
   visible: boolean;
   hideModal: () => void;
 }
@@ -41,17 +42,25 @@ const formItemLayout = {
 };
 
 export default memo(function NewIterationModal(props: Props) {
-  const { visible, hideModal } = props;
+  const { visible, hideModal, appId } = props;
   const [myAppOptions, setMyAppOptions] = useState<AppOption[]>([]);
   const [branchOptions, setBranchOptions] = useState<BranchOption[]>([]);
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
   const history = useHistory();
   const userId = parseInt(sessionStorage.getItem('userId') || '');
+  const initialValues = {
+    appId
+  };
 
   // 模拟 componentDidmount
   useEffect(() => {
     getAppOptions();
+
+    // 应用确定时，直接获取分支
+    if (initialValues.appId) {
+      getBranchOptions(initialValues.appId);
+    }
   }, []);
 
   // 获取应用列表
@@ -134,7 +143,12 @@ export default memo(function NewIterationModal(props: Props) {
         onCancel={onCancel}
         confirmLoading={loading}
       >
-        <Form {...formItemLayout} form={form} onFinish={submit}>
+        <Form
+          {...formItemLayout}
+          form={form}
+          onFinish={submit}
+          initialValues={initialValues}
+        >
           <Form.Item
             name="appId"
             label="关联应用"
@@ -145,7 +159,11 @@ export default memo(function NewIterationModal(props: Props) {
               }
             ]}
           >
-            <Select placeholder="请关联应用" onChange={onAppIdChange}>
+            <Select
+              placeholder="请关联应用"
+              onChange={onAppIdChange}
+              disabled={!!initialValues.appId}
+            >
               {myAppOptions.map((type, index) => (
                 <Option value={type.appId} key={index}>
                   {type.appName}
