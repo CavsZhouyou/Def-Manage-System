@@ -19,7 +19,6 @@ import {
   SettingFilled
 } from '@ant-design/icons';
 
-const WorkBench = lazy(() => import('@/pages/WorkBench'));
 const Overview = lazy(() => import('./components/Overview'));
 const AppIterationList = lazy(() => import('./components/AppIterationList'));
 const MemberList = lazy(() => import('./components/MemberList'));

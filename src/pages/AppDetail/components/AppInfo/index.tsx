@@ -35,11 +35,11 @@ const Description = (props: DescriptionProps): JSX.Element => {
 
 const initState = {
   description: '暂无',
-  product: 2001,
+  product: '2001',
   repository: '暂无',
   isJoin: false,
   joinTime: '',
-  publishType: 1002,
+  publishType: '1002',
   pagePrefix: '暂无'
 };
 
@@ -59,7 +59,6 @@ export default memo(function AppInfo() {
   )[0].name;
   const productName = productTypes.filter(item => item.value === product)[0]
     .name;
-
   const { appInfo: app } = useParams();
 
   useEffect(() => {
@@ -98,7 +97,7 @@ export default memo(function AppInfo() {
         />
         <Description
           label="加入时间"
-          value={formatTimestamp(parseInt(joinTime || ''))}
+          value={isJoin ? formatTimestamp(parseInt(joinTime || '')) : '未加入'}
         />
         <Description label="发布类型" value={publishTypeName} />
         <Description label="页面前缀" value={pagePrefix} />

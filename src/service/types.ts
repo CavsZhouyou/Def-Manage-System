@@ -68,7 +68,7 @@ export interface AppInfo {
   appId: number;
   appLogo: string;
   appName: string;
-  publishType: number;
+  publishType: string;
   iterationCount: number;
   description: string;
 }
@@ -222,11 +222,11 @@ export interface GetAppBasicInfoParams {
 // 请求应用信息返回数据格式
 export interface GetAppBasicInfo {
   description: string;
-  product: number;
+  product: string;
   repository: string;
   isJoin: boolean;
   joinTime?: string;
-  publishType: number;
+  publishType: string;
   pagePrefix: string;
 }
 
