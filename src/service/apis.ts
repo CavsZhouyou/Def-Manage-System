@@ -38,7 +38,10 @@ import {
   GetAppBasicInfoParams,
   GetAppBasicInfoResponse,
   GetDynamicListParams,
-  GetDynamicListResponse
+  GetDynamicListResponse,
+  GetAppMemberListParams,
+  GetAppMemberListResponse,
+  DeleteAppMemberParams
 } from './types';
 
 export function getToken(): Promise<BaseResponse<TokenResponse>> {
@@ -209,4 +212,24 @@ export function getDynamicListRequest(
   return axios.post<GetDynamicListResponse>('/def/getDynamicList', {
     ...params
   });
+}
+
+/**
+ * 获取应用成员列表请求
+ */
+export function getAppMemberListRequest(
+  params: GetAppMemberListParams
+): Promise<BaseResponse<GetAppMemberListResponse>> {
+  return axios.post<GetAppMemberListResponse>('/def/getAppMemberList', {
+    ...params
+  });
+}
+
+/**
+ * 删除用户请求
+ */
+export function deleteAppMemberRequest(
+  params: DeleteAppMemberParams
+): Promise<BaseResponse<void>> {
+  return axios.post<void>('/def/deleteAppMember', { ...params });
 }

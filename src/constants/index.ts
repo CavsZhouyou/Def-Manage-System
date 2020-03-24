@@ -79,3 +79,18 @@ export const publishStatus = [
     value: '4003'
   }
 ];
+
+export const memberRoles = [
+  {
+    name: '创建者',
+    value: '5001'
+  },
+  {
+    name: '管理员',
+    value: '5002'
+  },
+  {
+    name: '开发者',
+    value: '5003'
+  }
+];

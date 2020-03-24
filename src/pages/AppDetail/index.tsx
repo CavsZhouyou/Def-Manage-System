@@ -35,7 +35,7 @@ export default memo(function AppDetail() {
     <div className={styles.appDetail}>
       <NavBar />
       <div className={styles.contentWrapper}>
-        <Tabs defaultActiveKey="2" animated={true}>
+        <Tabs defaultActiveKey="3" animated={true}>
           {routes.map(route => (
             <TabPane
               tab={

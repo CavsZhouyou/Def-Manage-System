@@ -253,3 +253,28 @@ export interface DynamicInfo {
 }
 
 export type GetDynamicListResponse = ListResponse<DynamicInfo>;
+
+// 请求应用成员列表参数格式
+export interface GetAppMemberListParams {
+  page: number;
+  pageSize: number;
+}
+
+// 请求应用成员列表返回数据格式
+export interface MemberInfo {
+  userId: number;
+  userName: string;
+  userAvatar: string;
+  joinTime: string;
+  expiredTime: string;
+  lastPublishTime: string;
+  role: string;
+}
+
+export type GetAppMemberListResponse = ListResponse<MemberInfo>;
+
+// 删除应用成员参数格式
+export interface DeleteAppMemberParams {
+  appId: number;
+  userId: number;
+}
