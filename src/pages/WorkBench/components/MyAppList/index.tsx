@@ -80,23 +80,23 @@ const App = memo((props: AppInfo) => {
 });
 
 export default memo(function MyAppList() {
-  const { loading, listData, loadMore } = useLoadMore<AppInfo>([], getData);
+  // const { loading, listData, loadMore } = useLoadMore<AppInfo>([], getData);
 
-  useEffect(() => {
-    // 初始化列表数据
-    loadMore(5);
-  }, []);
+  // useEffect(() => {
+  //   // 初始化列表数据
+  //   loadMore(5);
+  // }, []);
 
   return (
     <div className={styles.myAppList}>
       <Header />
       <div className={commonStyles.content}>
-        <List
+        {/* <List
           itemLayout="horizontal"
           loadMore={<LoadMore loading={loading} loadMore={loadMore} />}
           dataSource={listData}
           renderItem={(item: AppInfo): JSX.Element => <App {...item} />}
-        />
+        /> */}
       </div>
     </div>
   );

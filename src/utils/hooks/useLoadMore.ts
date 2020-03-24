@@ -8,13 +8,16 @@
  */
 
 import { useState, useCallback, useRef } from 'react';
+import { BaseResponse, ListResponse } from '@/service/types';
+import { message } from 'antd';
 
 export interface UseLoadMoreReturnValue<T> {
   loading: boolean;
   setLoading: (loading: boolean) => void;
   listData: T[];
   setListData: (list: T[]) => void;
-  loadMore: (count?: number) => void;
+  loadMore: (count?: number) => Promise<void>;
+  hasMore: boolean;
 }
 
 /**
@@ -28,14 +31,19 @@ export interface UseLoadMoreReturnValue<T> {
  */
 export default function useLoadMore<T>(
   data: T[],
-  getData: (count: number) => Promise<T[]>
+  getData: (
+    loadedCount: number,
+    count: number
+  ) => Promise<BaseResponse<ListResponse<T>>>
 ): UseLoadMoreReturnValue<T> {
   const [loading, setLoading] = useState<boolean>(false);
+  const [hasMore, setHasMore] = useState<boolean>(true);
   const [listData, setListData] = useState<T[]>(data);
   const listRef = useRef<T[]>(data);
+  const loadedCountRef = useRef<number>(0);
 
   const loadMore = useCallback(
-    (count = 3) => {
+    async (count = 3) => {
       // 解决默认参数值没有生效问题
       count = typeof count === 'number' ? count : 3;
 
@@ -50,17 +58,29 @@ export default function useLoadMore<T>(
       });
 
       // 获取 list 数据
-      getData(count).then(result => {
-        setLoading(false);
+      const result = await getData(loadedCountRef.current, count);
+
+      if (result.success) {
         setListData(preState => {
-          listRef.current = listRef.current.concat(result);
+          listRef.current = listRef.current.concat(result.data.list);
 
           return listRef.current;
         });
-      });
+
+        setLoading(false);
+
+        if (!result.data.hasMore) {
+          setHasMore(false);
+        }
+
+        loadedCountRef.current = loadedCountRef.current + count;
+      } else {
+        message.error(result.message);
+        setLoading(false);
+      }
     },
     [getData, data]
   );
 
-  return { loading, setLoading, listData, setListData, loadMore };
+  return { loading, setLoading, listData, setListData, loadMore, hasMore };
 }

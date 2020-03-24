@@ -12,54 +12,52 @@ import { List, Avatar, Skeleton } from 'antd';
 import LoadMore from '@/components/LoadMore';
 import Title from '@/components/Title';
 import useLoadMore from '@/utils/hooks/useLoadMore';
+import {
+  DynamicInfo,
+  BaseResponse,
+  GetDynamicListResponse
+} from '@/service/types';
+import { getDynamicListRequest } from '@/service/apis';
+import { formatTimeToInterval } from '@/utils';
 import styles from './index.module.scss';
 
-interface DynamicInfo {
-  name: string;
-  avatar: string;
-  date: string;
-  action: string;
-  app: string;
-  loading?: boolean;
-}
-
-const data: DynamicInfo[] = [
-  {
-    name: '晓天',
-    avatar:
-      'https://cavszhouyou-1254093697.cos.ap-chongqing.myqcloud.com/avatar',
-    date: '2020/10/2',
-    action: '完成了迭代修改锚点偏移问题',
-    app: 'homeai-fe/design-service'
-  }
-];
-
-const getData = (count: number): Promise<DynamicInfo[]> => {
-  return new Promise<DynamicInfo[]>((resolve, reject) => {
-    setTimeout(() => {
-      resolve([...new Array(count)].map(() => data[0]));
-    }, 2000);
-  });
+const getData = (userId: number, appId?: number) => {
+  return (
+    loadedCount: number,
+    count: number
+  ): Promise<BaseResponse<GetDynamicListResponse>> => {
+    return getDynamicListRequest({
+      userId,
+      appId,
+      loadedCount,
+      count
+    });
+  };
 };
 
-const Dynamic = memo((props: DynamicInfo) => {
-  const { name, avatar, date, action, app, loading } = props;
+const Dynamic = memo((props: any) => {
+  const { userAvatar, operateTime, content, loading } = props;
 
   return (
     <List.Item>
       <Skeleton avatar title={false} loading={loading} active>
         <List.Item.Meta
-          avatar={<Avatar size={40} src={avatar} />}
-          title={date}
-          description={`${name}${action}  [${app}]`}
+          avatar={<Avatar size={40} src={userAvatar} />}
+          title={formatTimeToInterval(operateTime)}
+          description={content}
         />
       </Skeleton>
     </List.Item>
   );
 });
 
-export default memo(function DynamicList() {
-  const { loading, listData, loadMore } = useLoadMore<DynamicInfo>([], getData);
+export default memo(function DynamicList(props: { appId?: number }) {
+  const userId = parseInt(sessionStorage.getItem('userId') || '');
+  const { appId } = props;
+  const { loading, listData, loadMore, hasMore } = useLoadMore<DynamicInfo>(
+    [],
+    getData(userId, appId)
+  );
 
   useEffect(() => {
     // 初始化列表数据
@@ -74,7 +72,9 @@ export default memo(function DynamicList() {
       <div className={styles.content}>
         <List
           itemLayout="horizontal"
-          loadMore={<LoadMore loading={loading} loadMore={loadMore} />}
+          loadMore={
+            <LoadMore loading={loading} loadMore={loadMore} hasMore={hasMore} />
+          }
           dataSource={listData}
           renderItem={(item: DynamicInfo): JSX.Element => <Dynamic {...item} />}
         />

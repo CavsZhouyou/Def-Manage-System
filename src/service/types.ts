@@ -19,6 +19,7 @@ export interface ListResponse<T> {
   page: number;
   pageSize: number;
   total: number;
+  hasMore: boolean;
   list: T[];
 }
 
@@ -162,6 +163,8 @@ export interface GetAppBranchesResponse {
 // 请求用户列表参数格式
 export interface GetUserListParams {
   userName?: string;
+  page: number;
+  pageSize: number;
 }
 
 // 请求用户列表返回数据格式
@@ -231,3 +234,22 @@ export interface GetAppBasicInfo {
 }
 
 export type GetAppBasicInfoResponse = GetAppBasicInfo;
+
+// 请求动态列表参数格式
+export interface GetDynamicListParams {
+  userId: number;
+  appId?: number;
+  loadedCount: number;
+  count: number;
+}
+
+// 请求用户列表返回数据格式
+export interface DynamicInfo {
+  dynamicId: number;
+  userName: string;
+  userAvatar: string;
+  content: string;
+  operateTime: string;
+}
+
+export type GetDynamicListResponse = ListResponse<DynamicInfo>;

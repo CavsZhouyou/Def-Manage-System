@@ -36,7 +36,9 @@ import {
   AddUserParams,
   AddUserResponse,
   GetAppBasicInfoParams,
-  GetAppBasicInfoResponse
+  GetAppBasicInfoResponse,
+  GetDynamicListParams,
+  GetDynamicListResponse
 } from './types';
 
 export function getToken(): Promise<BaseResponse<TokenResponse>> {
@@ -195,6 +197,16 @@ export function getAppBasicInfoRequest(
   params: GetAppBasicInfoParams
 ): Promise<BaseResponse<GetAppBasicInfoResponse>> {
   return axios.post<GetAppBasicInfoResponse>('/def/getAppBasicInfo', {
+    ...params
+  });
+}
+/**
+ * 获取动态列表请求
+ */
+export function getDynamicListRequest(
+  params: GetDynamicListParams
+): Promise<BaseResponse<GetDynamicListResponse>> {
+  return axios.post<GetDynamicListResponse>('/def/getDynamicList', {
     ...params
   });
 }

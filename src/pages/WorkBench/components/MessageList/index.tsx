@@ -75,23 +75,23 @@ const Header = memo(() => {
 });
 
 export default memo(function MessageList() {
-  const { loading, listData, loadMore } = useLoadMore<MessageInfo>([], getData);
+  // const { loading, listData, loadMore } = useLoadMore<MessageInfo>([], getData);
 
-  useEffect(() => {
-    // 初始化列表数据
-    loadMore(3);
-  }, []);
+  // useEffect(() => {
+  //   // 初始化列表数据
+  //   loadMore(3);
+  // }, []);
 
   return (
     <div className={styles.messageList}>
       <Header />
       <div className={commonStyles.content}>
-        <List
+        {/* <List
           itemLayout="horizontal"
           loadMore={<LoadMore loading={loading} loadMore={loadMore} />}
           dataSource={listData}
           renderItem={(item: MessageInfo): JSX.Element => <Message {...item} />}
-        />
+        /> */}
       </div>
     </div>
   );

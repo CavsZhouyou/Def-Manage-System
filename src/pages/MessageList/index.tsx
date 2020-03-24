@@ -58,11 +58,11 @@ const MessageItem = memo((props: Message) => {
 });
 
 export default memo(function MessageList() {
-  const { loading, listData, loadMore } = useLoadMore<Message>([], getData);
+  // const { loading, listData, loadMore } = useLoadMore<Message>([], getData);
 
   useEffect(() => {
     // 初始化列表数据
-    loadMore(7);
+    // loadMore(7);
   }, []);
   return (
     <div className={styles.messageList}>
@@ -73,12 +73,12 @@ export default memo(function MessageList() {
         </Radio.Group>
       </div>
       <div className={styles.content}>
-        <List
+        {/* <List
           itemLayout="horizontal"
           loadMore={<LoadMore loading={loading} loadMore={loadMore} />}
           dataSource={listData}
           renderItem={(item: Message): JSX.Element => <MessageItem {...item} />}
-        />
+        /> */}
       </div>
     </div>
   );

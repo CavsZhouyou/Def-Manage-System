@@ -8,13 +8,17 @@
  */
 
 import React, { memo } from 'react';
+import { useParams } from 'react-router-dom';
 import { Row, Col } from 'antd';
+import DynamicList from '@/components/DynamicList';
 import AppInfo from '../AppInfo';
 import AppProgressingIterationList from '../AppProgressingIterationList';
-import DynamicList from '@/components/DynamicList';
 import styles from './index.module.scss';
 
 export default memo(function Overview() {
+  const { appInfo: app } = useParams();
+  const { appId } = JSON.parse(app || '');
+
   return (
     <div className={styles.overview}>
       <Row gutter={[16, 15]}>
@@ -23,7 +27,7 @@ export default memo(function Overview() {
           <AppProgressingIterationList />
         </Col>
         <Col span={8}>
-          <DynamicList></DynamicList>
+          <DynamicList appId={appId} />
         </Col>
       </Row>
     </div>

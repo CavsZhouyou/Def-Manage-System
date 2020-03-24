@@ -13,12 +13,15 @@ import IconFont from '@/components/IconFont';
 import styles from './index.module.scss';
 
 interface Props {
+  hasMore: boolean;
   loading: boolean;
   loadMore: () => void;
 }
 
 export default memo(function LoadMore(props: Props) {
-  const { loading, loadMore } = props;
+  const { hasMore, loading, loadMore } = props;
+
+  if (!hasMore) return null;
 
   if (loading)
     return (
