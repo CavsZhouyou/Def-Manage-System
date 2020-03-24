@@ -46,6 +46,10 @@ export default memo(function AppProgressingIterationList() {
       iterationType: ['3002']
     };
   };
+  const { loading, list, total, page, onPageChange } = useList<
+    IterationInfo,
+    GetIterationListParams
+  >(PAGE_SIZE, initParams, getIterationListRequest);
 
   return (
     <div className={styles.appProgressingIterationList}>
@@ -53,11 +57,15 @@ export default memo(function AppProgressingIterationList() {
         <Title title="进行中的迭代" />
       </div>
       <div className={styles.content}>
-        {/* <IterationTable
-          data={data}
+        <IterationTable
           excludeColumns={excludeColumns}
-          pageSize={pageSize}
-        /> */}
+          data={list}
+          loading={loading}
+          total={total}
+          page={page}
+          pageSize={PAGE_SIZE}
+          onPageChange={onPageChange}
+        />
       </div>
     </div>
   );
