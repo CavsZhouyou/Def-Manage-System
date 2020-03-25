@@ -1,10 +1,10 @@
 /*
  * @Author: zhouyou@werun
- * @Descriptions: 不通过审阅 Modal
+ * @Descriptions: 版本回退 modal
  * @TodoList: 无
- * @Date: 2020-03-25 17:59:38
+ * @Date: 2020-03-25 19:50:27
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-25 19:50:42
+ * @Last Modified time: 2020-03-25 20:02:11
  */
 
 import React, { memo, useState, useCallback } from 'react';

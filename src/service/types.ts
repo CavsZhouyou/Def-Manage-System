@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-09 19:00:23
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-25 18:05:18
+ * @Last Modified time: 2020-03-25 19:56:59
  */
 
 // 基本返回数据格式
@@ -370,3 +370,20 @@ export interface ReviewPublishParams {
   reviewResult: 'pass' | 'fail';
   failReason?: string;
 }
+
+// 请求页面列表参数格式
+export interface GetPageListParams {
+  appId: number;
+}
+
+// 请求页面列表返回数据格式
+export interface PageInfo {
+  pageId: number;
+  pageName: string;
+  version: string;
+  versionId: number;
+  lastUpdateTime: string;
+  onlineAddress: string;
+}
+
+export type GetPageListResponse = ListResponse<PageInfo>;

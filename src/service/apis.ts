@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-09 17:00:55
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-25 12:01:46
+ * @Last Modified time: 2020-03-25 19:36:24
  */
 
 import axios from './request';
@@ -50,7 +50,9 @@ import {
   GetMemberOptionsResponse,
   GetCodeReviewListParams,
   GetCodeReviewListResponse,
-  ReviewPublishParams
+  ReviewPublishParams,
+  GetPageListParams,
+  GetPageListResponse
 } from './types';
 
 export function getToken(): Promise<BaseResponse<TokenResponse>> {
@@ -301,4 +303,15 @@ export function reviewPublishRequest(
   params: ReviewPublishParams
 ): Promise<BaseResponse<void>> {
   return axios.post<void>('/def/reviewPublish', { ...params });
+}
+
+/**
+ * 获取页面列表请求
+ */
+export function getPageListRequest(
+  params: GetPageListParams
+): Promise<BaseResponse<GetPageListResponse>> {
+  return axios.post<GetPageListResponse>('/def/getPageList', {
+    ...params
+  });
 }
