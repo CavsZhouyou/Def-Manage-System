@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-09 19:00:23
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-25 19:56:59
+ * @Last Modified time: 2020-03-25 20:32:29
  */
 
 // 基本返回数据格式
@@ -105,6 +105,8 @@ export interface IterationInfo {
   appId: number;
   appLogo: string;
   appName: string;
+  version: string;
+  versionId: number;
   iterationName: string;
   createTime: string;
   endTime: string;
@@ -227,6 +229,7 @@ export interface GetAppBasicInfo {
   description: string;
   product: string;
   repository: string;
+  onlineAddress: string;
   isJoin: boolean;
   joinTime?: string;
   publishType: string;
@@ -387,3 +390,10 @@ export interface PageInfo {
 }
 
 export type GetPageListResponse = ListResponse<PageInfo>;
+
+// 版本回滚参数格式
+export interface RollbackVersionParams {
+  appId: number;
+  userId: number;
+  rollbackVersionId: number;
+}

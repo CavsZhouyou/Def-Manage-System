@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-09 17:00:55
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-25 19:36:24
+ * @Last Modified time: 2020-03-25 20:33:17
  */
 
 import axios from './request';
@@ -52,7 +52,8 @@ import {
   GetCodeReviewListResponse,
   ReviewPublishParams,
   GetPageListParams,
-  GetPageListResponse
+  GetPageListResponse,
+  RollbackVersionParams
 } from './types';
 
 export function getToken(): Promise<BaseResponse<TokenResponse>> {
@@ -314,4 +315,13 @@ export function getPageListRequest(
   return axios.post<GetPageListResponse>('/def/getPageList', {
     ...params
   });
+}
+
+/**
+ * 版本回退请求
+ */
+export function rollbackVersionRequest(
+  params: RollbackVersionParams
+): Promise<BaseResponse<void>> {
+  return axios.post<void>('/def/reviewPublish', { ...params });
 }

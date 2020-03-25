@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-13 19:55:33
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-16 09:13:24
+ * @Last Modified time: 2020-03-25 20:11:15
  */
 
 import React, { lazy } from 'react';
@@ -58,14 +58,14 @@ export default [
     icon: (): JSX.Element => <SecurityScanFilled />,
     component: SuspenseWrapper(CodeReviewList)
   },
+  // {
+  //   key: '6',
+  //   name: '页面列表',
+  //   icon: (): JSX.Element => <FileFilled />,
+  //   component: SuspenseWrapper(PageList)
+  // },
   {
     key: '6',
-    name: '页面列表',
-    icon: (): JSX.Element => <FileFilled />,
-    component: SuspenseWrapper(PageList)
-  },
-  {
-    key: '7',
     name: '设置',
     icon: (): JSX.Element => <SettingFilled />,
     component: SuspenseWrapper(AppSettings)

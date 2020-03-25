@@ -31,7 +31,7 @@ interface InitParams {
 }
 
 const { Option } = Select;
-const excludeColumns: string[] = [];
+const excludeColumns: string[] = ['action', 'version'];
 const PAGE_SIZE = 7;
 
 const initialValues = {

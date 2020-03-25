@@ -37,6 +37,7 @@ const initState = {
   description: '暂无',
   product: '2001',
   repository: '暂无',
+  onlineAddress: '未发布',
   isJoin: false,
   joinTime: '',
   publishType: '1002',
@@ -52,7 +53,8 @@ export default memo(function AppInfo() {
     isJoin,
     joinTime,
     publishType,
-    pagePrefix
+    pagePrefix,
+    onlineAddress
   } = appInfo;
   const publishTypeName = publishTypes.filter(
     item => item.value === publishType
@@ -101,6 +103,10 @@ export default memo(function AppInfo() {
         />
         <Description label="发布类型" value={publishTypeName} />
         <Description label="页面前缀" value={pagePrefix} />
+        <Description
+          label="线上地址"
+          value={<a href={onlineAddress}>{onlineAddress}</a>}
+        />
       </div>
     </div>
   );
