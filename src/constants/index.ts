@@ -94,3 +94,22 @@ export const memberRoles = [
     value: '5003'
   }
 ];
+
+export const useTimeTypes = [
+  {
+    name: '一个月',
+    value: '6001'
+  },
+  {
+    name: '三个月',
+    value: '6002'
+  },
+  {
+    name: '半年',
+    value: '6003'
+  },
+  {
+    name: '一年',
+    value: '6004'
+  }
+];

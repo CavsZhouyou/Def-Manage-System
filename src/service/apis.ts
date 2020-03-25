@@ -41,7 +41,8 @@ import {
   GetDynamicListResponse,
   GetAppMemberListParams,
   GetAppMemberListResponse,
-  DeleteAppMemberParams
+  DeleteAppMemberParams,
+  AddAppMemberParams
 } from './types';
 
 export function getToken(): Promise<BaseResponse<TokenResponse>> {
@@ -232,4 +233,13 @@ export function deleteAppMemberRequest(
   params: DeleteAppMemberParams
 ): Promise<BaseResponse<void>> {
   return axios.post<void>('/def/deleteAppMember', { ...params });
+}
+
+/**
+ * 添加应用成员请求
+ */
+export function addAppMemberRequest(
+  params: AddAppMemberParams
+): Promise<BaseResponse<void>> {
+  return axios.post<void>('/def/addAppMember', { ...params });
 }

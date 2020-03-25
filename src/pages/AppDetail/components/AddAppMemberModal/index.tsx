@@ -1,22 +1,20 @@
-/*
- * @Author: zhouyou@werun
- * @Descriptions: 新增用户 modal
- * @TodoList: 无
- * @Date: 2020-03-23 15:49:22
- * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-23 16:32:30
- */
-
 import React, { memo, useState, useCallback, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Modal, Form, Input, Select, message } from 'antd';
-import { AddUserParams, DepartmentOption, PostOption } from '@/service/types';
+import {
+  AddUserParams,
+  DepartmentOption,
+  PostOption,
+  AddAppMemberParams
+} from '@/service/types';
 import {
   addUserRequest,
   getDepartmentListRequest,
-  getPostListRequest
+  getPostListRequest,
+  addAppMemberRequest
 } from '@/service/apis';
-import { useHistory } from 'react-router-dom';
 import { delay } from '@/utils';
+import { memberRoles, useTimeTypes } from '@/constants';
 
 const { Option } = Select;
 
@@ -37,53 +35,20 @@ const formItemLayout = {
   }
 };
 
-export default memo(function AddUserModal(props: Props) {
+export default memo(function AddAppMemberModal(props: Props) {
   const { visible, hideModal, updateList } = props;
   const [loading, setLoading] = useState(false);
-  const [departmentOptions, setDepartmentOptions] = useState<
-    DepartmentOption[]
-  >([]);
-  const [postOptions, setPostOptions] = useState<PostOption[]>([]);
   const [form] = Form.useForm();
   const history = useHistory();
 
-  useEffect(() => {
-    getDepartmentOptions();
-    getPostOptions();
-  }, []);
-
-  // 获取部门列表
-  const getDepartmentOptions = useCallback(async () => {
-    const result = await getDepartmentListRequest();
-
-    if (result.success) {
-      setDepartmentOptions(result.data.list);
-    } else {
-      setDepartmentOptions([]);
-      message.error(result.message);
-    }
-  }, []);
-
-  // 获取职位列表
-  const getPostOptions = useCallback(async () => {
-    const result = await getPostListRequest();
-
-    if (result.success) {
-      setPostOptions(result.data.list);
-    } else {
-      setPostOptions([]);
-      message.error(result.message);
-    }
-  }, []);
-
-  const addUser = useCallback(
-    async (params: AddUserParams): Promise<void> => {
+  const addAppMember = useCallback(
+    async (params: AddAppMemberParams): Promise<void> => {
       setLoading(true);
 
-      const result = await addUserRequest(params);
+      const result = await addAppMemberRequest(params);
 
       if (result.success) {
-        message.success('创建成功！');
+        message.success('添加成功！');
         await delay(1000);
 
         setLoading(false);
@@ -100,15 +65,15 @@ export default memo(function AddUserModal(props: Props) {
 
   const submit = useCallback(() => {
     form.validateFields().then(values => {
-      const { userName, department, post } = values;
+      const { userName, role, useTime } = values;
 
-      addUser({
+      addAppMember({
         userName,
-        department,
-        post
+        useTime,
+        role
       });
     });
-  }, [form, addUser]);
+  }, [form, addAppMember]);
 
   const onCancel = useCallback(() => {
     form.resetFields();
@@ -118,7 +83,7 @@ export default memo(function AddUserModal(props: Props) {
   return (
     <div>
       <Modal
-        title="新增用户"
+        title="添加应用成员"
         visible={visible}
         onOk={submit}
         onCancel={onCancel}
@@ -140,37 +105,37 @@ export default memo(function AddUserModal(props: Props) {
             <Input placeholder="请输入用户名称" />
           </Form.Item>
           <Form.Item
-            name="department"
-            label="所属部门"
+            name="role"
+            label="成员角色"
             rules={[
               {
                 required: true,
-                message: '所属部门不能为空！'
+                message: '成员角色不能为空！'
               }
             ]}
           >
-            <Select placeholder="请选择所属部门">
-              {departmentOptions.map((type, index) => (
-                <Option value={type.departmentId} key={index}>
-                  {type.departmentName}
+            <Select placeholder="请选择成员角色">
+              {memberRoles.map((type, index) => (
+                <Option value={type.value} key={index}>
+                  {type.name}
                 </Option>
               ))}
             </Select>
           </Form.Item>
           <Form.Item
-            name="post"
-            label="用户职位"
+            name="useTime"
+            label="使用时长"
             rules={[
               {
                 required: true,
-                message: '用户职位不能为空！'
+                message: '使用时间不能为空！'
               }
             ]}
           >
-            <Select placeholder="请选择用户职位">
-              {postOptions.map((type, index) => (
-                <Option value={type.postId} key={index}>
-                  {type.postName}
+            <Select placeholder="请选择使用时长">
+              {useTimeTypes.map((type, index) => (
+                <Option value={type.value} key={index}>
+                  {type.name}
                 </Option>
               ))}
             </Select>

@@ -278,3 +278,10 @@ export interface DeleteAppMemberParams {
   appId: number;
   userId: number;
 }
+
+// 添加应用成员参数格式
+export interface AddAppMemberParams {
+  userName: string;
+  useTime: string;
+  role: string;
+}

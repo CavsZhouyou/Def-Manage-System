@@ -19,8 +19,10 @@ import {
   deleteAppMemberRequest
 } from '@/service/apis';
 import useList from '@/utils/hooks/useList';
+import useModal from '@/utils/hooks/useModal';
 import { formatTimestamp, formatTimeToInterval } from '@/utils';
 import { memberRoles } from '@/constants';
+import AddAppMemberModal from '../AddAppMemberModal';
 import styles from './index.module.scss';
 
 const PAGE_SIZE = 5;
@@ -132,6 +134,7 @@ const showTotal = (total: number): string => `共 ${total} 条`;
 const rowKey = (record: MemberInfo): number => record.userId;
 
 export default memo(function MemberList() {
+  const [visible, showModal, hideModal] = useModal();
   const { loading, list, total, page, onPageChange, updateList } = useList<
     MemberInfo,
     GetAppMemberListParams
@@ -147,7 +150,16 @@ export default memo(function MemberList() {
     <div className={styles.memberList}>
       <div className={styles.header}>
         <Title title="成员列表" />
-        <Button type="primary">添加成员</Button>
+        <div>
+          <Button type="primary" onClick={showModal}>
+            添加成员
+          </Button>
+          <AddAppMemberModal
+            visible={visible}
+            hideModal={hideModal}
+            updateList={updateList}
+          />
+        </div>
       </div>
       <div className={styles.content}>
         <Table<MemberInfo>
