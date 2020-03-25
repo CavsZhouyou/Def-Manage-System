@@ -8,7 +8,7 @@
  */
 import React, { memo, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { Avatar, Tag, Table, Button } from 'antd';
+import { Avatar, Tag, Table } from 'antd';
 import { ClockCircleOutlined } from '@ant-design/icons';
 import { ColumnProps } from 'antd/es/table';
 import { PublishInfo } from '@/service/types';

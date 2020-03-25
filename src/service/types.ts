@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-09 19:00:23
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-25 12:18:26
+ * @Last Modified time: 2020-03-25 18:05:18
  */
 
 // 基本返回数据格式
@@ -335,3 +335,38 @@ export interface MemberOption {
 }
 
 export type GetMemberOptionsResponse = ListResponse<MemberOption>;
+
+// 获取代码审阅列表请求参数格式
+export interface GetCodeReviewListParams {
+  userId: number;
+  appId: number;
+  page: number;
+  pageSize: number;
+}
+
+// 请求迭代列表返回数据格式
+export interface CodeReviewInfo {
+  reviewId: number;
+  createTime: string;
+  iterationName: string;
+  iterationId: number;
+  reviewTitle: string;
+  version: string;
+  creator: string;
+  creatorAvatar: string;
+  reviewer: string;
+  reviewerId: number;
+  reviewerAvatar: string;
+  reviewStatus: string;
+  failReason?: string;
+}
+
+export type GetCodeReviewListResponse = ListResponse<CodeReviewInfo>;
+
+// 审核代码发布参数格式
+export interface ReviewPublishParams {
+  userId: number;
+  reviewId: number;
+  reviewResult: 'pass' | 'fail';
+  failReason?: string;
+}

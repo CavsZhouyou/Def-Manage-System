@@ -47,7 +47,10 @@ import {
   GetPublishListParams,
   GetPublishListResponse,
   GetMemberOptionsParams,
-  GetMemberOptionsResponse
+  GetMemberOptionsResponse,
+  GetCodeReviewListParams,
+  GetCodeReviewListResponse,
+  ReviewPublishParams
 } from './types';
 
 export function getToken(): Promise<BaseResponse<TokenResponse>> {
@@ -278,4 +281,24 @@ export function getMemberOptionsRequest(
   return axios.post<GetMemberOptionsResponse>('/def/getMemberOptions', {
     ...params
   });
+}
+
+/**
+ * 获取代码审核记录请求
+ */
+export function getCodeReviewListRequest(
+  params: GetCodeReviewListParams
+): Promise<BaseResponse<GetCodeReviewListResponse>> {
+  return axios.post<GetCodeReviewListResponse>('/def/getCodeReviewList', {
+    ...params
+  });
+}
+
+/**
+ * 审核发布请求
+ */
+export function reviewPublishRequest(
+  params: ReviewPublishParams
+): Promise<BaseResponse<void>> {
+  return axios.post<void>('/def/reviewPublish', { ...params });
 }

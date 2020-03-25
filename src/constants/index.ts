@@ -124,3 +124,18 @@ export const publishEnvTypes = [
     value: 'daily'
   }
 ];
+
+export const reviewStatus = [
+  {
+    name: '通过',
+    value: '7001'
+  },
+  {
+    name: '未通过',
+    value: '7002'
+  },
+  {
+    name: '审核中',
+    value: '7003'
+  }
+];
