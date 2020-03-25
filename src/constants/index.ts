@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-19 20:38:22
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-23 17:24:22
+ * @Last Modified time: 2020-03-25 12:22:08
  */
 
 export const publishTypes = [
@@ -73,11 +73,11 @@ export const publishStatus = [
   {
     name: '发布失败',
     value: '4002'
-  },
-  {
-    name: '未发布',
-    value: '4003'
   }
+  // {
+  //   name: '未发布',
+  //   value: '4003'
+  // }
 ];
 
 export const memberRoles = [
@@ -111,5 +111,16 @@ export const useTimeTypes = [
   {
     name: '一年',
     value: '6004'
+  }
+];
+
+export const publishEnvTypes = [
+  {
+    name: '线上',
+    value: 'online'
+  },
+  {
+    name: '日常',
+    value: 'daily'
   }
 ];

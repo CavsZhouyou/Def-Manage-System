@@ -7,7 +7,6 @@
  * @Last Modified time: 2020-03-25 11:03:14
  */
 import React, { memo, useState, useCallback } from 'react';
-import { useHistory } from 'react-router-dom';
 import { Modal, Form, Input, Select, message } from 'antd';
 import { AddAppMemberParams } from '@/service/types';
 import { addAppMemberRequest } from '@/service/apis';
@@ -37,7 +36,6 @@ export default memo(function AddAppMemberModal(props: Props) {
   const { visible, hideModal, updateList } = props;
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
-  const history = useHistory();
 
   const addAppMember = useCallback(
     async (params: AddAppMemberParams): Promise<void> => {

@@ -4,43 +4,39 @@
  * @TodoList: 无
  * @Date: 2020-03-15 19:22:02
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-16 20:34:53
+ * @Last Modified time: 2020-03-25 12:15:34
  */
 import React, { memo, useMemo } from 'react';
+import { Link } from 'react-router-dom';
 import { Avatar, Tag, Table, Button } from 'antd';
-import { ColumnProps } from 'antd/es/table';
 import { ClockCircleOutlined } from '@ant-design/icons';
+import { ColumnProps } from 'antd/es/table';
+import { PublishInfo } from '@/service/types';
+import { publishTypes } from '@/constants';
+import { formatTimestamp } from '@/utils';
 import styles from './index.module.scss';
 
-export interface Publish {
-  id: number;
-  key: number;
-  createTime: string;
-  iterationName: string;
-  version: string;
-  publisher: string;
-  publisherAvatar: string;
-  commit: string;
-  publishType: string;
-  publishEnv: string;
-  publishStatus: string;
-}
-
 interface Props {
-  data: Publish[];
+  data: PublishInfo[];
   excludeColumns: string[];
+  loading: boolean;
+  total: number;
+  page: number;
   pageSize: number;
+  onPageChange: (current: number, pageSize?: number | undefined) => void;
 }
 
-const columns: ColumnProps<Publish>[] = [
+const columns: ColumnProps<PublishInfo>[] = [
   {
     title: '创建时间',
     dataIndex: 'createTime',
     key: 'createTime',
-    render: (text: string, record: Publish): JSX.Element => (
+    render: (text: string, record: PublishInfo): JSX.Element => (
       <div>
         <ClockCircleOutlined />
-        <span className={styles.createTime}>{text}</span>
+        <span className={styles.createTime}>
+          {formatTimestamp(parseInt(text || ''))}
+        </span>
       </div>
     )
   },
@@ -48,7 +44,9 @@ const columns: ColumnProps<Publish>[] = [
     title: '迭代名称',
     dataIndex: 'iterationName',
     key: 'iterationName',
-    render: (text: string): JSX.Element => <a>{text}</a>
+    render: (text: string, record: PublishInfo): JSX.Element => (
+      <Link to={`/home/iterationDetail/${record.iterationId}`}>{text}</Link>
+    )
   },
   {
     title: '版本号',
@@ -59,7 +57,7 @@ const columns: ColumnProps<Publish>[] = [
     title: '发布人',
     dataIndex: 'publisher',
     key: 'publisher',
-    render: (text: string, record: Publish): JSX.Element => (
+    render: (text: string, record: PublishInfo): JSX.Element => (
       <div>
         <Avatar
           className={styles.publisherAvatar}
@@ -79,7 +77,10 @@ const columns: ColumnProps<Publish>[] = [
   {
     title: '发布类型',
     dataIndex: 'publishType',
-    key: 'publishType'
+    key: 'publishType',
+    render: (text: string) => {
+      return publishTypes.filter(item => item.value === text)[0].name;
+    }
   },
   {
     title: '发布环境',
@@ -102,7 +103,7 @@ const columns: ColumnProps<Publish>[] = [
     align: 'center',
     render: (text: string): JSX.Element => {
       switch (text) {
-        case 'success':
+        case '4001':
           return <Tag color="green">成功</Tag>;
         default:
           return <Tag color="red">失败</Tag>;
@@ -112,12 +113,8 @@ const columns: ColumnProps<Publish>[] = [
   {
     title: '操作',
     key: 'action',
-    render: (text, record) => (
-      <span>
-        <Button className={styles.link} type="link">
-          查看
-        </Button>
-      </span>
+    render: (text: string, record: PublishInfo): JSX.Element => (
+      <Link to={`/home/publishDetail/${record.publishId}`}>查看</Link>
     )
   }
 ];
@@ -126,21 +123,37 @@ const getColumns = (excludeColumns: string[]) => {
   return columns.filter(item => excludeColumns.indexOf((item as any).key) < 0);
 };
 
+const showTotal = (total: number): string => `共 ${total} 条`;
+
+const rowKey = (record: PublishInfo): number => record.publishId;
+
 export default memo(function PublishTable(props: Props) {
-  const { data, excludeColumns, pageSize } = props;
+  const {
+    data,
+    excludeColumns,
+    loading,
+    total,
+    pageSize,
+    page,
+    onPageChange
+  } = props;
   const tableColumns = useMemo(() => getColumns(excludeColumns), [
     excludeColumns
   ]);
 
   return (
-    <Table<Publish>
+    <Table<PublishInfo>
       columns={tableColumns}
       dataSource={data}
+      loading={loading}
+      rowKey={rowKey}
       pagination={{
-        total: data.length,
+        current: page,
         pageSize: pageSize,
+        total: total,
+        showTotal: showTotal,
         showQuickJumper: true,
-        showTotal: (total: number): string => `共 ${total} 条`
+        onChange: onPageChange
       }}
     />
   );

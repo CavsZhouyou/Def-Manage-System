@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-19 12:01:39
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-23 17:05:29
+ * @Last Modified time: 2020-03-25 12:15:26
  */
 
 import React, { lazy } from 'react';
@@ -103,7 +103,7 @@ export default [
       },
       {
         menu: false,
-        path: '/home/publishDetail',
+        path: '/home/publishDetail/:publishId',
         exact: true,
         component: SuspenseWrapper(PublishDetail)
       }

@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-09 17:00:55
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-25 10:36:35
+ * @Last Modified time: 2020-03-25 12:01:46
  */
 
 import axios from './request';
@@ -43,7 +43,11 @@ import {
   GetAppMemberListResponse,
   DeleteAppMemberParams,
   AddAppMemberParams,
-  ChangeMemberRightsParams
+  ChangeMemberRightsParams,
+  GetPublishListParams,
+  GetPublishListResponse,
+  GetMemberOptionsParams,
+  GetMemberOptionsResponse
 } from './types';
 
 export function getToken(): Promise<BaseResponse<TokenResponse>> {
@@ -252,4 +256,26 @@ export function changeMemberRightsRequest(
   params: ChangeMemberRightsParams
 ): Promise<BaseResponse<void>> {
   return axios.post<void>('/def/changeMemberRights', { ...params });
+}
+
+/**
+ * 获取发布列表请求
+ */
+export function getPublishListRequest(
+  params: GetPublishListParams
+): Promise<BaseResponse<GetPublishListResponse>> {
+  return axios.post<GetPublishListResponse>('/def/getAppPublishList', {
+    ...params
+  });
+}
+
+/**
+ * 获取应用成员 options 请求
+ */
+export function getMemberOptionsRequest(
+  params: GetMemberOptionsParams
+): Promise<BaseResponse<GetMemberOptionsResponse>> {
+  return axios.post<GetMemberOptionsResponse>('/def/getMemberOptions', {
+    ...params
+  });
 }

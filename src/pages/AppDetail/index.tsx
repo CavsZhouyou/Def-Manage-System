@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-13 19:09:13
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-23 17:18:53
+ * @Last Modified time: 2020-03-25 11:32:01
  */
 
 import React, { memo } from 'react';
@@ -35,7 +35,7 @@ export default memo(function AppDetail() {
     <div className={styles.appDetail}>
       <NavBar />
       <div className={styles.contentWrapper}>
-        <Tabs defaultActiveKey="3" animated={true}>
+        <Tabs defaultActiveKey="4" animated={true}>
           {routes.map(route => (
             <TabPane
               tab={

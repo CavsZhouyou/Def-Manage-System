@@ -1,11 +1,22 @@
 .publishList {
-  .header {
+  .form {
     display: flex;
     justify-content: space-between;
 
-    .typeSelect {
-      margin-left: 10px;
-      width: 110px;
+    .actions {
+      display: flex;
+      justify-content: flex-end;
+
+      :global {
+        .ant-form-item {
+          margin-right: 0;
+        }
+      }
+
+      .typeSelect {
+        margin-left: 5px;
+        width: 110px;
+      }
     }
   }
 

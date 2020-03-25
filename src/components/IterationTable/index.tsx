@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-15 09:25:07
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-15 19:21:44
+ * @Last Modified time: 2020-03-25 12:11:28
  */
 
 import React, { memo, useMemo } from 'react';
@@ -119,10 +119,11 @@ const columns: ColumnProps<IterationInfo>[] = [
       switch (text) {
         case 4001:
           return <CheckCircleTwoTone twoToneColor="#52c41a" />;
-        case 4002:
-          return <CloseCircleTwoTone twoToneColor="#FF4D50" />;
+        // case 4002:
+        //   return <CloseCircleTwoTone twoToneColor="#FF4D50" />;
         default:
-          return <MinusCircleTwoTone twoToneColor="#808080" />;
+          return <CloseCircleTwoTone twoToneColor="#FF4D50" />;
+        // return <MinusCircleTwoTone twoToneColor="#808080" />;
       }
     }
   }

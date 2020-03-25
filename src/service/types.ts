@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-09 19:00:23
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-25 10:33:49
+ * @Last Modified time: 2020-03-25 12:18:26
  */
 
 // 基本返回数据格式
@@ -292,3 +292,46 @@ export interface ChangeMemberRightsParams {
   useTime: string;
   role: string;
 }
+
+// 获取发布列表请求参数格式
+export interface GetPublishListParams {
+  userId: number;
+  appId: number;
+  iterationId?: number;
+  publishType: string[];
+  publishEnv: string[];
+  publishStatus: string[];
+  publisherId?: number;
+  page: number;
+  pageSize: number;
+}
+
+// 请求迭代列表返回数据格式
+export interface PublishInfo {
+  publishId: number;
+  createTime: string;
+  iterationName: string;
+  iterationId: number;
+  version: string;
+  publisher: string;
+  publisherAvatar: string;
+  commit: string;
+  publishEnv: string;
+  publishStatus: string;
+  publishType: string;
+}
+
+export type GetPublishListResponse = ListResponse<PublishInfo>;
+
+// 请求成员列表参数格式
+export interface GetMemberOptionsParams {
+  appId: number;
+}
+
+// 请求成员列表 option 返回数据格式
+export interface MemberOption {
+  userId: number;
+  userName: string;
+}
+
+export type GetMemberOptionsResponse = ListResponse<MemberOption>;
