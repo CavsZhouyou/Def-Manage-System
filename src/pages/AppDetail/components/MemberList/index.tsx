@@ -4,10 +4,10 @@
  * @TodoList: 无
  * @Date: 2020-03-15 11:59:22
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-17 11:04:32
+ * @Last Modified time: 2020-03-25 11:01:09
  */
 
-import React, { memo, useMemo } from 'react';
+import React, { memo, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Modal, Table, Avatar, Button, message } from 'antd';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
@@ -23,6 +23,7 @@ import useModal from '@/utils/hooks/useModal';
 import { formatTimestamp, formatTimeToInterval } from '@/utils';
 import { memberRoles } from '@/constants';
 import AddAppMemberModal from '../AddAppMemberModal';
+import ChangeMemberRightsModal from '../ChangeMemberRightsModal';
 import styles from './index.module.scss';
 
 const PAGE_SIZE = 5;
@@ -54,6 +55,8 @@ const deleteMember = (
 
 const getColumns = (
   appId: number,
+  setUserInfo: any,
+  showModal: () => void,
   updateList: () => void
 ): ColumnProps<MemberInfo>[] => {
   return [
@@ -106,7 +109,17 @@ const getColumns = (
 
         return (
           <span>
-            <Button className={styles.link} type="link">
+            <Button
+              className={styles.link}
+              type="link"
+              onClick={() => {
+                setUserInfo({
+                  userId: record.userId,
+                  role: record.role
+                });
+                showModal();
+              }}
+            >
               修改权限
             </Button>
             <Button
@@ -134,29 +147,49 @@ const showTotal = (total: number): string => `共 ${total} 条`;
 const rowKey = (record: MemberInfo): number => record.userId;
 
 export default memo(function MemberList() {
-  const [visible, showModal, hideModal] = useModal();
+  const [
+    addMemberModalVisible,
+    showAddMemberModal,
+    hideAddMemberModal
+  ] = useModal();
+  const [
+    changeMemberRightsVisible,
+    showChangeMemberRightModal,
+    hideChangeMemberRightsModal
+  ] = useModal();
   const { loading, list, total, page, onPageChange, updateList } = useList<
     MemberInfo,
     GetAppMemberListParams
   >(PAGE_SIZE, initParams, getAppMemberListRequest);
+  const [userInfo, setUserInfo] = useState<{ userId: number; role: string }>({
+    userId: 0,
+    role: '5003'
+  });
   const { appInfo: app } = useParams();
   const { appId } = JSON.parse(app || '');
-  const columns = useMemo(() => getColumns(appId, updateList), [
-    appId,
-    updateList
-  ]);
+  const columns = useMemo(
+    () =>
+      getColumns(appId, setUserInfo, showChangeMemberRightModal, updateList),
+    [appId, setUserInfo, showChangeMemberRightModal, updateList]
+  );
 
   return (
     <div className={styles.memberList}>
       <div className={styles.header}>
         <Title title="成员列表" />
         <div>
-          <Button type="primary" onClick={showModal}>
+          <Button type="primary" onClick={showAddMemberModal}>
             添加成员
           </Button>
           <AddAppMemberModal
-            visible={visible}
-            hideModal={hideModal}
+            visible={addMemberModalVisible}
+            hideModal={hideAddMemberModal}
+            updateList={updateList}
+          />
+          <ChangeMemberRightsModal
+            visible={changeMemberRightsVisible}
+            userInfo={userInfo}
+            hideModal={hideChangeMemberRightsModal}
             updateList={updateList}
           />
         </div>

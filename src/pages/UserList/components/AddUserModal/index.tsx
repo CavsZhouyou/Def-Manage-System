@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-23 15:49:22
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-23 16:32:30
+ * @Last Modified time: 2020-03-25 11:03:48
  */
 
 import React, { memo, useState, useCallback, useEffect } from 'react';
@@ -95,7 +95,7 @@ export default memo(function AddUserModal(props: Props) {
         setLoading(false);
       }
     },
-    [history]
+    [form, hideModal, updateList]
   );
 
   const submit = useCallback(() => {

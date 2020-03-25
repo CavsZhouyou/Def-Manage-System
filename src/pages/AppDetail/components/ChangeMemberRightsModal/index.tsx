@@ -1,16 +1,17 @@
 /*
  * @Author: zhouyou@werun
- * @Descriptions: 新增应用成员 modal
+ * @Descriptions: 修改成员权限 modal
  * @TodoList: 无
- * @Date: 2020-03-25 10:30:14
+ * @Date: 2020-03-25 10:30:42
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-25 11:03:14
+ * @Last Modified time: 2020-03-25 11:02:32
  */
+
 import React, { memo, useState, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Modal, Form, Input, Select, message } from 'antd';
-import { AddAppMemberParams } from '@/service/types';
-import { addAppMemberRequest } from '@/service/apis';
+import { Modal, Form, Select, message } from 'antd';
+import { ChangeMemberRightsParams } from '@/service/types';
+import { changeMemberRightsRequest } from '@/service/apis';
 import { delay } from '@/utils';
 import { memberRoles, useTimeTypes } from '@/constants';
 
@@ -18,6 +19,10 @@ const { Option } = Select;
 
 interface Props {
   visible: boolean;
+  userInfo: {
+    userId: number;
+    role: string;
+  };
   hideModal: () => void;
   updateList: () => void;
 }
@@ -33,20 +38,24 @@ const formItemLayout = {
   }
 };
 
-export default memo(function AddAppMemberModal(props: Props) {
-  const { visible, hideModal, updateList } = props;
+export default memo(function ChangeMemberRightsModal(props: Props) {
+  const { visible, userInfo, hideModal, updateList } = props;
+  const { userId, role } = userInfo;
+  const initialValues = {
+    role
+  };
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
   const history = useHistory();
 
-  const addAppMember = useCallback(
-    async (params: AddAppMemberParams): Promise<void> => {
+  const changeMemberRights = useCallback(
+    async (params: ChangeMemberRightsParams): Promise<void> => {
       setLoading(true);
 
-      const result = await addAppMemberRequest(params);
+      const result = await changeMemberRightsRequest(params);
 
       if (result.success) {
-        message.success('添加成功！');
+        message.success('修改成功！');
         await delay(1000);
 
         setLoading(false);
@@ -63,15 +72,15 @@ export default memo(function AddAppMemberModal(props: Props) {
 
   const submit = useCallback(() => {
     form.validateFields().then(values => {
-      const { userName, role, useTime } = values;
+      const { role, useTime } = values;
 
-      addAppMember({
-        userName,
+      changeMemberRights({
+        userId,
         useTime,
         role
       });
     });
-  }, [form, addAppMember]);
+  }, [form, changeMemberRights, userId]);
 
   const onCancel = useCallback(() => {
     form.resetFields();
@@ -81,27 +90,18 @@ export default memo(function AddAppMemberModal(props: Props) {
   return (
     <div>
       <Modal
-        title="添加应用成员"
+        title="修改应用成员权限"
         visible={visible}
         onOk={submit}
         onCancel={onCancel}
         confirmLoading={loading}
       >
-        <Form {...formItemLayout} form={form} onFinish={submit}>
-          <Form.Item
-            name="userName"
-            label="用户名称"
-            rules={[
-              {
-                required: true,
-                message: '用户名称不能为空！'
-              },
-              { max: 4, message: '应用描述不能超过 4 个字符！' }
-            ]}
-            hasFeedback
-          >
-            <Input placeholder="请输入用户名称" />
-          </Form.Item>
+        <Form
+          {...formItemLayout}
+          form={form}
+          onFinish={submit}
+          initialValues={initialValues}
+        >
           <Form.Item
             name="role"
             label="成员角色"

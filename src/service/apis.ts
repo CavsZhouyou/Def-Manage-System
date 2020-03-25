@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-09 17:00:55
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-23 17:45:01
+ * @Last Modified time: 2020-03-25 10:36:35
  */
 
 import axios from './request';
@@ -42,7 +42,8 @@ import {
   GetAppMemberListParams,
   GetAppMemberListResponse,
   DeleteAppMemberParams,
-  AddAppMemberParams
+  AddAppMemberParams,
+  ChangeMemberRightsParams
 } from './types';
 
 export function getToken(): Promise<BaseResponse<TokenResponse>> {
@@ -242,4 +243,13 @@ export function addAppMemberRequest(
   params: AddAppMemberParams
 ): Promise<BaseResponse<void>> {
   return axios.post<void>('/def/addAppMember', { ...params });
+}
+
+/**
+ * 修改应用成员权限请求
+ */
+export function changeMemberRightsRequest(
+  params: ChangeMemberRightsParams
+): Promise<BaseResponse<void>> {
+  return axios.post<void>('/def/changeMemberRights', { ...params });
 }

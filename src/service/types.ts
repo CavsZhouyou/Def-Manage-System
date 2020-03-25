@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-09 19:00:23
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-23 17:46:49
+ * @Last Modified time: 2020-03-25 10:33:49
  */
 
 // 基本返回数据格式
@@ -282,6 +282,13 @@ export interface DeleteAppMemberParams {
 // 添加应用成员参数格式
 export interface AddAppMemberParams {
   userName: string;
+  useTime: string;
+  role: string;
+}
+
+// 修改应用成员权限参数格式
+export interface ChangeMemberRightsParams {
+  userId: number;
   useTime: string;
   role: string;
 }
