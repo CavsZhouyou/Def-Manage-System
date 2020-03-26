@@ -397,3 +397,11 @@ export interface RollbackVersionParams {
   userId: number;
   rollbackVersionId: number;
 }
+
+// 修改基本设置参数格式
+export interface EditBasicInfoParams {
+  appId: number;
+  userId: number;
+  description: string;
+  product: string;
+}

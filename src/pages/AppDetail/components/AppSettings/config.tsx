@@ -22,12 +22,12 @@ export default [
   },
   {
     key: '2',
-    name: '代码检查设置',
-    component: SuspenseWrapper(CodeCheckSetting)
-  },
-  {
-    key: '3',
     name: '代码审阅设置',
     component: SuspenseWrapper(CodeReviewSetting)
   }
+  // {
+  //   key: '2',
+  //   name: '代码检查设置',
+  //   component: SuspenseWrapper(CodeCheckSetting)
+  // }
 ];

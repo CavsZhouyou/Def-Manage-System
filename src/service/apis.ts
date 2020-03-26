@@ -53,7 +53,8 @@ import {
   ReviewPublishParams,
   GetPageListParams,
   GetPageListResponse,
-  RollbackVersionParams
+  RollbackVersionParams,
+  EditBasicInfoParams
 } from './types';
 
 export function getToken(): Promise<BaseResponse<TokenResponse>> {
@@ -324,4 +325,13 @@ export function rollbackVersionRequest(
   params: RollbackVersionParams
 ): Promise<BaseResponse<void>> {
   return axios.post<void>('/def/reviewPublish', { ...params });
+}
+
+/**
+ * 修改应用基本信息请求
+ */
+export function editBasicInfoRequest(
+  params: EditBasicInfoParams
+): Promise<BaseResponse<void>> {
+  return axios.post<void>('/def/editBasicInfo', { ...params });
 }
