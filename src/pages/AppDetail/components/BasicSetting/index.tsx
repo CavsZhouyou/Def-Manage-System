@@ -37,11 +37,27 @@ export default memo(function BasicSetting() {
   const { appInfo } = useParams();
   const { appId } = JSON.parse(appInfo || '');
   const userId = parseInt(sessionStorage.getItem('userId') || '');
-  const [form] = Form.useForm(); // 有查询表单时使用
+  const [form] = Form.useForm();
 
   useEffect(() => {
     getAppBasicInfo();
   }, []);
+
+  // 获取应用基本设置信息
+  const getAppBasicInfo = async (): Promise<void> => {
+    const params = {
+      appId,
+      userId
+    };
+
+    const result = await getAppBasicInfoRequest(params);
+
+    if (result.success) {
+      form.setFieldsValue(result.data);
+    } else {
+      message.error(result.message);
+    }
+  };
 
   const editBasicInfo = useCallback(
     async (params: EditBasicInfoParams): Promise<void> => {
@@ -68,22 +84,6 @@ export default memo(function BasicSetting() {
     },
     [editBasicInfo, appId, userId]
   );
-
-  // 获取应用信息
-  const getAppBasicInfo = async (): Promise<void> => {
-    const params = {
-      appId,
-      userId
-    };
-
-    const result = await getAppBasicInfoRequest(params);
-
-    if (result.success) {
-      form.setFieldsValue(result.data);
-    } else {
-      message.error(result.message);
-    }
-  };
 
   const onFinishFailed = () => {
     console.log('Failed:');

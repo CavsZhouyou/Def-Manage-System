@@ -54,7 +54,10 @@ import {
   GetPageListParams,
   GetPageListResponse,
   RollbackVersionParams,
-  EditBasicInfoParams
+  EditBasicInfoParams,
+  EditCodeReviewSettingParams,
+  GetCodeReviewSettingParams,
+  GetCodeReviewSettingResponse
 } from './types';
 
 export function getToken(): Promise<BaseResponse<TokenResponse>> {
@@ -334,4 +337,24 @@ export function editBasicInfoRequest(
   params: EditBasicInfoParams
 ): Promise<BaseResponse<void>> {
   return axios.post<void>('/def/editBasicInfo', { ...params });
+}
+
+/**
+ * 获取代码审阅设置请求
+ */
+export function getCodeReviewSettingRequest(
+  params: GetCodeReviewSettingParams
+): Promise<BaseResponse<GetCodeReviewSettingResponse>> {
+  return axios.post<GetCodeReviewSettingResponse>('/def/getCodeReviewSetting', {
+    ...params
+  });
+}
+
+/**
+ * 修改代码审阅设置请求
+ */
+export function editCodeReviewSettingRequest(
+  params: EditCodeReviewSettingParams
+): Promise<BaseResponse<void>> {
+  return axios.post<void>('/def/editCodeReviewSetting', { ...params });
 }

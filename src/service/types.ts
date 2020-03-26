@@ -405,3 +405,22 @@ export interface EditBasicInfoParams {
   description: string;
   product: string;
 }
+
+// 修改代码审阅设置参数格式
+export interface EditCodeReviewSettingParams {
+  appId: number;
+  userId: number;
+  isOpen: boolean;
+  reviewerScope: string;
+}
+
+// 获取代码审阅设置参数格式
+export interface GetCodeReviewSettingParams {
+  appId: number;
+}
+
+// 获取吧代码审阅设置返回数据格式
+export interface GetCodeReviewSettingResponse {
+  isOpen: boolean;
+  reviewerScope: string;
+}

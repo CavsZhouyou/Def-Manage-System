@@ -139,3 +139,18 @@ export const reviewStatus = [
     value: '7003'
   }
 ];
+
+export const reviewerScopeTypes = [
+  {
+    name: '仅创建者可审阅',
+    value: '8001'
+  },
+  {
+    name: '仅创建者和管理员可审阅',
+    value: '8002'
+  },
+  {
+    name: '成员均可审阅',
+    value: '8003'
+  }
+];
