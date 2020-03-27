@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-23 15:49:22
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-25 11:03:48
+ * @Last Modified time: 2020-03-27 22:42:38
  */
 
 import React, { memo, useState, useCallback, useEffect } from 'react';
@@ -17,6 +17,7 @@ import {
 } from '@/service/apis';
 import { useHistory } from 'react-router-dom';
 import { delay } from '@/utils';
+import useAsyncOptions from '@/utils/hooks/useAsyncOptions';
 
 const { Option } = Select;
 
@@ -40,41 +41,11 @@ const formItemLayout = {
 export default memo(function AddUserModal(props: Props) {
   const { visible, hideModal, updateList } = props;
   const [loading, setLoading] = useState(false);
-  const [departmentOptions, setDepartmentOptions] = useState<
-    DepartmentOption[]
-  >([]);
-  const [postOptions, setPostOptions] = useState<PostOption[]>([]);
   const [form] = Form.useForm();
-  const history = useHistory();
-
-  useEffect(() => {
-    getDepartmentOptions();
-    getPostOptions();
-  }, []);
-
-  // 获取部门列表
-  const getDepartmentOptions = useCallback(async () => {
-    const result = await getDepartmentListRequest();
-
-    if (result.success) {
-      setDepartmentOptions(result.data.list);
-    } else {
-      setDepartmentOptions([]);
-      message.error(result.message);
-    }
-  }, []);
-
-  // 获取职位列表
-  const getPostOptions = useCallback(async () => {
-    const result = await getPostListRequest();
-
-    if (result.success) {
-      setPostOptions(result.data.list);
-    } else {
-      setPostOptions([]);
-      message.error(result.message);
-    }
-  }, []);
+  const [departmentOptions] = useAsyncOptions<DepartmentOption>(
+    getDepartmentListRequest
+  );
+  const [postOptions] = useAsyncOptions<PostOption>(getPostListRequest);
 
   const addUser = useCallback(
     async (params: AddUserParams): Promise<void> => {
