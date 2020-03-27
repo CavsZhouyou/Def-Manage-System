@@ -18,14 +18,30 @@ import {
 } from '@ant-design/icons';
 import PublishTable from '@/components/PublishTable';
 import Title from '@/components/Title';
-import styles from './index.module.scss';
-import { IterationDetail } from '@/service/types';
-import { iterationTypes } from '@/constants';
-import { getIterationDetailRequest } from '@/service/apis';
+import {
+  getPublishListRequest,
+  getIterationDetailRequest
+} from '@/service/apis';
+import {
+  PublishInfo,
+  GetPublishListParams,
+  IterationDetail
+} from '@/service/types';
 import { formatTimeToInterval } from '@/utils';
+import useList from '@/utils/hooks/useList';
+import styles from './index.module.scss';
 
-const excludeColumns: string[] = ['iterationName'];
-const pageSize = 7;
+interface InitialParams {
+  userId: number;
+  appId: number;
+  iterationId: number;
+  publishType: string[];
+  publishEnv: string[];
+  publishStatus: string[];
+}
+
+const excludeColumns: string[] = ['iterationName', 'version'];
+const PAGE_SIZE = 7;
 
 const initialState = {
   iterationName: '暂无',
@@ -38,11 +54,27 @@ const initialState = {
   master: '暂无'
 };
 
-const NavBar = (): JSX.Element => {
-  const { iterationInfo } = useParams();
-  const { appId, appName, iterationName } = JSON.parse(
-    decodeURIComponent(iterationInfo || '{}')
-  );
+const getInitParams = (appId: number, iterationId: number) => {
+  return (): InitialParams => {
+    const params: any = {
+      userId: parseInt(sessionStorage.getItem('userId') || ''),
+      appId,
+      iterationId,
+      publishType: [],
+      publishEnv: [],
+      publishStatus: []
+    };
+
+    return params;
+  };
+};
+
+const NavBar = (props: {
+  appId: number;
+  appName: string;
+  iterationName: string;
+}): JSX.Element => {
+  const { appId, appName, iterationName } = props;
 
   return (
     <Breadcrumb>
@@ -78,11 +110,11 @@ const getIterationStatus = (value: string): JSX.Element => {
   }
 };
 
-const IterationInfo = (): JSX.Element => {
-  const { iterationInfo } = useParams();
-  const { appId, iterationId } = JSON.parse(
-    decodeURIComponent(iterationInfo || '{}')
-  );
+const IterationInfo = (props: {
+  appId: number;
+  iterationId: number;
+}): JSX.Element => {
+  const { appId, iterationId } = props;
   const [iterationDetail, setIterationDetail] = useState<IterationDetail>(
     initialState
   );
@@ -160,19 +192,32 @@ const IterationInfo = (): JSX.Element => {
 };
 
 export default memo(function IterationDetail() {
+  const { iterationInfo } = useParams();
+  const { appId, iterationId, appName, iterationName } = JSON.parse(
+    decodeURIComponent(iterationInfo || '{}')
+  );
+  const { loading, list, total, page, onPageChange } = useList<
+    PublishInfo,
+    GetPublishListParams
+  >(PAGE_SIZE, getInitParams(appId, iterationId), getPublishListRequest);
+
   return (
     <div className={styles.iterationDetail}>
-      <NavBar />
+      <NavBar appId={appId} appName={appName} iterationName={iterationName} />
       <div className={styles.content}>
-        <IterationInfo />
+        <IterationInfo appId={appId} iterationId={iterationId} />
         <div className={styles.publishList}>
           <Title title="发布记录" />
           <div className={styles.tableWrapper}>
-            {/* <PublishTable
-              data={data}
+            <PublishTable
               excludeColumns={excludeColumns}
-              pageSize={pageSize}
-            /> */}
+              data={list}
+              loading={loading}
+              total={total}
+              page={page}
+              pageSize={PAGE_SIZE}
+              onPageChange={onPageChange}
+            />
           </div>
         </div>
       </div>
