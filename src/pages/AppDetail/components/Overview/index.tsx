@@ -16,8 +16,8 @@ import AppProgressingIterationList from '../AppProgressingIterationList';
 import styles from './index.module.scss';
 
 export default memo(function Overview() {
-  const { appInfo: app } = useParams();
-  const { appId } = JSON.parse(app || '');
+  const { appInfo } = useParams();
+  const { appId } = JSON.parse(decodeURIComponent(appInfo || '{}'));
 
   return (
     <div className={styles.overview}>

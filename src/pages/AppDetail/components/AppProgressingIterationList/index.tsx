@@ -36,7 +36,7 @@ const PAGE_SIZE = 5;
 export default memo(function AppProgressingIterationList() {
   const { appInfo: app } = useParams();
   const initParams = (): InitParams => {
-    const { appId } = JSON.parse(app || '');
+    const { appId } = JSON.parse(decodeURIComponent(app || ''));
     const userId = parseInt(sessionStorage.getItem('userId') || '');
 
     return {

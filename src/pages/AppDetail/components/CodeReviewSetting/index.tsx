@@ -38,7 +38,7 @@ export default memo(function CodeReviewSetting() {
   const [loading, setLoading] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const { appInfo } = useParams();
-  const { appId } = JSON.parse(appInfo || '');
+  const { appId } = JSON.parse(decodeURIComponent(appInfo || '{}'));
   const userId = parseInt(sessionStorage.getItem('userId') || '');
   const [form] = Form.useForm();
 

@@ -69,7 +69,7 @@ export default memo(function AppInfo() {
 
   // 获取应用信息
   const getAppBasicInfo = async (): Promise<void> => {
-    const { appId } = JSON.parse(app || '');
+    const { appId } = JSON.parse(decodeURIComponent(app || '{}'));
     const userId = parseInt(sessionStorage.getItem('userId') || '');
     const params = {
       appId,

@@ -153,8 +153,8 @@ const SearchForm = memo(
 );
 
 export default memo(function PublishList() {
-  const { appInfo: app } = useParams();
-  const { appId } = JSON.parse(app || '');
+  const { appInfo } = useParams();
+  const { appId } = JSON.parse(decodeURIComponent(appInfo || '{}'));
   const {
     form,
     loading,

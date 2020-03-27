@@ -165,8 +165,8 @@ export default memo(function MemberList() {
     userId: 0,
     role: '5003'
   });
-  const { appInfo: app } = useParams();
-  const { appId } = JSON.parse(app || '');
+  const { appInfo } = useParams();
+  const { appId } = JSON.parse(decodeURIComponent(appInfo || '{}'));
   const columns = useMemo(
     () =>
       getColumns(appId, setUserInfo, showChangeMemberRightModal, updateList),

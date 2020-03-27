@@ -110,7 +110,7 @@ const Header = memo(() => {
 
 export default memo(function IterationList() {
   const { appInfo: app } = useParams();
-  const { appId } = JSON.parse(app || '');
+  const { appId } = JSON.parse(decodeURIComponent(app || ''));
   const initParams = (formValues: FormValues): InitParams => {
     const userId = parseInt(sessionStorage.getItem('userId') || '');
     const { iterationType } = formValues;

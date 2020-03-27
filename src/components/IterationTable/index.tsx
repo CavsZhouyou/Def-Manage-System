@@ -216,7 +216,7 @@ const rowKey = (record: Iteration): number => record.iterationId;
 export default memo(function IterationTable(props: Props) {
   const { appInfo: app } = useParams();
   const userId = parseInt(sessionStorage.getItem('userId') || '');
-  const { appId } = JSON.parse(app || '{}');
+  const { appId } = JSON.parse(decodeURIComponent(app || '{}'));
   const {
     data,
     excludeColumns,

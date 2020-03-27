@@ -17,8 +17,7 @@ const { TabPane } = Tabs;
 
 const NavBar = (): JSX.Element => {
   const { appInfo } = useParams();
-  let { appName } = JSON.parse(appInfo || '');
-  appName = decodeURIComponent(appName);
+  const { appName } = JSON.parse(decodeURIComponent(appInfo || '{}'));
 
   return (
     <Breadcrumb>

@@ -127,10 +127,12 @@ const AppCard = memo((props: AppInfo) => {
 
   const viewDetail = useCallback(() => {
     history.push(
-      `/home/appDetail/${JSON.stringify({
-        appId,
-        appName: encodeURIComponent(appName)
-      })}`
+      `/home/appDetail/${encodeURIComponent(
+        JSON.stringify({
+          appId,
+          appName
+        })
+      )}`
     );
   }, [history]);
 
