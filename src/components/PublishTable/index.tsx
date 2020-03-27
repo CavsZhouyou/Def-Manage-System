@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-15 19:22:02
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-27 19:52:47
+ * @Last Modified time: 2020-03-27 20:39:24
  */
 import React, { memo, useMemo } from 'react';
 import { Link } from 'react-router-dom';
@@ -131,7 +131,7 @@ const columns: ColumnProps<PublishInfo>[] = [
     title: '操作',
     key: 'action',
     render: (text: string, record: PublishInfo): JSX.Element => {
-      const { appId, appName, iterationId, iterationName } = record;
+      const { appId, appName, iterationId, iterationName, publishId } = record;
       return (
         <Link
           to={`/home/publishDetail/${encodeURIComponent(
@@ -139,7 +139,8 @@ const columns: ColumnProps<PublishInfo>[] = [
               appId,
               appName,
               iterationId,
-              iterationName
+              iterationName,
+              publishId
             })
           )}`}
         >

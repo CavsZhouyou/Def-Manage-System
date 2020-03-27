@@ -4,11 +4,10 @@
  * @TodoList: 无
  * @Date: 2020-03-25 10:30:42
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-25 11:02:32
+ * @Last Modified time: 2020-03-27 20:52:48
  */
 
 import React, { memo, useState, useCallback } from 'react';
-import { useHistory } from 'react-router-dom';
 import { Modal, Form, Select, message } from 'antd';
 import { ChangeMemberRightsParams } from '@/service/types';
 import { changeMemberRightsRequest } from '@/service/apis';
@@ -46,7 +45,6 @@ export default memo(function ChangeMemberRightsModal(props: Props) {
   };
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
-  const history = useHistory();
 
   const changeMemberRights = useCallback(
     async (params: ChangeMemberRightsParams): Promise<void> => {

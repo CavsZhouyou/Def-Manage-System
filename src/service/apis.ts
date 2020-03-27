@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-09 17:00:55
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-25 20:33:17
+ * @Last Modified time: 2020-03-27 22:34:34
  */
 
 import axios from './request';
@@ -59,7 +59,12 @@ import {
   GetCodeReviewSettingParams,
   GetCodeReviewSettingResponse,
   GetIterationDetailParams,
-  GetIterationDetailResponse
+  GetIterationDetailResponse,
+  GetPublishDetailResponse,
+  GetPublishDetailParams,
+  ApplyCodeReviewParams,
+  GetReviewerOptionsParams,
+  GetReviewerOptionsResponse
 } from './types';
 
 export function getToken(): Promise<BaseResponse<TokenResponse>> {
@@ -287,7 +292,7 @@ export function getPublishListRequest(
 export function getMemberOptionsRequest(
   params: GetMemberOptionsParams
 ): Promise<BaseResponse<GetMemberOptionsResponse>> {
-  return axios.post<GetMemberOptionsResponse>('/def/getMemberOptions', {
+  return axios.post<GetMemberOptionsResponse>('/def/getAppMemberOptions', {
     ...params
   });
 }
@@ -362,12 +367,43 @@ export function editCodeReviewSettingRequest(
 }
 
 /**
- * 获取迭代基本信息请求
+ * 获取迭代详情请求
  */
 export function getIterationDetailRequest(
   params: GetIterationDetailParams
 ): Promise<BaseResponse<GetIterationDetailResponse>> {
   return axios.post<GetIterationDetailResponse>('/def/getIterationDetail', {
+    ...params
+  });
+}
+
+/**
+ * 获取发布详情请求
+ */
+export function getPublishDetailRequest(
+  params: GetPublishDetailParams
+): Promise<BaseResponse<GetPublishDetailResponse>> {
+  return axios.post<GetPublishDetailResponse>('/def/getPublishDetail', {
+    ...params
+  });
+}
+
+/**
+ * 申请代码审阅请求
+ */
+export function applyCodeReviewRequest(
+  params: ApplyCodeReviewParams
+): Promise<BaseResponse<void>> {
+  return axios.post<void>('/def/applyCodeReview', { ...params });
+}
+
+/**
+ * 获取审阅人 options 请求
+ */
+export function getReviewerOptionsRequest(
+  params: GetReviewerOptionsParams
+): Promise<BaseResponse<GetReviewerOptionsResponse>> {
+  return axios.post<GetReviewerOptionsResponse>('/def/getReviewerOptions', {
     ...params
   });
 }

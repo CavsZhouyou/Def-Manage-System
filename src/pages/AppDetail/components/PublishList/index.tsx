@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-15 19:02:27
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-25 15:05:11
+ * @Last Modified time: 2020-03-27 22:31:25
  */
 
 import React, { memo, useEffect, useState, useCallback } from 'react';
@@ -20,6 +20,7 @@ import {
 } from '@/service/types';
 import { getPublishListRequest, getMemberOptionsRequest } from '@/service/apis';
 import useList from '@/utils/hooks/useList';
+import useAsyncOptions from '@/utils/hooks/useAsyncOptions';
 import { publishTypes, publishStatus, publishEnvTypes } from '@/constants';
 
 interface FormValues {
@@ -68,23 +69,9 @@ const getInitParams = (appId: number) => {
 const SearchForm = memo(
   (props: { form: any; appId: number; updateList: () => void }) => {
     const { form, appId, updateList } = props;
-    const [memberOptions, setMemberOptions] = useState<MemberOption[]>([]);
-
-    useEffect(() => {
-      getMemberListOptions();
-    }, []);
-
-    // 获取成员列表
-    const getMemberListOptions = useCallback(async () => {
-      const result = await getMemberOptionsRequest({ appId });
-
-      if (result.success) {
-        setMemberOptions(result.data.list);
-      } else {
-        setMemberOptions([]);
-        message.error(result.message);
-      }
-    }, []);
+    const [memberOptions] = useAsyncOptions<MemberOption>(() => {
+      return getMemberOptionsRequest({ appId });
+    });
 
     return (
       <Form layout="inline" form={form} className={styles.form}>

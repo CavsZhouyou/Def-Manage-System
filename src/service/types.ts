@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-09 19:00:23
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-27 19:53:47
+ * @Last Modified time: 2020-03-27 22:05:32
  */
 
 // 基本返回数据格式
@@ -448,3 +448,49 @@ export interface IterationDetail {
 }
 
 export type GetIterationDetailResponse = IterationDetail;
+
+// 请求发布详情参数格式
+export interface GetPublishDetailParams {
+  appId: number;
+  iterationId: number;
+  publishId: number;
+}
+
+// 请求发布详情返回数据格式
+export interface PublishDetail {
+  publishId: number;
+  publisher: string;
+  publisherAvatar: string;
+  commit: string;
+  createTime: string;
+  publishType: string;
+  publishEnv: string;
+  publishStatus: string;
+  reviewId: number;
+  reviewStatus: string;
+  failReason?: string;
+}
+
+export type GetPublishDetailResponse = PublishDetail;
+
+// 发起代码审阅设置参数格式
+export interface ApplyCodeReviewParams {
+  appId: number;
+  iterationId: number;
+  publishId: number;
+  userId: number;
+  reviewerId: number;
+}
+
+// 请求审阅者列表参数格式
+export interface GetReviewerOptionsParams {
+  appId: number;
+}
+
+// 请求成员列表 option 返回数据格式
+export interface ReviewerOption {
+  userId: number;
+  userName: string;
+}
+
+export type GetReviewerOptionsResponse = ListResponse<ReviewerOption>;
