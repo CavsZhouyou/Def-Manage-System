@@ -157,15 +157,15 @@ const getColumns = (
       key: 'latestPublishStatus',
       dataIndex: 'latestPublishStatus',
       align: 'center',
-      render: (text: number): JSX.Element => {
+      render: (text: string): JSX.Element => {
         switch (text) {
-          case 4001:
+          case '4001':
             return <CheckCircleTwoTone twoToneColor="#52c41a" />;
-          // case 4002:
-          //   return <CloseCircleTwoTone twoToneColor="#FF4D50" />;
-          default:
+          case '4002':
             return <CloseCircleTwoTone twoToneColor="#FF4D50" />;
-          // return <MinusCircleTwoTone twoToneColor="#808080" />;
+          default:
+            // return <CloseCircleTwoTone twoToneColor="#FF4D50" />;
+            return <MinusCircleTwoTone twoToneColor="#808080" />;
         }
       }
     },

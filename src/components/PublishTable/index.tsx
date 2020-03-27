@@ -105,8 +105,10 @@ const columns: ColumnProps<PublishInfo>[] = [
       switch (text) {
         case '4001':
           return <Tag color="green">成功</Tag>;
-        default:
+        case '4002':
           return <Tag color="red">失败</Tag>;
+        default:
+          return <Tag color="orange">未发布</Tag>;
       }
     }
   },

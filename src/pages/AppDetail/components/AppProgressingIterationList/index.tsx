@@ -20,7 +20,9 @@ const excludeColumns: string[] = [
   'appName',
   'timeConsumption',
   'creator',
-  'iterationStatus'
+  'iterationStatus',
+  'version',
+  'action'
 ];
 
 interface InitParams {
