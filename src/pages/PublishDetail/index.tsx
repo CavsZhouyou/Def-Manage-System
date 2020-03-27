@@ -4,28 +4,15 @@
  * @TodoList: 无
  * @Date: 2020-03-16 20:20:04
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-16 21:40:22
+ * @Last Modified time: 2020-03-27 19:33:50
  */
 
 import React, { memo } from 'react';
-import { Link } from 'react-router-dom';
-import { Breadcrumb, Tag, Avatar, Radio, Descriptions } from 'antd';
+import { useParams } from 'react-router-dom';
+import { Tag, Avatar, Radio, Descriptions } from 'antd';
 import Title from '@/components/Title';
 import styles from './index.module.scss';
-
-const NavBar = (): JSX.Element => {
-  return (
-    <Breadcrumb>
-      <Breadcrumb.Item>
-        <Link to="/appList">应用列表</Link>
-      </Breadcrumb.Item>
-      <Breadcrumb.Item>ihome-fe/design-service</Breadcrumb.Item>
-      <Breadcrumb.Item>迭代</Breadcrumb.Item>
-      <Breadcrumb.Item>商家首页数据看板</Breadcrumb.Item>
-      <Breadcrumb.Item>发布</Breadcrumb.Item>
-    </Breadcrumb>
-  );
-};
+import BreadcrumbNavbar from '@/components/BreadcrumbNavbar';
 
 const PublishInfo = (): JSX.Element => {
   return (
@@ -73,6 +60,11 @@ const PublishInfo = (): JSX.Element => {
 };
 
 const PublishResult = (): JSX.Element => {
+  const { publishInfo } = useParams();
+  const { appId, iterationId, appName, iterationName } = JSON.parse(
+    decodeURIComponent(publishInfo || '{}')
+  );
+
   return (
     <div className={styles.publishResult}>
       <div className={styles.header}>
@@ -160,9 +152,20 @@ const PublishResult = (): JSX.Element => {
 };
 
 export default memo(function PublishDetail() {
+  const { publishInfo } = useParams();
+  const { appId, iterationId, appName, iterationName } = JSON.parse(
+    decodeURIComponent(publishInfo || '{}')
+  );
+
   return (
     <div className={styles.publishDetail}>
-      <NavBar />
+      <BreadcrumbNavbar
+        mode={3}
+        appId={appId}
+        appName={appName}
+        iterationId={iterationId}
+        iterationName={iterationName}
+      />
       <div className={styles.content}>
         <PublishInfo />
         <PublishResult />

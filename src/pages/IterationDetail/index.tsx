@@ -4,11 +4,11 @@
  * @TodoList: 无
  * @Date: 2020-03-16 16:58:45
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-25 12:00:53
+ * @Last Modified time: 2020-03-27 19:12:05
  */
 import React, { memo, useState, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import { Breadcrumb, Tag, message } from 'antd';
+import { useParams } from 'react-router-dom';
+import { Tag, message } from 'antd';
 import {
   ClockCircleOutlined,
   BranchesOutlined,
@@ -18,6 +18,7 @@ import {
 } from '@ant-design/icons';
 import PublishTable from '@/components/PublishTable';
 import Title from '@/components/Title';
+import BreadcrumbNavbar from '@/components/BreadcrumbNavbar';
 import {
   getPublishListRequest,
   getIterationDetailRequest
@@ -67,36 +68,6 @@ const getInitParams = (appId: number, iterationId: number) => {
 
     return params;
   };
-};
-
-const NavBar = (props: {
-  appId: number;
-  appName: string;
-  iterationName: string;
-}): JSX.Element => {
-  const { appId, appName, iterationName } = props;
-
-  return (
-    <Breadcrumb>
-      <Breadcrumb.Item>
-        <Link to="/appList">应用列表</Link>
-      </Breadcrumb.Item>
-      <Breadcrumb.Item>
-        <Link
-          to={`/home/appDetail/${encodeURIComponent(
-            JSON.stringify({
-              appId,
-              appName
-            })
-          )}`}
-        >
-          {appName}
-        </Link>
-      </Breadcrumb.Item>
-      <Breadcrumb.Item>迭代</Breadcrumb.Item>
-      <Breadcrumb.Item>{iterationName}</Breadcrumb.Item>
-    </Breadcrumb>
-  );
 };
 
 const getIterationStatus = (value: string): JSX.Element => {
@@ -203,7 +174,12 @@ export default memo(function IterationDetail() {
 
   return (
     <div className={styles.iterationDetail}>
-      <NavBar appId={appId} appName={appName} iterationName={iterationName} />
+      <BreadcrumbNavbar
+        mode={2}
+        appId={appId}
+        appName={appName}
+        iterationName={iterationName}
+      />
       <div className={styles.content}>
         <IterationInfo appId={appId} iterationId={iterationId} />
         <div className={styles.publishList}>

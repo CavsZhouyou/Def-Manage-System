@@ -103,7 +103,7 @@ export default [
       },
       {
         menu: false,
-        path: '/home/publishDetail/:publishId',
+        path: '/home/publishDetail/:publishInfo',
         exact: true,
         component: SuspenseWrapper(PublishDetail)
       }

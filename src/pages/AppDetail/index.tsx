@@ -4,35 +4,25 @@
  * @TodoList: 无
  * @Date: 2020-03-13 19:09:13
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-25 20:10:55
+ * @Last Modified time: 2020-03-27 19:11:56
  */
 
 import React, { memo } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import { Tabs, Breadcrumb } from 'antd';
+import { useParams } from 'react-router-dom';
+import { Tabs } from 'antd';
+import BreadcrumbNavbar from '@/components/BreadcrumbNavbar';
 import styles from './index.module.scss';
 import routes from './config';
 
 const { TabPane } = Tabs;
 
-const NavBar = (): JSX.Element => {
+export default memo(function AppDetail() {
   const { appInfo } = useParams();
   const { appName } = JSON.parse(decodeURIComponent(appInfo || '{}'));
 
   return (
-    <Breadcrumb>
-      <Breadcrumb.Item>
-        <Link to="/home/appList">应用列表</Link>
-      </Breadcrumb.Item>
-      <Breadcrumb.Item>{appName}</Breadcrumb.Item>
-    </Breadcrumb>
-  );
-};
-
-export default memo(function AppDetail() {
-  return (
     <div className={styles.appDetail}>
-      <NavBar />
+      <BreadcrumbNavbar mode={1} appName={appName} />
       <div className={styles.contentWrapper}>
         <Tabs defaultActiveKey="1" animated={true}>
           {routes.map(route => (

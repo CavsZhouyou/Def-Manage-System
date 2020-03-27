@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-09 19:00:23
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-25 20:32:29
+ * @Last Modified time: 2020-03-27 19:18:02
  */
 
 // 基本返回数据格式
@@ -313,6 +313,8 @@ export interface GetPublishListParams {
 export interface PublishInfo {
   publishId: number;
   createTime: string;
+  appId: number;
+  appName: string;
   iterationName: string;
   iterationId: number;
   version: string;
