@@ -57,7 +57,9 @@ import {
   EditBasicInfoParams,
   EditCodeReviewSettingParams,
   GetCodeReviewSettingParams,
-  GetCodeReviewSettingResponse
+  GetCodeReviewSettingResponse,
+  GetIterationDetailParams,
+  GetIterationDetailResponse
 } from './types';
 
 export function getToken(): Promise<BaseResponse<TokenResponse>> {
@@ -357,4 +359,15 @@ export function editCodeReviewSettingRequest(
   params: EditCodeReviewSettingParams
 ): Promise<BaseResponse<void>> {
   return axios.post<void>('/def/editCodeReviewSetting', { ...params });
+}
+
+/**
+ * 获取迭代基本信息请求
+ */
+export function getIterationDetailRequest(
+  params: GetIterationDetailParams
+): Promise<BaseResponse<GetIterationDetailResponse>> {
+  return axios.post<GetIterationDetailResponse>('/def/getIterationDetail', {
+    ...params
+  });
 }

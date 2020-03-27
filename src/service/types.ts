@@ -225,7 +225,7 @@ export interface GetAppBasicInfoParams {
 }
 
 // 请求应用信息返回数据格式
-export interface GetAppBasicInfo {
+export interface AppBasicInfo {
   description: string;
   product: string;
   repository: string;
@@ -236,7 +236,7 @@ export interface GetAppBasicInfo {
   pagePrefix: string;
 }
 
-export type GetAppBasicInfoResponse = GetAppBasicInfo;
+export type GetAppBasicInfoResponse = AppBasicInfo;
 
 // 请求动态列表参数格式
 export interface GetDynamicListParams {
@@ -424,3 +424,23 @@ export interface GetCodeReviewSettingResponse {
   isOpen: boolean;
   reviewerScope: string;
 }
+
+// 请求迭代详情参数格式
+export interface GetIterationDetailParams {
+  appId: number;
+  iterationId: number;
+}
+
+// 请求应用信息返回数据格式
+export interface IterationDetail {
+  iterationName: string;
+  iterationStatus: string;
+  description: string;
+  createTime: string;
+  branch: string;
+  version: string;
+  creator: string;
+  master: string;
+}
+
+export type GetIterationDetailResponse = IterationDetail;

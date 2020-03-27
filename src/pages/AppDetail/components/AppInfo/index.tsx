@@ -12,7 +12,7 @@ import { useParams } from 'react-router-dom';
 import { message } from 'antd';
 import Title from '@/components/Title';
 import { publishTypes, productTypes } from '@/constants';
-import { GetAppBasicInfo } from '@/service/types';
+import { AppBasicInfo } from '@/service/types';
 import { getAppBasicInfoRequest } from '@/service/apis';
 import { formatTimestamp } from '@/utils';
 import styles from './index.module.scss';
@@ -33,7 +33,7 @@ const Description = (props: DescriptionProps): JSX.Element => {
   );
 };
 
-const initState = {
+const initialState = {
   description: '暂无',
   product: '2001',
   repository: '暂无',
@@ -45,7 +45,7 @@ const initState = {
 };
 
 export default memo(function AppInfo() {
-  const [appInfo, setAppInfo] = useState<GetAppBasicInfo>(initState);
+  const [appInfo, setAppInfo] = useState<AppBasicInfo>(initialState);
   const {
     description,
     product,
