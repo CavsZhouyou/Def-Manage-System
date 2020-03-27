@@ -83,9 +83,24 @@ const getColumns = (
       title: '迭代名称',
       dataIndex: 'iterationName',
       key: 'iterationName',
-      render: (text: string, record: IterationInfo): JSX.Element => (
-        <Link to={`/home/iterationDetail/${record.iterationId}`}>{text}</Link>
-      )
+      render: (text: string, record: IterationInfo): JSX.Element => {
+        const { appId, appName, iterationId, iterationName } = record;
+
+        return (
+          <Link
+            to={`/home/iterationDetail/${encodeURIComponent(
+              JSON.stringify({
+                appId,
+                appName,
+                iterationId,
+                iterationName
+              })
+            )}`}
+          >
+            {text}
+          </Link>
+        );
+      }
     },
     {
       title: '版本',

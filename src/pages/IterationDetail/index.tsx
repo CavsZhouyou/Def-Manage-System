@@ -7,7 +7,7 @@
  * @Last Modified time: 2020-03-25 12:00:53
  */
 import React, { memo } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { Breadcrumb, Tag } from 'antd';
 import {
   ClockCircleOutlined,
@@ -24,14 +24,30 @@ const excludeColumns: string[] = ['iterationName'];
 const pageSize = 7;
 
 const NavBar = (): JSX.Element => {
+  const { iterationInfo } = useParams();
+  const { appId, appName, iterationName } = JSON.parse(
+    decodeURIComponent(iterationInfo || '{}')
+  );
+
   return (
     <Breadcrumb>
       <Breadcrumb.Item>
         <Link to="/appList">应用列表</Link>
       </Breadcrumb.Item>
-      <Breadcrumb.Item>ihome-fe/design-service</Breadcrumb.Item>
+      <Breadcrumb.Item>
+        <Link
+          to={`/home/appDetail/${encodeURIComponent(
+            JSON.stringify({
+              appId,
+              appName
+            })
+          )}`}
+        >
+          {appName}
+        </Link>
+      </Breadcrumb.Item>
       <Breadcrumb.Item>迭代</Breadcrumb.Item>
-      <Breadcrumb.Item>商家首页数据看板</Breadcrumb.Item>
+      <Breadcrumb.Item>{iterationName}</Breadcrumb.Item>
     </Breadcrumb>
   );
 };
