@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-15 19:22:02
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-27 19:31:28
+ * @Last Modified time: 2020-03-27 19:52:47
  */
 import React, { memo, useMemo } from 'react';
 import { Link } from 'react-router-dom';
@@ -44,9 +44,24 @@ const columns: ColumnProps<PublishInfo>[] = [
     title: '迭代名称',
     dataIndex: 'iterationName',
     key: 'iterationName',
-    render: (text: string, record: PublishInfo): JSX.Element => (
-      <Link to={`/home/iterationDetail/${record.iterationId}`}>{text}</Link>
-    )
+    render: (text: string, record: PublishInfo): JSX.Element => {
+      const { appId, appName, iterationId, iterationName } = record;
+
+      return (
+        <Link
+          to={`/home/iterationDetail/${encodeURIComponent(
+            JSON.stringify({
+              appId,
+              appName,
+              iterationId,
+              iterationName
+            })
+          )}`}
+        >
+          {text}
+        </Link>
+      );
+    }
   },
   {
     title: '版本号',

@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-09 19:00:23
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-27 19:18:02
+ * @Last Modified time: 2020-03-27 19:53:47
  */
 
 // 基本返回数据格式
@@ -353,6 +353,8 @@ export interface GetCodeReviewListParams {
 export interface CodeReviewInfo {
   reviewId: number;
   createTime: string;
+  appId: number;
+  appName: string;
   iterationName: string;
   iterationId: number;
   reviewTitle: string;

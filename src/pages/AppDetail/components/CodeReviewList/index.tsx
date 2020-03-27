@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-16 06:40:28
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-25 19:36:50
+ * @Last Modified time: 2020-03-27 19:53:20
  */
 
 import React, { memo, useMemo, useState } from 'react';
@@ -89,9 +89,24 @@ const getColumns = (
       title: '迭代名称',
       dataIndex: 'iterationName',
       key: 'iterationName',
-      render: (text: string, record: CodeReviewInfo): JSX.Element => (
-        <Link to={`/home/iterationDetail/${record.iterationId}`}>{text}</Link>
-      )
+      render: (text: string, record: CodeReviewInfo): JSX.Element => {
+        const { appId, appName, iterationId, iterationName } = record;
+
+        return (
+          <Link
+            to={`/home/iterationDetail/${encodeURIComponent(
+              JSON.stringify({
+                appId,
+                appName,
+                iterationId,
+                iterationName
+              })
+            )}`}
+          >
+            {text}
+          </Link>
+        );
+      }
     },
     {
       title: '迭代版本号',
