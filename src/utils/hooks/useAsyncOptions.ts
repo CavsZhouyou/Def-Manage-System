@@ -10,6 +10,9 @@ import { useState, useEffect, useCallback } from 'react';
 import { BaseResponse, ListResponse } from '@/service/types';
 import { message } from 'antd';
 
+interface OptionsType<T> {
+  list: T[];
+}
 type UseAsyncOptionsReturnType<T> = [T[]];
 
 /**
@@ -17,11 +20,11 @@ type UseAsyncOptionsReturnType<T> = [T[]];
  *
  * @export
  * @template T options 数据类型
- * @param {() => Promise<BaseResponse<ListResponse<T>>>} getData 异步获取数据方法
+ * @param {() => Promise<BaseResponse<OptionsType<T>>>} getData 异步获取数据方法
  * @returns {UseAsyncOptionsReturnType<T>}
  */
 export default function useAsyncOptions<T>(
-  getDataRequest: () => Promise<BaseResponse<ListResponse<T>>>
+  getDataRequest: () => Promise<BaseResponse<OptionsType<T>>>
 ): UseAsyncOptionsReturnType<T> {
   const [options, setOptions] = useState<T[]>([]);
 

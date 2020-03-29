@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-10 10:51:05
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-15 11:25:41
+ * @Last Modified time: 2020-03-29 14:54:24
  */
 
 import React from 'react';
@@ -26,7 +26,7 @@ const WorkBench = React.memo(
           </Col>
           <Col span={8}>
             <MyAppList />
-            <MessageList />
+            {/* <MessageList /> */}
           </Col>
         </Row>
       </div>

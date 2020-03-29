@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-19 12:01:39
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-25 12:15:26
+ * @Last Modified time: 2020-03-29 14:53:26
  */
 
 import React, { lazy } from 'react';
@@ -81,14 +81,14 @@ export default [
         exact: true,
         component: SuspenseWrapper(UserList)
       },
-      {
-        name: '消息管理',
-        icon: (): JSX.Element => <BellOutlined />,
-        menu: true,
-        path: '/home/messageList',
-        exact: true,
-        component: SuspenseWrapper(MessageList)
-      },
+      // {
+      //   name: '消息管理',
+      //   icon: (): JSX.Element => <BellOutlined />,
+      //   menu: true,
+      //   path: '/home/messageList',
+      //   exact: true,
+      //   component: SuspenseWrapper(MessageList)
+      // },
       {
         menu: false,
         path: '/home/appDetail/:appInfo',

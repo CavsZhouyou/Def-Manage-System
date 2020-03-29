@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-15 11:01:47
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-15 11:09:45
+ * @Last Modified time: 2020-03-29 15:10:14
  */
 
 import React, { memo } from 'react';
@@ -16,6 +16,12 @@ import useList from '@/utils/hooks/useList';
 import Title from '@/components/Title';
 import styles from './index.module.scss';
 
+interface InitParams {
+  userId: number;
+  appId: number;
+  iterationType: string[];
+}
+
 const excludeColumns: string[] = [
   'appName',
   'timeConsumption',
@@ -24,12 +30,6 @@ const excludeColumns: string[] = [
   'version',
   'action'
 ];
-
-interface InitParams {
-  userId: number;
-  appId: number;
-  iterationType: string[];
-}
 
 const PAGE_SIZE = 5;
 

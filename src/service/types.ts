@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-09 19:00:23
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-29 12:00:28
+ * @Last Modified time: 2020-03-29 15:31:42
  */
 
 // 基本返回数据格式
@@ -131,7 +131,10 @@ export interface CreateIterationParams {
 
 // 新建迭代返回数据格式
 export interface CreateIterationResponse {
+  appId: number;
+  appName: string;
   iterationId: number;
+  iterationName: string;
 }
 
 // 请求我的应用列表参数格式
@@ -195,8 +198,9 @@ export interface DepartmentOption {
   departmentId: number;
   departmentName: string;
 }
-
-export type GetDepartmentListResponse = ListResponse<DepartmentOption>;
+export interface GetDepartmentListResponse {
+  list: DepartmentOption[];
+}
 
 // 请求职位列表返回数据格式
 export interface PostOption {
@@ -204,7 +208,9 @@ export interface PostOption {
   postName: string;
 }
 
-export type GetPostListResponse = ListResponse<PostOption>;
+export interface GetPostListResponse {
+  list: PostOption[];
+}
 
 // 添加用户参数格式
 export interface AddUserParams {
@@ -339,7 +345,9 @@ export interface MemberOption {
   userName: string;
 }
 
-export type GetMemberOptionsResponse = ListResponse<MemberOption>;
+export interface GetMemberOptionsResponse {
+  list: MemberOption[];
+}
 
 // 获取代码审阅列表请求参数格式
 export interface GetCodeReviewListParams {
@@ -493,7 +501,9 @@ export interface ReviewerOption {
   userName: string;
 }
 
-export type GetReviewerOptionsResponse = ListResponse<ReviewerOption>;
+export interface GetReviewerOptionsResponse {
+  list: ReviewerOption[];
+}
 
 // 请求发布日志参数格式
 export interface GetPublishLogParams {

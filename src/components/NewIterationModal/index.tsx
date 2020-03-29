@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-22 18:16:23
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-22 21:06:06
+ * @Last Modified time: 2020-03-29 15:35:33
  */
 
 import React, { memo, useState, useCallback, useEffect } from 'react';
@@ -21,6 +21,7 @@ import {
 } from '@/service/apis';
 import { useHistory } from 'react-router-dom';
 import { delay } from '@/utils';
+import useAsyncOptions from '@/utils/hooks/useAsyncOptions';
 
 const { Option } = Select;
 
@@ -43,7 +44,9 @@ const formItemLayout = {
 
 export default memo(function NewIterationModal(props: Props) {
   const { visible, hideModal, appId } = props;
-  const [myAppOptions, setMyAppOptions] = useState<AppOption[]>([]);
+  const [myAppOptions] = useAsyncOptions<AppOption>(() =>
+    getMyAppListRequest({ userId })
+  );
   const [branchOptions, setBranchOptions] = useState<BranchOption[]>([]);
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
@@ -55,25 +58,11 @@ export default memo(function NewIterationModal(props: Props) {
 
   // 模拟 componentDidmount
   useEffect(() => {
-    getAppOptions();
-
     // 应用确定时，直接获取分支
     if (initialValues.appId) {
       getBranchOptions(initialValues.appId);
     }
   }, []);
-
-  // 获取应用列表
-  const getAppOptions = useCallback(async () => {
-    const result = await getMyAppListRequest({ userId });
-
-    if (result.success) {
-      setMyAppOptions(result.data.list);
-    } else {
-      setMyAppOptions([]);
-      message.error(result.message);
-    }
-  }, [userId]);
 
   // 获取分支列表
   const getBranchOptions = useCallback(async appId => {
@@ -97,8 +86,17 @@ export default memo(function NewIterationModal(props: Props) {
         message.success('创建成功！');
         await delay(1000);
 
-        const { iterationId } = result.data;
-        history.push(`/home/iterationDetail/${iterationId}`);
+        const { appId, appName, iterationId, iterationName } = result.data;
+        history.push(
+          `/home/iterationDetail/${encodeURIComponent(
+            JSON.stringify({
+              appId,
+              appName,
+              iterationId,
+              iterationName
+            })
+          )}`
+        );
       } else {
         message.error(result.message);
         setLoading(false);
