@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-16 16:58:45
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-27 20:06:26
+ * @Last Modified time: 2020-03-29 14:49:41
  */
 import React, { memo, useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
@@ -31,6 +31,7 @@ import {
 import { formatTimeToInterval } from '@/utils';
 import useList from '@/utils/hooks/useList';
 import styles from './index.module.scss';
+import useAsyncState from '@/utils/hooks/useAsyncState';
 
 interface InitialParams {
   userId: number;
@@ -86,8 +87,11 @@ const IterationInfo = (props: {
   iterationId: number;
 }): JSX.Element => {
   const { appId, iterationId } = props;
-  const [iterationDetail, setIterationDetail] = useState<IterationDetail>(
-    initialState
+  const [iterationDetail] = useAsyncState<IterationDetail>(initialState, () =>
+    getIterationDetailRequest({
+      appId,
+      iterationId
+    })
   );
   const {
     iterationName,
@@ -99,26 +103,6 @@ const IterationInfo = (props: {
     creator,
     master
   } = iterationDetail;
-
-  useEffect(() => {
-    getIterationDetail();
-  }, []);
-
-  // 获取迭代信息
-  const getIterationDetail = async (): Promise<void> => {
-    const params = {
-      appId,
-      iterationId
-    };
-
-    const result = await getIterationDetailRequest(params);
-
-    if (result.success) {
-      setIterationDetail(result.data);
-    } else {
-      message.error(result.message);
-    }
-  };
 
   return (
     <div className={styles.iterationInfo}>
