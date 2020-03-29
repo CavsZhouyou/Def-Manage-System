@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-09 19:00:23
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-29 15:31:42
+ * @Last Modified time: 2020-03-29 16:10:09
  */
 
 // 基本返回数据格式
@@ -60,8 +60,10 @@ export interface GetAppListParams {
   userId?: number;
   appName?: string;
   publishType: string[];
-  page: number;
-  pageSize: number;
+  page?: number;
+  pageSize?: number;
+  loadedCount?: number;
+  count?: number;
 }
 
 // 请求应用列表返回数据格式
@@ -87,6 +89,7 @@ export interface CreateAppParams {
 // 新建应用返回数据格式
 export interface CreateAppResponse {
   appId: number;
+  appName: string;
 }
 
 // 获取迭代列表请求参数格式

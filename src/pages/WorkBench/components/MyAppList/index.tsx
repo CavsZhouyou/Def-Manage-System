@@ -4,70 +4,66 @@
  * @TodoList: 无
  * @Date: 2020-03-11 17:39:23
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-20 20:37:19
+ * @Last Modified time: 2020-03-29 16:07:29
  */
 
 import React, { memo, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Skeleton, Avatar, List, Button } from 'antd';
 import { RightOutlined } from '@ant-design/icons';
 import LoadMore from '@/components/LoadMore';
 import Title from '@/components/Title';
 import useLoadMore from '@/utils/hooks/useLoadMore';
+import useModal from '@/utils/hooks/useModal';
+import NewAppModal from '@/components/NewAppModal';
+import { GetAppListResponse, BaseResponse, AppInfo } from '@/service/types';
+import { getAppListRequest } from '@/service/apis';
 import commonStyles from '../../index.module.scss';
 import styles from './index.module.scss';
 
-interface AppInfo {
-  id: number;
-  name: string;
-  description: string;
-  iterationCount: number;
-  loading?: boolean;
-}
-
-const data: AppInfo[] = [
-  {
-    id: 1,
-    name: 'homeai-fe/design-serice',
-    description: '设计服务',
-    iterationCount: 3
-  }
-];
-
-const getData = (count: number): Promise<AppInfo[]> => {
-  return new Promise<AppInfo[]>((resolve, reject) => {
-    setTimeout(() => {
-      resolve([...new Array(count)].map(() => data[0]));
-    }, 2000);
-  });
+const getData = (userId: number) => {
+  return (
+    loadedCount: number,
+    count: number
+  ): Promise<BaseResponse<GetAppListResponse>> => {
+    return getAppListRequest({
+      userId,
+      publishType: [],
+      loadedCount,
+      count
+    });
+  };
 };
 
+const renderItem = (item: AppInfo): JSX.Element => <App {...item} />;
+
 const Header = memo(() => {
+  const [visible, showModal, hideModal] = useModal();
+
   return (
     <div className={commonStyles.header}>
       <Title title="我的应用" />
       <div className={commonStyles.actions}>
-        <a>新建应用</a>
+        <Button className={styles.addButton} type="link" onClick={showModal}>
+          新建应用
+        </Button>
         <div className={commonStyles.divider}>|</div>
-        <a>全部应用</a>
+        <Link to="/home/appList">全部应用</Link>
+        <NewAppModal visible={visible} hideModal={hideModal} />
       </div>
     </div>
   );
 });
 
-const App = memo((props: AppInfo) => {
-  const { name, iterationCount, description, loading } = props;
+const App = memo((props: any) => {
+  const { appName, appLogo, iterationCount, description, loading } = props;
 
   return (
     <List.Item>
       <Skeleton avatar title={false} loading={loading} active>
         <List.Item.Meta
-          avatar={
-            <Avatar
-              size={40}
-              src="https://cavszhouyou-1254093697.cos.ap-chongqing.myqcloud.com/html_logo.png"
-            />
-          }
-          title={<a>{name}</a>}
+          avatar={<Avatar size={40} src={appLogo} />}
+          title={<a>{appName}</a>}
           description={description}
         />
         <Button className={styles.iteration} type="link">
@@ -80,23 +76,29 @@ const App = memo((props: AppInfo) => {
 });
 
 export default memo(function MyAppList() {
-  // const { loading, listData, loadMore } = useLoadMore<AppInfo>([], getData);
+  const userId = parseInt(sessionStorage.getItem('userId') || '');
+  const { loading, listData, loadMore, hasMore } = useLoadMore<AppInfo>(
+    [],
+    getData(userId)
+  );
 
-  // useEffect(() => {
-  //   // 初始化列表数据
-  //   loadMore(5);
-  // }, []);
+  useEffect(() => {
+    // 初始化列表数据
+    loadMore(5);
+  }, []);
 
   return (
     <div className={styles.myAppList}>
       <Header />
       <div className={commonStyles.content}>
-        {/* <List
+        <List
           itemLayout="horizontal"
-          loadMore={<LoadMore loading={loading} loadMore={loadMore} />}
+          loadMore={
+            <LoadMore loading={loading} loadMore={loadMore} hasMore={hasMore} />
+          }
           dataSource={listData}
-          renderItem={(item: AppInfo): JSX.Element => <App {...item} />}
-        /> */}
+          renderItem={renderItem}
+        />
       </div>
     </div>
   );

@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-10 10:54:17
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-23 17:07:32
+ * @Last Modified time: 2020-03-29 16:09:30
  */
 import React, { memo, useCallback } from 'react';
 import {
@@ -32,7 +32,7 @@ import { AppInfo, GetAppListParams } from '@/service/types';
 import useList from '@/utils/hooks/useList';
 import { publishTypes } from '@/constants';
 import useModal from '@/utils/hooks/useModal';
-import NewAppModal from './components/NewAppModal';
+import NewAppModal from '@/components/NewAppModal';
 import styles from './index.module.scss';
 
 interface FormValues {

@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-20 20:17:26
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-23 15:48:00
+ * @Last Modified time: 2020-03-29 16:09:47
  */
 
 import React, { memo, useState, useCallback } from 'react';
@@ -49,8 +49,15 @@ export default memo(function NewAppModal(props: Props) {
         message.success('创建成功！');
         await delay(1000);
 
-        const { appId } = result.data;
-        history.push(`/home/appDetail/${appId}`);
+        const { appId, appName } = result.data;
+        history.push(
+          `/home/appDetail/${encodeURIComponent(
+            JSON.stringify({
+              appId,
+              appName
+            })
+          )}`
+        );
       } else {
         message.error(result.message);
         setLoading(false);

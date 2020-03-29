@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-12 09:16:25
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-20 20:37:36
+ * @Last Modified time: 2020-03-29 15:59:47
  */
 
 import React, { memo, useEffect } from 'react';
@@ -34,6 +34,8 @@ const getData = (userId: number, appId?: number) => {
     });
   };
 };
+
+const renderItem = (item: DynamicInfo): JSX.Element => <Dynamic {...item} />;
 
 const Dynamic = memo((props: any) => {
   const { userAvatar, operateTime, content, loading } = props;
@@ -76,7 +78,7 @@ export default memo(function DynamicList(props: { appId?: number }) {
             <LoadMore loading={loading} loadMore={loadMore} hasMore={hasMore} />
           }
           dataSource={listData}
-          renderItem={(item: DynamicInfo): JSX.Element => <Dynamic {...item} />}
+          renderItem={renderItem}
         />
       </div>
     </div>
