@@ -39,7 +39,7 @@ export default function useAsyncOptions<T>(
       setOptions([]);
       message.error(result.message);
     }
-  }, [getDataRequest]);
+  }, []);
 
   return [options];
 }

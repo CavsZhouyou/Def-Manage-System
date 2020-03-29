@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-09 17:00:55
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-27 22:34:34
+ * @Last Modified time: 2020-03-29 12:01:50
  */
 
 import axios from './request';
@@ -64,7 +64,9 @@ import {
   GetPublishDetailParams,
   ApplyCodeReviewParams,
   GetReviewerOptionsParams,
-  GetReviewerOptionsResponse
+  GetReviewerOptionsResponse,
+  GetPublishLogParams,
+  GetPublishLogResponse
 } from './types';
 
 export function getToken(): Promise<BaseResponse<TokenResponse>> {
@@ -404,6 +406,17 @@ export function getReviewerOptionsRequest(
   params: GetReviewerOptionsParams
 ): Promise<BaseResponse<GetReviewerOptionsResponse>> {
   return axios.post<GetReviewerOptionsResponse>('/def/getReviewerOptions', {
+    ...params
+  });
+}
+
+/**
+ * 获取发布日志请求
+ */
+export function getPublishLogRequest(
+  params: GetPublishLogParams
+): Promise<BaseResponse<GetPublishLogResponse>> {
+  return axios.post<GetPublishLogResponse>('/def/getPublishLog', {
     ...params
   });
 }

@@ -4,7 +4,7 @@
  * @TodoList: 无
  * @Date: 2020-03-09 19:00:23
  * @Last Modified by: zhouyou@werun
- * @Last Modified time: 2020-03-27 22:05:32
+ * @Last Modified time: 2020-03-29 12:00:28
  */
 
 // 基本返回数据格式
@@ -494,3 +494,17 @@ export interface ReviewerOption {
 }
 
 export type GetReviewerOptionsResponse = ListResponse<ReviewerOption>;
+
+// 请求发布日志参数格式
+export interface GetPublishLogParams {
+  appId: number;
+  iterationId: number;
+  publishId: number;
+}
+
+// 请求发布日志返回数据格式
+export interface PublishLog {
+  log: string;
+}
+
+export type GetPublishLogResponse = PublishLog;
