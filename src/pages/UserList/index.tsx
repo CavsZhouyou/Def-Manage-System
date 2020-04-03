@@ -17,7 +17,12 @@ import {
   deleteUserRequest,
   resetPasswordRequest
 } from '@/service/apis';
-import { UserInfo, GetUserListParams } from '@/service/types';
+import {
+  UserInfo,
+  GetUserListParams,
+  DepartmentOption,
+  PostOption
+} from '@/service/types';
 import useList from '@/utils/hooks/useList';
 import useModal from '@/utils/hooks/useModal';
 import AddUserModal from './components/AddUserModal';
@@ -60,12 +65,15 @@ const getColumns = (updateList: () => void): ColumnProps<UserInfo>[] => {
     {
       title: '部门',
       dataIndex: 'department',
-      key: 'department'
+      key: 'department',
+      render: (department: DepartmentOption): string =>
+        department.departmentName
     },
     {
       title: '职位',
       dataIndex: 'post',
-      key: 'post'
+      key: 'post',
+      render: (post: PostOption): string => post.postName
     },
     {
       title: '操作',

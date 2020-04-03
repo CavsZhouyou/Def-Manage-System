@@ -180,8 +180,8 @@ export interface UserInfo {
   userId: number;
   userName: string;
   userAvatar: string;
-  department: string;
-  post: string;
+  department: DepartmentOption;
+  post: PostOption;
 }
 
 export type GetUserListResponse = ListResponse<UserInfo>;
