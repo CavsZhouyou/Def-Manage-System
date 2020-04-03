@@ -10,10 +10,11 @@ import Axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 import { BaseResponse } from './types';
 
 // 接口前缀
-const BASE_URL: string =
-  process.env.NODE_ENV === 'development'
-    ? 'https://www.fastmock.site/mock/f42b77e2190835b914b35b55eed12bcf'
-    : '';
+// const BASE_URL: string =
+//   process.env.NODE_ENV === 'development'
+//     ? 'https://www.fastmock.site/mock/f42b77e2190835b914b35b55eed12bcf'
+//     : '';
+const BASE_URL: string = process.env.NODE_ENV === 'development' ? '' : '';
 
 // axios 配置实例
 const getAxiosInstance = (): AxiosInstance => {
