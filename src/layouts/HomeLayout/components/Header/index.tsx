@@ -60,7 +60,7 @@ const CollapseTrigger = React.memo(({ collapsed, toggle }: Props) => {
 });
 
 export default memo(function CustomHeader({ collapsed, toggle }: Props) {
-  const avatar = sessionStorage.getItem('avatar') || undefined;
+  const avatar = sessionStorage.getItem('userAvatar') || undefined;
   const userName = sessionStorage.getItem('userName') || undefined;
   const [cpModalVisible, showCpModal, hideCpModal] = useModal();
 

@@ -25,13 +25,13 @@ const initialValues = {
  */
 const saveGlobalData = (data: LoginResponse): void => {
   const {
-    userInfo: { userName, userId, avatar, token }
+    userInfo: { userName, userId, userAvatar, role }
   } = data;
 
   sessionStorage.setItem('userName', userName);
   sessionStorage.setItem('userId', String(userId));
-  sessionStorage.setItem('avatar', avatar);
-  sessionStorage.setItem('token', token);
+  sessionStorage.setItem('userAvatar', userAvatar);
+  sessionStorage.setItem('userRole', role);
 };
 
 export default memo(function LoginForm() {

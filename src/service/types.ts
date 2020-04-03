@@ -39,8 +39,8 @@ export interface LoginResponse {
   userInfo: {
     userName: string;
     userId: number;
-    avatar: string;
-    token: string;
+    userAvatar: string;
+    role: string;
   };
 }
 

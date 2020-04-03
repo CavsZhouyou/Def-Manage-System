@@ -79,7 +79,7 @@ export function getToken(): Promise<BaseResponse<TokenResponse>> {
 export function loginRequest(
   params: LoginParams
 ): Promise<BaseResponse<LoginResponse>> {
-  return axios.post<LoginResponse>('/def/login', { ...params });
+  return axios.post<LoginResponse>('/def/auth/login', { ...params });
 }
 
 /**
