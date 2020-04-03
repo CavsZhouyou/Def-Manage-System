@@ -40,7 +40,8 @@ export default memo(function LoginForm() {
 
   const submit = useCallback((values): void => {
     const { account, password } = values;
-    login({ account, password: md5(password) });
+    // login({ account, password: md5(password) });
+    login({ account, password: password });
   }, []);
 
   const login = async (params: LoginParams): Promise<void> => {

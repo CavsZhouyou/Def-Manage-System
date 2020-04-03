@@ -83,12 +83,12 @@ const GetAxios = (): BaseAjax => {
     return new Promise((resolve, reject) => {
       instance.request<BaseResponse<T>>(config).then(data => {
         const __data = data.data;
-        if (__data.success) {
-          resolve(__data);
-        } else {
-          console.log(__data.message);
-          reject(__data);
-        }
+        // if (__data.success) {
+        resolve(__data);
+        // } else {
+        //   console.log(__data.message);
+        //   reject(__data);
+        // }
       });
     });
   };
