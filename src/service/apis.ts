@@ -88,7 +88,7 @@ export function loginRequest(
 export function logoutRequest(
   params: LogoutParams
 ): Promise<BaseResponse<void>> {
-  return axios.post<void>('/def/logout', { ...params });
+  return axios.post<void>('/def/auth/logout', { ...params });
 }
 
 /**
@@ -97,7 +97,7 @@ export function logoutRequest(
 export function changePasswordRequest(
   params: ChangePasswordParams
 ): Promise<BaseResponse<void>> {
-  return axios.post<void>('/def/changePassword', { ...params });
+  return axios.post<void>('/def/user/changePassword', { ...params });
 }
 
 /**
@@ -106,7 +106,7 @@ export function changePasswordRequest(
 export function getAppListRequest(
   params: GetAppListParams
 ): Promise<BaseResponse<GetAppListResponse>> {
-  return axios.post<GetAppListResponse>('/def/getAppList', { ...params });
+  return axios.post<GetAppListResponse>('/def/app/getAppList', { ...params });
 }
 
 /**
@@ -115,7 +115,7 @@ export function getAppListRequest(
 export function createAppRequest(
   params: CreateAppParams
 ): Promise<BaseResponse<CreateAppResponse>> {
-  return axios.post<CreateAppResponse>('/def/createApp', { ...params });
+  return axios.post<CreateAppResponse>('/def/app/createApp', { ...params });
 }
 
 /**
@@ -124,9 +124,12 @@ export function createAppRequest(
 export function getIterationListRequest(
   params: GetIterationListParams
 ): Promise<BaseResponse<GetIterationListResponse>> {
-  return axios.post<GetIterationListResponse>('/def/getIterationList', {
-    ...params
-  });
+  return axios.post<GetIterationListResponse>(
+    '/def/iteration/getIterationList',
+    {
+      ...params
+    }
+  );
 }
 
 /**
@@ -135,7 +138,7 @@ export function getIterationListRequest(
 export function createIterationRequest(
   params: CreateIterationParams
 ): Promise<BaseResponse<CreateIterationResponse>> {
-  return axios.post<CreateIterationResponse>('/def/createIteration', {
+  return axios.post<CreateIterationResponse>('/def/iteration/createIteration', {
     ...params
   });
 }
@@ -146,7 +149,7 @@ export function createIterationRequest(
 export function getMyAppListRequest(
   params: GetMyAppListParams
 ): Promise<BaseResponse<GetMyAppListResponse>> {
-  return axios.post<GetMyAppListResponse>('/def/getMyAppList', {
+  return axios.post<GetMyAppListResponse>('/def/app/getMyAppList', {
     ...params
   });
 }
@@ -157,7 +160,7 @@ export function getMyAppListRequest(
 export function getAppBranchesRequest(
   params: GetAppBranchesParams
 ): Promise<BaseResponse<GetAppBranchesResponse>> {
-  return axios.post<GetAppBranchesResponse>('/def/getAppBranches', {
+  return axios.post<GetAppBranchesResponse>('/def/app/getAppBranches', {
     ...params
   });
 }
@@ -168,7 +171,7 @@ export function getAppBranchesRequest(
 export function getUserListRequest(
   params: GetUserListParams
 ): Promise<BaseResponse<GetUserListResponse>> {
-  return axios.post<GetUserListResponse>('/def/getUserList', {
+  return axios.post<GetUserListResponse>('/def/user/getUserList', {
     ...params
   });
 }
@@ -179,7 +182,7 @@ export function getUserListRequest(
 export function resetPasswordRequest(
   params: ResetPasswordParams
 ): Promise<BaseResponse<void>> {
-  return axios.post<void>('/def/resetPassword', { ...params });
+  return axios.post<void>('/def/user/resetPassword', { ...params });
 }
 
 /**
@@ -188,7 +191,7 @@ export function resetPasswordRequest(
 export function deleteUserRequest(
   params: DeleteUserParams
 ): Promise<BaseResponse<void>> {
-  return axios.post<void>('/def/deleteUser', { ...params });
+  return axios.post<void>('/def/user/deleteUser', { ...params });
 }
 
 /**
@@ -197,7 +200,9 @@ export function deleteUserRequest(
 export function getDepartmentListRequest(): Promise<
   BaseResponse<GetDepartmentListResponse>
 > {
-  return axios.get<GetDepartmentListResponse>('/def/getDepartmentList');
+  return axios.get<GetDepartmentListResponse>(
+    '/def/constants/getDepartmentList'
+  );
 }
 
 /**
@@ -206,7 +211,7 @@ export function getDepartmentListRequest(): Promise<
 export function getPostListRequest(): Promise<
   BaseResponse<GetPostListResponse>
 > {
-  return axios.get<GetPostListResponse>('/def/getPostList');
+  return axios.get<GetPostListResponse>('/def/constants/getPostList');
 }
 
 /**
@@ -215,7 +220,7 @@ export function getPostListRequest(): Promise<
 export function addUserRequest(
   params: AddUserParams
 ): Promise<BaseResponse<AddUserResponse>> {
-  return axios.post<AddUserResponse>('/def/addUser', { ...params });
+  return axios.post<AddUserResponse>('/def/user/addUser', { ...params });
 }
 
 /**
@@ -224,7 +229,7 @@ export function addUserRequest(
 export function getAppBasicInfoRequest(
   params: GetAppBasicInfoParams
 ): Promise<BaseResponse<GetAppBasicInfoResponse>> {
-  return axios.post<GetAppBasicInfoResponse>('/def/getAppBasicInfo', {
+  return axios.post<GetAppBasicInfoResponse>('/def/app/getAppBasicInfo', {
     ...params
   });
 }
@@ -234,7 +239,7 @@ export function getAppBasicInfoRequest(
 export function getDynamicListRequest(
   params: GetDynamicListParams
 ): Promise<BaseResponse<GetDynamicListResponse>> {
-  return axios.post<GetDynamicListResponse>('/def/getDynamicList', {
+  return axios.post<GetDynamicListResponse>('/def/dynamic/getDynamicList', {
     ...params
   });
 }
@@ -245,7 +250,7 @@ export function getDynamicListRequest(
 export function getAppMemberListRequest(
   params: GetAppMemberListParams
 ): Promise<BaseResponse<GetAppMemberListResponse>> {
-  return axios.post<GetAppMemberListResponse>('/def/getAppMemberList', {
+  return axios.post<GetAppMemberListResponse>('/def/member/getAppMemberList', {
     ...params
   });
 }
@@ -256,7 +261,7 @@ export function getAppMemberListRequest(
 export function deleteAppMemberRequest(
   params: DeleteAppMemberParams
 ): Promise<BaseResponse<void>> {
-  return axios.post<void>('/def/deleteAppMember', { ...params });
+  return axios.post<void>('/def/member/deleteAppMember', { ...params });
 }
 
 /**
@@ -265,7 +270,7 @@ export function deleteAppMemberRequest(
 export function addAppMemberRequest(
   params: AddAppMemberParams
 ): Promise<BaseResponse<void>> {
-  return axios.post<void>('/def/addAppMember', { ...params });
+  return axios.post<void>('/def/member/addAppMember', { ...params });
 }
 
 /**
@@ -274,7 +279,7 @@ export function addAppMemberRequest(
 export function changeMemberRightsRequest(
   params: ChangeMemberRightsParams
 ): Promise<BaseResponse<void>> {
-  return axios.post<void>('/def/changeMemberRights', { ...params });
+  return axios.post<void>('/def/member/changeMemberRights', { ...params });
 }
 
 /**
@@ -283,7 +288,7 @@ export function changeMemberRightsRequest(
 export function getPublishListRequest(
   params: GetPublishListParams
 ): Promise<BaseResponse<GetPublishListResponse>> {
-  return axios.post<GetPublishListResponse>('/def/getAppPublishList', {
+  return axios.post<GetPublishListResponse>('/def/publish/getAppPublishList', {
     ...params
   });
 }
@@ -294,9 +299,12 @@ export function getPublishListRequest(
 export function getMemberOptionsRequest(
   params: GetMemberOptionsParams
 ): Promise<BaseResponse<GetMemberOptionsResponse>> {
-  return axios.post<GetMemberOptionsResponse>('/def/getAppMemberOptions', {
-    ...params
-  });
+  return axios.post<GetMemberOptionsResponse>(
+    '/def/member/getAppMemberOptions',
+    {
+      ...params
+    }
+  );
 }
 
 /**
@@ -305,9 +313,12 @@ export function getMemberOptionsRequest(
 export function getCodeReviewListRequest(
   params: GetCodeReviewListParams
 ): Promise<BaseResponse<GetCodeReviewListResponse>> {
-  return axios.post<GetCodeReviewListResponse>('/def/getCodeReviewList', {
-    ...params
-  });
+  return axios.post<GetCodeReviewListResponse>(
+    '/def/review/getCodeReviewList',
+    {
+      ...params
+    }
+  );
 }
 
 /**
@@ -316,7 +327,7 @@ export function getCodeReviewListRequest(
 export function reviewPublishRequest(
   params: ReviewPublishParams
 ): Promise<BaseResponse<void>> {
-  return axios.post<void>('/def/reviewPublish', { ...params });
+  return axios.post<void>('/def/review/reviewPublish', { ...params });
 }
 
 /**
@@ -336,7 +347,7 @@ export function getPageListRequest(
 export function rollbackVersionRequest(
   params: RollbackVersionParams
 ): Promise<BaseResponse<void>> {
-  return axios.post<void>('/def/reviewPublish', { ...params });
+  return axios.post<void>('/def/app/rollbackVersion', { ...params });
 }
 
 /**
@@ -345,7 +356,7 @@ export function rollbackVersionRequest(
 export function editBasicInfoRequest(
   params: EditBasicInfoParams
 ): Promise<BaseResponse<void>> {
-  return axios.post<void>('/def/editBasicInfo', { ...params });
+  return axios.post<void>('/def/app/editBasicInfo', { ...params });
 }
 
 /**
@@ -354,9 +365,12 @@ export function editBasicInfoRequest(
 export function getCodeReviewSettingRequest(
   params: GetCodeReviewSettingParams
 ): Promise<BaseResponse<GetCodeReviewSettingResponse>> {
-  return axios.post<GetCodeReviewSettingResponse>('/def/getCodeReviewSetting', {
-    ...params
-  });
+  return axios.post<GetCodeReviewSettingResponse>(
+    '/def/setting/getCodeReviewSetting',
+    {
+      ...params
+    }
+  );
 }
 
 /**
@@ -365,7 +379,7 @@ export function getCodeReviewSettingRequest(
 export function editCodeReviewSettingRequest(
   params: EditCodeReviewSettingParams
 ): Promise<BaseResponse<void>> {
-  return axios.post<void>('/def/editCodeReviewSetting', { ...params });
+  return axios.post<void>('/def/setting/editCodeReviewSetting', { ...params });
 }
 
 /**
@@ -374,9 +388,12 @@ export function editCodeReviewSettingRequest(
 export function getIterationDetailRequest(
   params: GetIterationDetailParams
 ): Promise<BaseResponse<GetIterationDetailResponse>> {
-  return axios.post<GetIterationDetailResponse>('/def/getIterationDetail', {
-    ...params
-  });
+  return axios.post<GetIterationDetailResponse>(
+    '/def/iteration/getIterationDetail',
+    {
+      ...params
+    }
+  );
 }
 
 /**
@@ -385,7 +402,7 @@ export function getIterationDetailRequest(
 export function getPublishDetailRequest(
   params: GetPublishDetailParams
 ): Promise<BaseResponse<GetPublishDetailResponse>> {
-  return axios.post<GetPublishDetailResponse>('/def/getPublishDetail', {
+  return axios.post<GetPublishDetailResponse>('/def/publish/getPublishDetail', {
     ...params
   });
 }
@@ -396,7 +413,7 @@ export function getPublishDetailRequest(
 export function applyCodeReviewRequest(
   params: ApplyCodeReviewParams
 ): Promise<BaseResponse<void>> {
-  return axios.post<void>('/def/applyCodeReview', { ...params });
+  return axios.post<void>('/def/review/applyCodeReview', { ...params });
 }
 
 /**
@@ -405,9 +422,12 @@ export function applyCodeReviewRequest(
 export function getReviewerOptionsRequest(
   params: GetReviewerOptionsParams
 ): Promise<BaseResponse<GetReviewerOptionsResponse>> {
-  return axios.post<GetReviewerOptionsResponse>('/def/getReviewerOptions', {
-    ...params
-  });
+  return axios.post<GetReviewerOptionsResponse>(
+    '/def/review/getReviewerOptions',
+    {
+      ...params
+    }
+  );
 }
 
 /**
@@ -416,7 +436,7 @@ export function getReviewerOptionsRequest(
 export function getPublishLogRequest(
   params: GetPublishLogParams
 ): Promise<BaseResponse<GetPublishLogResponse>> {
-  return axios.post<GetPublishLogResponse>('/def/getPublishLog', {
+  return axios.post<GetPublishLogResponse>('/def/publish/getPublishLog', {
     ...params
   });
 }
