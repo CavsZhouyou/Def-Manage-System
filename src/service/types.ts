@@ -196,9 +196,18 @@ export interface DeleteUserParams {
   userId: number;
 }
 
+// 请求用户角色列表返回数据格式
+export interface UserRoleOption {
+  roleId: string;
+  roleName: string;
+}
+export interface GetUserRoleListResponse {
+  list: UserRoleOption[];
+}
+
 // 请求部门列表返回数据格式
 export interface DepartmentOption {
-  departmentId: number;
+  departmentId: string;
   departmentName: string;
 }
 export interface GetDepartmentListResponse {
@@ -207,7 +216,7 @@ export interface GetDepartmentListResponse {
 
 // 请求职位列表返回数据格式
 export interface PostOption {
-  postId: number;
+  postId: string;
   postName: string;
 }
 
@@ -218,8 +227,10 @@ export interface GetPostListResponse {
 // 添加用户参数格式
 export interface AddUserParams {
   userName: string;
-  department: number;
-  post: number;
+  userId: string;
+  userRoleId: string;
+  departmentId: string;
+  postId: string;
 }
 
 // 新建迭代返回数据格式

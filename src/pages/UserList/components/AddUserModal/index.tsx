@@ -7,15 +7,20 @@
  * @Last Modified time: 2020-03-27 22:42:38
  */
 
-import React, { memo, useState, useCallback, useEffect } from 'react';
+import React, { memo, useState, useCallback } from 'react';
 import { Modal, Form, Input, Select, message } from 'antd';
-import { AddUserParams, DepartmentOption, PostOption } from '@/service/types';
+import {
+  AddUserParams,
+  DepartmentOption,
+  PostOption,
+  UserRoleOption
+} from '@/service/types';
 import {
   addUserRequest,
   getDepartmentListRequest,
-  getPostListRequest
+  getPostListRequest,
+  getUserRoleListRequest
 } from '@/service/apis';
-import { useHistory } from 'react-router-dom';
 import { delay } from '@/utils';
 import useAsyncOptions from '@/utils/hooks/useAsyncOptions';
 
@@ -46,6 +51,9 @@ export default memo(function AddUserModal(props: Props) {
     getDepartmentListRequest
   );
   const [postOptions] = useAsyncOptions<PostOption>(getPostListRequest);
+  const [userRoleOptions] = useAsyncOptions<UserRoleOption>(
+    getUserRoleListRequest
+  );
 
   const addUser = useCallback(
     async (params: AddUserParams): Promise<void> => {
@@ -71,12 +79,14 @@ export default memo(function AddUserModal(props: Props) {
 
   const submit = useCallback(() => {
     form.validateFields().then(values => {
-      const { userName, department, post } = values;
+      const { userName, userId, userRoleId, departmentId, postId } = values;
 
       addUser({
         userName,
-        department,
-        post
+        userId,
+        userRoleId,
+        departmentId,
+        postId
       });
     });
   }, [form, addUser]);
@@ -111,7 +121,38 @@ export default memo(function AddUserModal(props: Props) {
             <Input placeholder="请输入用户名称" />
           </Form.Item>
           <Form.Item
-            name="department"
+            name="userId"
+            label="用户工号"
+            rules={[
+              {
+                required: true,
+                message: '用户工号不能为空！'
+              }
+            ]}
+            hasFeedback
+          >
+            <Input placeholder="请输入用户工号" />
+          </Form.Item>
+          <Form.Item
+            name="roleId"
+            label="用户角色"
+            rules={[
+              {
+                required: true,
+                message: '用户角色不能为空！'
+              }
+            ]}
+          >
+            <Select placeholder="请选择用户角色">
+              {userRoleOptions.map((type, index) => (
+                <Option value={type.roleId} key={index}>
+                  {type.roleName}
+                </Option>
+              ))}
+            </Select>
+          </Form.Item>
+          <Form.Item
+            name="departmentId"
             label="所属部门"
             rules={[
               {
@@ -129,7 +170,7 @@ export default memo(function AddUserModal(props: Props) {
             </Select>
           </Form.Item>
           <Form.Item
-            name="post"
+            name="postId"
             label="用户职位"
             rules={[
               {

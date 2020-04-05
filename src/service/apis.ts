@@ -66,7 +66,8 @@ import {
   GetReviewerOptionsParams,
   GetReviewerOptionsResponse,
   GetPublishLogParams,
-  GetPublishLogResponse
+  GetPublishLogResponse,
+  GetUserRoleListResponse
 } from './types';
 
 export function getToken(): Promise<BaseResponse<TokenResponse>> {
@@ -212,6 +213,15 @@ export function getPostListRequest(): Promise<
   BaseResponse<GetPostListResponse>
 > {
   return axios.get<GetPostListResponse>('/def/constants/getPostList');
+}
+
+/**
+ * 获取用户角色列表请求
+ */
+export function getUserRoleListRequest(): Promise<
+  BaseResponse<GetUserRoleListResponse>
+> {
+  return axios.get<GetUserRoleListResponse>('/def/constants/getUserRoleList');
 }
 
 /**
