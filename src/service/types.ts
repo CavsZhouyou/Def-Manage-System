@@ -180,6 +180,7 @@ export interface UserInfo {
   userId: number;
   userName: string;
   userAvatar: string;
+  userRole: UserRoleOption;
   department: DepartmentOption;
   post: PostOption;
 }

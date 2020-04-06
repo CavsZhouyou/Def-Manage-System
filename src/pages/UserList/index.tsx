@@ -21,7 +21,8 @@ import {
   UserInfo,
   GetUserListParams,
   DepartmentOption,
-  PostOption
+  PostOption,
+  UserRoleOption
 } from '@/service/types';
 import useList from '@/utils/hooks/useList';
 import useModal from '@/utils/hooks/useModal';
@@ -74,6 +75,12 @@ const getColumns = (updateList: () => void): ColumnProps<UserInfo>[] => {
       dataIndex: 'post',
       key: 'post',
       render: (post: PostOption): string => post.postName
+    },
+    {
+      title: '角色',
+      dataIndex: 'role',
+      key: 'role',
+      render: (userRole: UserRoleOption): string => userRole.roleName
     },
     {
       title: '操作',
