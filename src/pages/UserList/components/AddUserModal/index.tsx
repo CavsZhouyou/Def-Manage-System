@@ -134,7 +134,7 @@ export default memo(function AddUserModal(props: Props) {
             <Input placeholder="请输入用户工号" />
           </Form.Item>
           <Form.Item
-            name="roleId"
+            name="userRoleId"
             label="用户角色"
             rules={[
               {
