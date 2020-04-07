@@ -82,16 +82,17 @@ export default memo(function NewAppModal(props: Props) {
         appName,
         repository,
         description,
-        productType,
-        publishType
+        productTypeId,
+        publishTypeId
       } = values;
 
       createApp({
+        userId: sessionStorage.getItem('userId') || '',
         appName,
         repository,
         description,
-        productType,
-        publishType
+        productTypeId,
+        publishTypeId
       });
     });
   }, [form, createApp]);
@@ -152,7 +153,7 @@ export default memo(function NewAppModal(props: Props) {
             <Input placeholder="请输入应用描述" />
           </Form.Item>
           <Form.Item
-            name="productType"
+            name="productTypeId"
             label="关联产品"
             rules={[
               {
@@ -170,7 +171,7 @@ export default memo(function NewAppModal(props: Props) {
             </Select>
           </Form.Item>
           <Form.Item
-            name="publishType"
+            name="publishTypeId"
             label="发布类型"
             rules={[
               {

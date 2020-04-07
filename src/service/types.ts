@@ -86,8 +86,9 @@ export interface CreateAppParams {
   appName: string;
   repository: string;
   description: string;
-  productType: string;
-  publishType: string;
+  productTypeId: string;
+  publishTypeId: string;
+  userId: string;
 }
 
 // 新建应用返回数据格式
