@@ -17,7 +17,7 @@ import useLoadMore from '@/utils/hooks/useLoadMore';
 import useModal from '@/utils/hooks/useModal';
 import NewAppModal from '@/components/NewAppModal';
 import { GetAppListResponse, BaseResponse, AppInfo } from '@/service/types';
-import { getAppListRequest } from '@/service/apis';
+import { getAppListByCountRequest } from '@/service/apis';
 import commonStyles from '../../index.module.scss';
 import styles from './index.module.scss';
 
@@ -26,7 +26,7 @@ const getData = (userId: number) => {
     loadedCount: number,
     count: number
   ): Promise<BaseResponse<GetAppListResponse>> => {
-    return getAppListRequest({
+    return getAppListByCountRequest({
       userId,
       publishType: [],
       loadedCount,

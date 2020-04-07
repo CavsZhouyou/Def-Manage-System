@@ -117,13 +117,10 @@ const AppCard = memo((props: AppInfo) => {
     appName,
     appLogo,
     publishType,
-    iterationCount,
+    progressingIterationCount,
     description
   } = props;
   const history = useHistory();
-  const publishTypeName = publishTypes.filter(
-    item => item.value === publishType
-  )[0].name;
 
   const viewDetail = useCallback(() => {
     history.push(
@@ -146,10 +143,10 @@ const AppCard = memo((props: AppInfo) => {
       <div className={styles.info}>
         <div className={styles.type}>
           <RocketFilled className={styles.typeIcon} />
-          {publishTypeName}
+          {publishType.name}
         </div>
         <div className={styles.iteration}>
-          <span className={styles.count}>{iterationCount}</span>
+          <span className={styles.count}>{progressingIterationCount}</span>
           个进行中的迭代
           <RightOutlined className={styles.rightIcon} />
         </div>
@@ -170,7 +167,7 @@ const List = memo((props: { list: AppInfo[] }) => {
   }
 
   return (
-    <Row gutter={[16, 8]}>
+    <Row className={styles.list} gutter={[16, 8]}>
       {list.map((app: AppInfo, index: number) => (
         <Col key={index} span={6}>
           <AppCard {...app} />

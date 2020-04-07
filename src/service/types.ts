@@ -64,10 +64,17 @@ export interface GetAppListParams {
   userId?: number;
   appName?: string;
   publishType: string[];
-  page?: number;
-  pageSize?: number;
-  loadedCount?: number;
-  count?: number;
+  page: number;
+  pageSize: number;
+}
+
+// 通过 count 请求应用列表参数格式
+export interface GetAppListByCountParams {
+  userId?: number;
+  appName?: string;
+  publishType: string[];
+  loadedCount: number;
+  count: number;
 }
 
 // 请求应用列表返回数据格式
@@ -75,8 +82,8 @@ export interface AppInfo {
   appId: number;
   appLogo: string;
   appName: string;
-  publishType: string;
-  iterationCount: number;
+  publishType: PublishType;
+  progressingIterationCount: number;
   description: string;
 }
 export type GetAppListResponse = ListResponse<AppInfo>;

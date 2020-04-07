@@ -68,7 +68,8 @@ import {
   GetPublishLogResponse,
   GetUserRoleListResponse,
   GetProductTypeListResponse,
-  GetPublishTypeListResponse
+  GetPublishTypeListResponse,
+  GetAppListByCountParams
 } from './types';
 
 export function getToken(): Promise<BaseResponse<TokenResponse>> {
@@ -98,6 +99,17 @@ export function changePasswordRequest(
   params: ChangePasswordParams
 ): Promise<BaseResponse<void>> {
   return axios.post<void>('/def/user/changePassword', { ...params });
+}
+
+/**
+ * 通过 count 获取应用列表请求
+ */
+export function getAppListByCountRequest(
+  params: GetAppListByCountParams
+): Promise<BaseResponse<GetAppListResponse>> {
+  return axios.post<GetAppListResponse>('/def/app/getAppListByCount', {
+    ...params
+  });
 }
 
 /**

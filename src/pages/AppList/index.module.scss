@@ -76,6 +76,10 @@
   }
 
   .content {
+    .list {
+      // min-height: 500px;
+    }
+
     .empty {
       display: flex;
       align-items: center;
