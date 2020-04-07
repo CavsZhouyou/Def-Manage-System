@@ -51,6 +51,7 @@ export interface LogoutParams {
 
 // 修改密码请求参数格式
 export interface ChangePasswordParams {
+  userId: string;
   oldPassword: string;
   newPassword: string;
 }

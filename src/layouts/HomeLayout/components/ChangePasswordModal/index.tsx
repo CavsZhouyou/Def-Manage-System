@@ -36,38 +36,42 @@ export default memo(function ChangePasswordModal(props: Props) {
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
 
-  const changePassword = async (props: ChangePasswordParams): Promise<void> => {
-    setLoading(true);
+  const changePassword = useCallback(
+    async (props: ChangePasswordParams): Promise<void> => {
+      setLoading(true);
 
-    const result = await changePasswordRequest(props);
+      const result = await changePasswordRequest(props);
 
-    if (result.success) {
-      message.success('修改成功！');
+      if (result.success) {
+        message.success('修改成功！');
 
-      // 清空表单，隐藏 modal
-      form.resetFields();
-      hideModal();
-    } else {
-      message.error(result.message);
-      setLoading(false);
-    }
-  };
+        // 清空表单，隐藏 modal
+        form.resetFields();
+        hideModal();
+      } else {
+        message.error(result.message);
+        setLoading(false);
+      }
+    },
+    [form, hideModal]
+  );
 
   const submit = useCallback(() => {
     form.validateFields().then(values => {
       const { oldPassword, newPassword } = values;
 
       changePassword({
+        userId: sessionStorage.getItem('userId') || '',
         oldPassword: md5(oldPassword),
         newPassword: md5(newPassword)
       });
     });
-  }, []);
+  }, [changePassword, form]);
 
   const onCancel = useCallback(() => {
     form.resetFields();
     hideModal();
-  }, []);
+  }, [form, hideModal]);
 
   return (
     <div>
