@@ -9,11 +9,15 @@
 
 import React, { memo, useState, useCallback } from 'react';
 import { Modal, Form, Input, Select, message } from 'antd';
-import { publishTypes, productTypes } from '@/constants';
-import { CreateAppParams } from '@/service/types';
-import { createAppRequest } from '@/service/apis';
+import { CreateAppParams, ProductType, PublishType } from '@/service/types';
+import {
+  createAppRequest,
+  getProductTypeListRequest,
+  getPublishTypeListRequest
+} from '@/service/apis';
 import { useHistory } from 'react-router-dom';
 import { delay } from '@/utils';
+import useAsyncOptions from '@/utils/hooks/useAsyncOptions';
 
 const { Option } = Select;
 
@@ -34,6 +38,12 @@ const formItemLayout = {
 };
 
 export default memo(function NewAppModal(props: Props) {
+  const [productTypes] = useAsyncOptions<ProductType>(
+    getProductTypeListRequest
+  );
+  const [publishTypes] = useAsyncOptions<PublishType>(
+    getPublishTypeListRequest
+  );
   const { visible, hideModal } = props;
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
@@ -153,7 +163,7 @@ export default memo(function NewAppModal(props: Props) {
           >
             <Select placeholder="请关联产品">
               {productTypes.map((type, index) => (
-                <Option value={type.value} key={index}>
+                <Option value={type.code} key={index}>
                   {type.name}
                 </Option>
               ))}
@@ -171,7 +181,7 @@ export default memo(function NewAppModal(props: Props) {
           >
             <Select placeholder="请选择发布类型">
               {publishTypes.map((type, index) => (
-                <Option value={type.value} key={index}>
+                <Option value={type.code} key={index}>
                   {type.name}
                 </Option>
               ))}

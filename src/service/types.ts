@@ -1,3 +1,5 @@
+import { type } from 'os';
+
 /*
  * @Author: zhouyou@werun
  * @Descriptions: request 和 response types 定义文件
@@ -26,6 +28,12 @@ export interface ListResponse<T> {
 // get Token 返回数据格式
 export interface TokenResponse {
   token: string;
+}
+
+// option 通用格式
+export interface Option {
+  code: string;
+  name: string;
 }
 
 // 登录请求参数格式
@@ -209,6 +217,20 @@ export interface DepartmentOption {
 }
 export interface GetDepartmentListResponse {
   list: DepartmentOption[];
+}
+
+// 请求产品类型列表返回数据格式
+export type ProductType = Option;
+
+export interface GetProductTypeListResponse {
+  list: ProductType[];
+}
+
+// 请求产品类型列表返回数据格式
+export type PublishType = Option;
+
+export interface GetPublishTypeListResponse {
+  list: PublishType[];
 }
 
 // 请求职位列表返回数据格式

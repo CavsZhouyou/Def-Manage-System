@@ -66,7 +66,9 @@ import {
   GetReviewerOptionsResponse,
   GetPublishLogParams,
   GetPublishLogResponse,
-  GetUserRoleListResponse
+  GetUserRoleListResponse,
+  GetProductTypeListResponse,
+  GetPublishTypeListResponse
 } from './types';
 
 export function getToken(): Promise<BaseResponse<TokenResponse>> {
@@ -210,6 +212,28 @@ export function getPostListRequest(): Promise<
   BaseResponse<GetPostListResponse>
 > {
   return axios.get<GetPostListResponse>('/def/constants/getPostList');
+}
+
+/**
+ * 获取产品列表请求
+ */
+export function getProductTypeListRequest(): Promise<
+  BaseResponse<GetProductTypeListResponse>
+> {
+  return axios.get<GetProductTypeListResponse>(
+    '/def/constants/getProductTypeList'
+  );
+}
+
+/**
+ * 获取发布类型列表请求
+ */
+export function getPublishTypeListRequest(): Promise<
+  BaseResponse<GetPublishTypeListResponse>
+> {
+  return axios.get<GetPublishTypeListResponse>(
+    '/def/constants/getPublishTypeList'
+  );
 }
 
 /**
