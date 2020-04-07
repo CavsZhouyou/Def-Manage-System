@@ -177,7 +177,7 @@ export interface GetUserListParams {
 
 // 请求用户列表返回数据格式
 export interface UserInfo {
-  userId: number;
+  userId: string;
   userName: string;
   userAvatar: string;
   userRole: UserRoleOption;
@@ -189,12 +189,12 @@ export type GetUserListResponse = ListResponse<UserInfo>;
 
 // 重置密码参数格式
 export interface ResetPasswordParams {
-  userId: number;
+  userId: string;
 }
 
 // 删除用户参数格式
 export interface DeleteUserParams {
-  userId: number;
+  userId: string;
 }
 
 // 请求用户角色列表返回数据格式

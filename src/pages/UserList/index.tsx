@@ -90,14 +90,14 @@ const getColumns = (updateList: () => void): ColumnProps<UserInfo>[] => {
           <Button
             className={styles.link}
             type="link"
-            onClick={() => resetPassword(record.userId, record.userName)}
+            onClick={(): void => resetPassword(record.userId, record.userName)}
           >
             重置密码
           </Button>
           <Button
             className={styles.link}
             type="link"
-            onClick={() =>
+            onClick={(): void =>
               deleteUser(record.userId, record.userName, updateList)
             }
           >
@@ -111,7 +111,7 @@ const getColumns = (updateList: () => void): ColumnProps<UserInfo>[] => {
 
 const showTotal = (total: number): string => `共 ${total} 条`;
 
-const rowKey = (record: UserInfo): number => record.userId;
+const rowKey = (record: UserInfo): string => record.userId;
 
 const initParams = (formValues: FormValues): InitParams => {
   const { userName } = formValues;
@@ -125,7 +125,7 @@ const initParams = (formValues: FormValues): InitParams => {
 };
 
 const deleteUser = (
-  userId: number,
+  userId: string,
   userName: string,
   updateList: () => void
 ): void => {
@@ -147,7 +147,7 @@ const deleteUser = (
   });
 };
 
-const resetPassword = (userId: number, userName: string): void => {
+const resetPassword = (userId: string, userName: string): void => {
   confirm({
     title: '提示',
     icon: <ExclamationCircleOutlined />,
