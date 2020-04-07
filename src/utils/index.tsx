@@ -74,3 +74,29 @@ export const formatTimestamp = (timestamp: number): string => {
     date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds();
   return Y + M + D + h + m + s;
 };
+
+/**
+ * 清除所有 cookie
+ *
+ */
+export const clearAllCookie = (): void => {
+  // const domain = '.' + document.location.host;
+  // const keys = document.cookie.match(/[^ =;]+(?=\=)/g);
+
+  // console.log(keys);
+  // if (keys) {
+  //   for (let i = keys.length; i--; )
+  //     document.cookie =
+  //       keys[i] + `=0;Domain=${domain};expires=` + new Date(0).toUTCString();
+  // }
+  const cookies = document.cookie.split(';');
+
+  console.log(cookies);
+
+  for (let i = 0; i < cookies.length; i++) {
+    const cookie = cookies[i];
+    const eqPos = cookie.indexOf('=');
+    const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+    document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:00 GMT';
+  }
+};

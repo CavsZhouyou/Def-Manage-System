@@ -44,11 +44,6 @@ export interface LoginResponse {
   };
 }
 
-// 退出登录请求参数格式
-export interface LogoutParams {
-  userId: number;
-}
-
 // 修改密码请求参数格式
 export interface ChangePasswordParams {
   userId: string;

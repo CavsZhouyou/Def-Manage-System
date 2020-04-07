@@ -13,7 +13,6 @@ import {
   BaseResponse,
   LoginResponse,
   LoginParams,
-  LogoutParams,
   ChangePasswordParams,
   GetAppListParams,
   GetAppListResponse,
@@ -86,10 +85,8 @@ export function loginRequest(
 /**
  * 退出登录请求
  */
-export function logoutRequest(
-  params: LogoutParams
-): Promise<BaseResponse<void>> {
-  return axios.post<void>('/def/auth/logout', { ...params });
+export function logoutRequest(): Promise<BaseResponse<void>> {
+  return axios.get<void>('/def/auth/logout', {});
 }
 
 /**

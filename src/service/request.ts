@@ -42,6 +42,16 @@ const getAxiosInstance = (): AxiosInstance => {
       console.log('-- error --');
       console.log(error);
       console.log('-- error --');
+
+      if (error.response) {
+        switch (error.response.status) {
+          case 401:
+            // 返回 401 清除用户数据并跳转到登录页面
+            sessionStorage.clear();
+            window.location.href = '/login';
+        }
+      }
+
       return Promise.resolve({
         data: {
           success: false,
@@ -83,12 +93,7 @@ const GetAxios = (): BaseAjax => {
     return new Promise((resolve, reject) => {
       instance.request<BaseResponse<T>>(config).then(data => {
         const __data = data.data;
-        // if (__data.success) {
         resolve(__data);
-        // } else {
-        //   console.log(__data.message);
-        //   reject(__data);
-        // }
       });
     });
   };

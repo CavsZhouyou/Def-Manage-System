@@ -19,6 +19,7 @@ import { logoutRequest } from '@/service/apis';
 import useModal from '@/utils/hooks/useModal';
 import ChangePasswordModal from '../ChangePasswordModal';
 import styles from './index.module.scss';
+import { useHistory } from 'react-router-dom';
 
 const { confirm } = Modal;
 const { Header } = Layout;
@@ -28,20 +29,18 @@ type Props = {
   toggle: () => void;
 };
 
-const logout = () => {
+const logout = (history: any) => {
   confirm({
     title: '提示',
     icon: <ExclamationCircleOutlined />,
     content: '确定要退出吗？',
     onOk() {
       // 退出登录
-      logoutRequest({
-        userId: parseInt(sessionStorage.getItem('userId') || '')
-      });
+      logoutRequest();
       // 清除用户数据
       sessionStorage.clear();
       // 重定向到登录页面
-      window.location.reload();
+      history.push('/login');
     }
   });
 };
@@ -60,6 +59,7 @@ const CollapseTrigger = React.memo(({ collapsed, toggle }: Props) => {
 });
 
 export default memo(function CustomHeader({ collapsed, toggle }: Props) {
+  const history = useHistory();
   const avatar = sessionStorage.getItem('userAvatar') || undefined;
   const userName = sessionStorage.getItem('userName') || undefined;
   const [cpModalVisible, showCpModal, hideCpModal] = useModal();
@@ -72,7 +72,7 @@ export default memo(function CustomHeader({ collapsed, toggle }: Props) {
           修改密码
         </Menu.Item>
         <Menu.Divider />
-        <Menu.Item onClick={logout}>
+        <Menu.Item onClick={() => logout(history)}>
           <Icon className={styles.menuIcon} type="icon-logout" />
           退出登录
         </Menu.Item>
