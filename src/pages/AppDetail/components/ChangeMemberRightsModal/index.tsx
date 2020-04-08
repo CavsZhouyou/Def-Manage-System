@@ -17,9 +17,10 @@ import { memberRoles, useTimeTypes } from '@/constants';
 const { Option } = Select;
 
 interface Props {
+  appId: number;
   visible: boolean;
   userInfo: {
-    userId: number;
+    userId: string;
     role: string;
   };
   hideModal: () => void;
@@ -38,7 +39,7 @@ const formItemLayout = {
 };
 
 export default memo(function ChangeMemberRightsModal(props: Props) {
-  const { visible, userInfo, hideModal, updateList } = props;
+  const { appId, visible, userInfo, hideModal, updateList } = props;
   const { userId, role } = userInfo;
   const initialValues = {
     role
@@ -73,12 +74,13 @@ export default memo(function ChangeMemberRightsModal(props: Props) {
       const { role, useTime } = values;
 
       changeMemberRights({
+        appId,
         userId,
         useTime,
         role
       });
     });
-  }, [form, changeMemberRights, userId]);
+  }, [form, changeMemberRights, userId, appId]);
 
   const onCancel = useCallback(() => {
     form.resetFields();

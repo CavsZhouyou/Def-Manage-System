@@ -338,7 +338,8 @@ export interface AddAppMemberParams {
 
 // 修改应用成员权限参数格式
 export interface ChangeMemberRightsParams {
-  userId: number;
+  appId: number;
+  userId: string;
   useTime: string;
   role: string;
 }

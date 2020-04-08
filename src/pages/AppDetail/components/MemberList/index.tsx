@@ -25,7 +25,6 @@ import {
 import useList from '@/utils/hooks/useList';
 import useModal from '@/utils/hooks/useModal';
 import { formatTimestamp, formatTimeToInterval } from '@/utils';
-import { memberRoles } from '@/constants';
 import AddAppMemberModal from '../AddAppMemberModal';
 import ChangeMemberRightsModal from '../ChangeMemberRightsModal';
 import styles from './index.module.scss';
@@ -118,7 +117,7 @@ const getColumns = (
               onClick={() => {
                 setUserInfo({
                   userId: record.userId,
-                  role: record.role
+                  role: record.role.roleId
                 });
                 showModal();
               }}
@@ -168,8 +167,8 @@ export default memo(function MemberList() {
     },
     getAppMemberListRequest
   );
-  const [userInfo, setUserInfo] = useState<{ userId: number; role: string }>({
-    userId: 0,
+  const [userInfo, setUserInfo] = useState<{ userId: string; role: string }>({
+    userId: '1',
     role: '5003'
   });
   const { appInfo } = useParams();
@@ -195,6 +194,7 @@ export default memo(function MemberList() {
             updateList={updateList}
           />
           <ChangeMemberRightsModal
+            appId={appId}
             visible={changeMemberRightsVisible}
             userInfo={userInfo}
             hideModal={hideChangeMemberRightsModal}
