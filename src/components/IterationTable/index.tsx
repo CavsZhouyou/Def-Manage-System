@@ -73,7 +73,14 @@ const getColumns = (
       dataIndex: 'appName',
       key: 'appName',
       render: (text: string, record: IterationInfo): JSX.Element => (
-        <Link to={`/home/appDetail/${record.appId}`}>
+        <Link
+          to={`/home/appDetail/${encodeURIComponent(
+            JSON.stringify({
+              appId: record.appId,
+              appName: record.appName
+            })
+          )}`}
+        >
           <Avatar src={record.appLogo} />
           {text}
         </Link>
@@ -121,7 +128,9 @@ const getColumns = (
       render: (text: string, record: IterationInfo): string =>
         getTimeInterval(
           parseInt(record.createTime || ''),
-          parseInt(record.endTime || '')
+          record.endTime === '0'
+            ? new Date().getTime()
+            : parseInt(record.endTime || '')
         )
     },
     {
@@ -131,8 +140,8 @@ const getColumns = (
     },
     {
       title: '创建人',
-      dataIndex: 'creator',
-      key: 'creator',
+      dataIndex: 'creatorName',
+      key: 'creatorName',
       render: (text: string, record: IterationInfo): JSX.Element => (
         <div>
           <Avatar
@@ -196,7 +205,12 @@ const getColumns = (
               className={styles.link}
               type="link"
               onClick={() =>
-                rollbackVersion(userId, appId, record.version, record.versionId)
+                rollbackVersion(
+                  userId,
+                  appId,
+                  record.version,
+                  record.iterationId
+                )
               }
             >
               回滚

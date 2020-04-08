@@ -109,7 +109,7 @@ export interface GetIterationListParams {
   userId: number;
   appId?: number;
   creator?: string;
-  iterationType: string[];
+  iterationStatus: string[];
   page: number;
   pageSize: number;
 }
@@ -121,7 +121,6 @@ export interface IterationInfo {
   appLogo: string;
   appName: string;
   version: string;
-  versionId: number;
   iterationName: string;
   createTime: string;
   endTime: string;
