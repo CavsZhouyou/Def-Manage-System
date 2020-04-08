@@ -44,6 +44,7 @@ const formItemLayout = {
 
 export default memo(function NewIterationModal(props: Props) {
   const { visible, hideModal, appId } = props;
+  const userId = sessionStorage.getItem('userId') || '';
   const [myAppOptions] = useAsyncOptions<AppOption>(() =>
     getMyAppListRequest({ userId })
   );
@@ -51,7 +52,6 @@ export default memo(function NewIterationModal(props: Props) {
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
   const history = useHistory();
-  const userId = parseInt(sessionStorage.getItem('userId') || '');
   const initialValues = {
     appId
   };
@@ -111,7 +111,7 @@ export default memo(function NewIterationModal(props: Props) {
 
       createIteration({
         appId: parseInt(appId || ''),
-        userId: parseInt(sessionStorage.getItem('userId') || ''),
+        userId: sessionStorage.getItem('userId') || '',
         branch,
         iterationName,
         description
@@ -181,7 +181,7 @@ export default memo(function NewIterationModal(props: Props) {
           >
             <Select placeholder="请选择关联分支">
               {branchOptions.map((type, index) => (
-                <Option value={type.branchId} key={index}>
+                <Option value={type.branchName} key={index}>
                   {type.branchName}
                 </Option>
               ))}

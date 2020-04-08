@@ -138,7 +138,7 @@ export type GetIterationListResponse = ListResponse<IterationInfo>;
 // 新建迭代请求参数格式
 export interface CreateIterationParams {
   appId: number;
-  userId: number;
+  userId: string;
   branch: string;
   iterationName: string;
   description: string;
@@ -154,7 +154,7 @@ export interface CreateIterationResponse {
 
 // 请求我的应用列表参数格式
 export interface GetMyAppListParams {
-  userId: number;
+  userId: string;
 }
 
 // 请求我的应用列表返回数据格式
