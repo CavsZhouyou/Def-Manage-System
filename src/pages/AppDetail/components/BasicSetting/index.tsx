@@ -10,11 +10,15 @@
 import React, { memo, useState, useEffect, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import { message, Form, Input, Button, Select } from 'antd';
-import { productTypes } from '@/constants';
-import { EditBasicInfoParams } from '@/service/types';
-import { getAppBasicInfoRequest, editBasicInfoRequest } from '@/service/apis';
+import { EditBasicInfoParams, ProductType } from '@/service/types';
+import {
+  getAppBasicInfoRequest,
+  editBasicInfoRequest,
+  getProductTypeListRequest
+} from '@/service/apis';
 import { delay } from '@/utils';
 import styles from './index.module.scss';
+import useAsyncOptions from '@/utils/hooks/useAsyncOptions';
 
 const { Option } = Select;
 
@@ -38,6 +42,9 @@ export default memo(function BasicSetting() {
   const { appId } = JSON.parse(decodeURIComponent(appInfo || '{}'));
   const userId = sessionStorage.getItem('userId') || '';
   const [form] = Form.useForm();
+  const [productTypes] = useAsyncOptions<ProductType>(
+    getProductTypeListRequest
+  );
 
   useEffect(() => {
     getAppBasicInfo();
@@ -53,7 +60,14 @@ export default memo(function BasicSetting() {
     const result = await getAppBasicInfoRequest(params);
 
     if (result.success) {
-      form.setFieldsValue(result.data);
+      const {
+        description,
+        productType: { code: product }
+      } = result.data;
+      form.setFieldsValue({
+        description,
+        product
+      });
     } else {
       message.error(result.message);
     }
@@ -124,7 +138,7 @@ export default memo(function BasicSetting() {
         >
           <Select placeholder="请关联产品">
             {productTypes.map((type, index) => (
-              <Option value={type.value} key={index}>
+              <Option value={type.code} key={index}>
                 {type.name}
               </Option>
             ))}

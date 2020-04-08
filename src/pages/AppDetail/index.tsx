@@ -24,7 +24,7 @@ export default memo(function AppDetail() {
     <div className={styles.appDetail}>
       <BreadcrumbNavbar mode={1} appName={appName} />
       <div className={styles.contentWrapper}>
-        <Tabs defaultActiveKey="3" animated={true}>
+        <Tabs defaultActiveKey="6" animated={true}>
           {routes.map(route => (
             <TabPane
               tab={
