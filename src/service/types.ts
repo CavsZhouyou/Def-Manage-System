@@ -304,6 +304,7 @@ export type GetDynamicListResponse = ListResponse<DynamicInfo>;
 
 // 请求应用成员列表参数格式
 export interface GetAppMemberListParams {
+  appId: number;
   page: number;
   pageSize: number;
 }
@@ -316,7 +317,7 @@ export interface MemberInfo {
   joinTime: string;
   expiredTime: string;
   lastPublishTime: string;
-  role: string;
+  role: UserRoleOption;
 }
 
 export type GetAppMemberListResponse = ListResponse<MemberInfo>;

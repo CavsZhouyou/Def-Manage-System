@@ -13,7 +13,11 @@ import { Modal, Table, Avatar, Button, message } from 'antd';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { ColumnProps } from 'antd/es/table';
 import Title from '@/components/Title';
-import { MemberInfo, GetAppMemberListParams } from '@/service/types';
+import {
+  MemberInfo,
+  GetAppMemberListParams,
+  UserRoleOption
+} from '@/service/types';
 import {
   getAppMemberListRequest,
   deleteAppMemberRequest
@@ -98,14 +102,13 @@ const getColumns = (
       title: '角色',
       dataIndex: 'role',
       key: 'role',
-      render: (text: string): string =>
-        memberRoles.filter(item => item.value === text)[0].name
+      render: (role: UserRoleOption): string => role.roleName
     },
     {
       title: '操作',
       key: 'action',
       render: (text, record) => {
-        if (record.role === '5001') return '';
+        if (record.role.roleId === '5001') return '';
 
         return (
           <span>
@@ -138,10 +141,6 @@ const getColumns = (
   ];
 };
 
-const initParams = () => {
-  return {};
-};
-
 const showTotal = (total: number): string => `共 ${total} 条`;
 
 const rowKey = (record: MemberInfo): number => record.userId;
@@ -160,7 +159,15 @@ export default memo(function MemberList() {
   const { loading, list, total, page, onPageChange, updateList } = useList<
     MemberInfo,
     GetAppMemberListParams
-  >(PAGE_SIZE, initParams, getAppMemberListRequest);
+  >(
+    PAGE_SIZE,
+    () => {
+      return {
+        appId
+      };
+    },
+    getAppMemberListRequest
+  );
   const [userInfo, setUserInfo] = useState<{ userId: number; role: string }>({
     userId: 0,
     role: '5003'
