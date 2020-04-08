@@ -35,19 +35,25 @@ const Description = (props: DescriptionProps): JSX.Element => {
 
 const initialState = {
   description: '暂无',
-  product: '2001',
+  productType: {
+    code: '0000',
+    name: '无'
+  },
   repository: '暂无',
   onlineAddress: '未发布',
   isJoin: false,
   joinTime: '',
-  publishType: '1002',
+  publishType: {
+    code: '0000',
+    name: '无'
+  },
   pagePrefix: '暂无'
 };
 
 export default memo(function AppInfo() {
   const { appInfo: app } = useParams();
   const { appId } = JSON.parse(decodeURIComponent(app || '{}'));
-  const userId = parseInt(sessionStorage.getItem('userId') || '');
+  const userId = sessionStorage.getItem('userId') || '';
   const [appInfo] = useAsyncState<AppBasicInfo>(initialState, () =>
     getAppBasicInfoRequest({
       appId,
@@ -56,7 +62,7 @@ export default memo(function AppInfo() {
   );
   const {
     description,
-    product,
+    productType,
     repository,
     isJoin,
     joinTime,
@@ -64,11 +70,6 @@ export default memo(function AppInfo() {
     pagePrefix,
     onlineAddress
   } = appInfo;
-  const publishTypeName = publishTypes.filter(
-    item => item.value === publishType
-  )[0].name;
-  const productName = productTypes.filter(item => item.value === product)[0]
-    .name;
 
   return (
     <div className={styles.appInfo}>
@@ -77,7 +78,7 @@ export default memo(function AppInfo() {
       </div>
       <div className={styles.content}>
         <Description label="应用描述" value={description} />
-        <Description label="产品" value={productName} />
+        <Description label="产品" value={productType.name} />
         <Description
           label="仓库"
           value={<a href={repository}>{repository}</a>}
@@ -86,7 +87,7 @@ export default memo(function AppInfo() {
           label="加入时间"
           value={isJoin ? formatTimestamp(parseInt(joinTime || '')) : '未加入'}
         />
-        <Description label="发布类型" value={publishTypeName} />
+        <Description label="发布类型" value={publishType.name} />
         <Description label="页面前缀" value={pagePrefix} />
         <Description
           label="线上地址"

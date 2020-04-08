@@ -36,7 +36,7 @@ export default memo(function BasicSetting() {
   const [loading, setLoading] = useState<boolean>(false);
   const { appInfo } = useParams();
   const { appId } = JSON.parse(decodeURIComponent(appInfo || '{}'));
-  const userId = parseInt(sessionStorage.getItem('userId') || '');
+  const userId = sessionStorage.getItem('userId') || '';
   const [form] = Form.useForm();
 
   useEffect(() => {

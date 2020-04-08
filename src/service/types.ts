@@ -266,19 +266,19 @@ export interface AddUserResponse {
 
 // 请求应用基本信息参数格式
 export interface GetAppBasicInfoParams {
-  userId: number;
+  userId: string;
   appId: number;
 }
 
 // 请求应用信息返回数据格式
 export interface AppBasicInfo {
   description: string;
-  product: string;
+  productType: ProductType;
   repository: string;
   onlineAddress: string;
   isJoin: boolean;
   joinTime?: string;
-  publishType: string;
+  publishType: PublishType;
   pagePrefix: string;
 }
 
@@ -453,7 +453,7 @@ export interface RollbackVersionParams {
 // 修改基本设置参数格式
 export interface EditBasicInfoParams {
   appId: number;
-  userId: number;
+  userId: string;
   description: string;
   product: string;
 }
