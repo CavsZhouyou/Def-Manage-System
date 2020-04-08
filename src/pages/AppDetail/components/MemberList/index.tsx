@@ -34,7 +34,7 @@ const { confirm } = Modal;
 
 const deleteMember = (
   appId: number,
-  userId: number,
+  userId: string,
   userName: string,
   updateList: () => void
 ): void => {
@@ -142,7 +142,7 @@ const getColumns = (
 
 const showTotal = (total: number): string => `共 ${total} 条`;
 
-const rowKey = (record: MemberInfo): number => record.userId;
+const rowKey = (record: MemberInfo): string => record.userId;
 
 export default memo(function MemberList() {
   const [

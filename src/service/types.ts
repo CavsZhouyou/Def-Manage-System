@@ -311,7 +311,7 @@ export interface GetAppMemberListParams {
 
 // 请求应用成员列表返回数据格式
 export interface MemberInfo {
-  userId: number;
+  userId: string;
   userName: string;
   userAvatar: string;
   joinTime: string;
@@ -325,7 +325,7 @@ export type GetAppMemberListResponse = ListResponse<MemberInfo>;
 // 删除应用成员参数格式
 export interface DeleteAppMemberParams {
   appId: number;
-  userId: number;
+  userId: string;
 }
 
 // 添加应用成员参数格式
