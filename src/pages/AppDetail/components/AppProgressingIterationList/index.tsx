@@ -17,9 +17,8 @@ import Title from '@/components/Title';
 import styles from './index.module.scss';
 
 interface InitParams {
-  userId: number;
   appId: number;
-  iterationType: string[];
+  iterationStatus: string[];
 }
 
 const excludeColumns: string[] = [
@@ -37,12 +36,10 @@ export default memo(function AppProgressingIterationList() {
   const { appInfo: app } = useParams();
   const initParams = (): InitParams => {
     const { appId } = JSON.parse(decodeURIComponent(app || ''));
-    const userId = parseInt(sessionStorage.getItem('userId') || '');
 
     return {
-      userId,
       appId,
-      iterationType: ['3002']
+      iterationStatus: ['3002']
     };
   };
   const { loading, list, total, page, onPageChange } = useList<

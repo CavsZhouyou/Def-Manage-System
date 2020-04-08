@@ -196,8 +196,8 @@ const getColumns = (
     {
       title: '操作',
       key: 'action',
-      render: (text, record: IterationInfo): JSX.Element | null => {
-        if (record.iterationStatus !== '3001') return null;
+      render: (text, record: IterationInfo): JSX.Element | string => {
+        if (record.iterationStatus !== '3001') return '无';
 
         return (
           <span>

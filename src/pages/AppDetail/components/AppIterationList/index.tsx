@@ -23,13 +23,13 @@ import styles from './index.module.scss';
 
 interface FormValues {
   creator: 'mine' | 'all';
-  iterationType: string;
+  iterationStatus: string;
 }
 
 interface InitParams {
   userId: number;
   appId: number;
-  iterationType: string[];
+  iterationStatus: string[];
 }
 
 const { Option } = Select;
@@ -37,7 +37,7 @@ const excludeColumns: string[] = ['appName'];
 const PAGE_SIZE = 7;
 
 const initialValues = {
-  iterationType: 'all'
+  iterationStatus: 'all'
 };
 
 const SearchForm = memo(
@@ -66,7 +66,7 @@ const SearchForm = memo(
         </div>
         <div className={styles.rightActions}>
           <Form.Item
-            name="iterationType"
+            name="iterationStatus"
             label="迭代类型"
             className={styles.iterationType}
           >
@@ -85,45 +85,20 @@ const SearchForm = memo(
   }
 );
 
-const Header = memo(() => {
-  return (
-    <div className={styles.header}>
-      <div className={styles.leftActions}>
-        <Title title="迭代" />
-        <Button className={styles.addButton} type="link">
-          <PlusCircleOutlined className={styles.addIcon} />
-          新建迭代
-        </Button>
-      </div>
-      <div className={styles.rightActions}>
-        <span className={styles.label}>迭代状态:</span>
-        <Select className={styles.typeSelect} defaultValue="001">
-          <Option value="001">全部</Option>
-          <Option value="002">已完成</Option>
-          <Option value="003">进行中</Option>
-          <Option value="004">已废弃</Option>
-        </Select>
-      </div>
-    </div>
-  );
-});
-
 export default memo(function IterationList() {
   const { appInfo: app } = useParams();
   const { appId } = JSON.parse(decodeURIComponent(app || ''));
   const initParams = (formValues: FormValues): InitParams => {
-    const userId = parseInt(sessionStorage.getItem('userId') || '');
-    const { iterationType } = formValues;
+    const { iterationStatus } = formValues;
     const params: any = {
-      userId,
       appId
     };
 
     // 查询所有状态时，传入 []
-    if (iterationType === 'all') {
-      params.iterationType = [];
+    if (iterationStatus === 'all') {
+      params.iterationStatus = [];
     } else {
-      params.iterationType = [iterationType];
+      params.iterationStatus = [iterationStatus];
     }
 
     return params;
