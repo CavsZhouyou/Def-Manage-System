@@ -182,6 +182,7 @@ export default memo(function MemberList() {
             添加成员
           </Button>
           <AddAppMemberModal
+            appId={appId}
             visible={addMemberModalVisible}
             hideModal={hideAddMemberModal}
             updateList={updateList}

@@ -16,6 +16,7 @@ import { memberRoles, useTimeTypes } from '@/constants';
 const { Option } = Select;
 
 interface Props {
+  appId: number;
   visible: boolean;
   hideModal: () => void;
   updateList: () => void;
@@ -33,7 +34,7 @@ const formItemLayout = {
 };
 
 export default memo(function AddAppMemberModal(props: Props) {
-  const { visible, hideModal, updateList } = props;
+  const { visible, hideModal, updateList, appId } = props;
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
 
@@ -64,6 +65,7 @@ export default memo(function AddAppMemberModal(props: Props) {
       const { userName, role, useTime } = values;
 
       addAppMember({
+        appId,
         userName,
         useTime,
         role

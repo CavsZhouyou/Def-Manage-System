@@ -82,10 +82,6 @@ export const publishStatus = [
 
 export const memberRoles = [
   {
-    name: '创建者',
-    value: '5001'
-  },
-  {
     name: '管理员',
     value: '5002'
   },
@@ -98,19 +94,19 @@ export const memberRoles = [
 export const useTimeTypes = [
   {
     name: '一个月',
-    value: '6001'
+    value: '2629800000'
   },
   {
     name: '三个月',
-    value: '6002'
+    value: '7889400000'
   },
   {
     name: '半年',
-    value: '6003'
+    value: '15778800000'
   },
   {
     name: '一年',
-    value: '6004'
+    value: '31557600000'
   }
 ];
 
