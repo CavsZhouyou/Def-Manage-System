@@ -88,7 +88,8 @@ const getColumns = (
       title: '过期时间',
       dataIndex: 'expiredTime',
       key: 'expiredTime',
-      render: (text: string): string => formatTimestamp(parseInt(text || ''))
+      render: (text: string): string =>
+        text === '9999' ? '无' : formatTimestamp(parseInt(text || ''))
     },
     {
       title: '最后发布',
@@ -107,7 +108,7 @@ const getColumns = (
       title: '操作',
       key: 'action',
       render: (text, record) => {
-        if (record.role.roleId === '5001') return '';
+        if (record.role.roleId === '5001') return '无';
 
         return (
           <span>
