@@ -21,7 +21,7 @@ import { getAppListByCountRequest } from '@/service/apis';
 import commonStyles from '../../index.module.scss';
 import styles from './index.module.scss';
 
-const getData = (userId: number) => {
+const getData = (userId: string) => {
   return (
     loadedCount: number,
     count: number
@@ -56,7 +56,13 @@ const Header = memo(() => {
 });
 
 const App = memo((props: any) => {
-  const { appName, appLogo, iterationCount, description, loading } = props;
+  const {
+    appName,
+    appLogo,
+    progressingIterationCount,
+    description,
+    loading
+  } = props;
 
   return (
     <List.Item>
@@ -67,7 +73,7 @@ const App = memo((props: any) => {
           description={description}
         />
         <Button className={styles.iteration} type="link">
-          {`${iterationCount} 个进行中的迭代`}
+          {`${progressingIterationCount} 个进行中的迭代`}
           <RightOutlined className={styles.rightIcon} />
         </Button>
       </Skeleton>
@@ -76,7 +82,7 @@ const App = memo((props: any) => {
 });
 
 export default memo(function MyAppList() {
-  const userId = parseInt(sessionStorage.getItem('userId') || '');
+  const userId = sessionStorage.getItem('userId') || '';
   const { loading, listData, loadMore, hasMore } = useLoadMore<AppInfo>(
     [],
     getData(userId)

@@ -70,8 +70,7 @@ export interface GetAppListParams {
 
 // 通过 count 请求应用列表参数格式
 export interface GetAppListByCountParams {
-  userId?: number;
-  appName?: string;
+  userId: string;
   publishType: string[];
   loadedCount: number;
   count: number;

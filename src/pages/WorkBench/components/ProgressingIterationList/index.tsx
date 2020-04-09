@@ -21,7 +21,7 @@ import styles from './index.module.scss';
 
 interface InitParams {
   userId: number;
-  iterationType: string[];
+  iterationStatus: string[];
 }
 
 const excludeColumns: string[] = [
@@ -56,7 +56,7 @@ export default memo(function ProgressingIterationList() {
   const userId = parseInt(sessionStorage.getItem('userId') || '');
   const initParams = (): InitParams => ({
     userId,
-    iterationType: ['3002']
+    iterationStatus: ['3002']
   });
   const { loading, list, total, page, onPageChange } = useList<
     IterationInfo,
