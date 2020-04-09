@@ -285,7 +285,7 @@ export type GetAppBasicInfoResponse = AppBasicInfo;
 
 // 请求动态列表参数格式
 export interface GetDynamicListParams {
-  userId: number;
+  userId: string;
   appId?: number;
   loadedCount: number;
   count: number;
@@ -298,6 +298,7 @@ export interface DynamicInfo {
   userAvatar: string;
   content: string;
   operateTime: string;
+  appName: string;
 }
 
 export type GetDynamicListResponse = ListResponse<DynamicInfo>;

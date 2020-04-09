@@ -7,7 +7,7 @@
  * @Last Modified time: 2020-03-29 15:59:47
  */
 
-import React, { memo, useEffect } from 'react';
+import React, { memo, useEffect, useCallback } from 'react';
 import { List, Avatar, Skeleton } from 'antd';
 import LoadMore from '@/components/LoadMore';
 import Title from '@/components/Title';
@@ -21,7 +21,7 @@ import { getDynamicListRequest } from '@/service/apis';
 import { formatTimeToInterval } from '@/utils';
 import styles from './index.module.scss';
 
-const getData = (userId: number, appId?: number) => {
+const getData = (userId: string, appId?: number) => {
   return (
     loadedCount: number,
     count: number
@@ -35,18 +35,30 @@ const getData = (userId: number, appId?: number) => {
   };
 };
 
-const renderItem = (item: DynamicInfo): JSX.Element => <Dynamic {...item} />;
-
 const Dynamic = memo((props: any) => {
-  const { userAvatar, operateTime, content, loading } = props;
+  const {
+    userAvatar,
+    operateTime,
+    content,
+    userName,
+    appName,
+    appId,
+    loading
+  } = props;
 
   return (
     <List.Item>
       <Skeleton avatar title={false} loading={loading} active>
         <List.Item.Meta
           avatar={<Avatar size={40} src={userAvatar} />}
-          title={formatTimeToInterval(operateTime)}
-          description={content}
+          title={
+            // 应用详情里展示时不展示应用名称
+            <div className={styles.dynamicTitle}>
+              {!appId && <span>{appName}</span>}
+              {formatTimeToInterval(operateTime)}
+            </div>
+          }
+          description={`${userName} ${content}`}
         />
       </Skeleton>
     </List.Item>
@@ -54,11 +66,15 @@ const Dynamic = memo((props: any) => {
 });
 
 export default memo(function DynamicList(props: { appId?: number }) {
-  const userId = parseInt(sessionStorage.getItem('userId') || '');
+  const userId = sessionStorage.getItem('userId') || '';
   const { appId } = props;
   const { loading, listData, loadMore, hasMore } = useLoadMore<DynamicInfo>(
     [],
     getData(userId, appId)
+  );
+  const renderItem = useCallback(
+    (item: DynamicInfo): JSX.Element => <Dynamic {...item} appId={appId} />,
+    []
   );
 
   useEffect(() => {
