@@ -7,9 +7,9 @@
  * @Last Modified time: 2020-03-27 22:31:25
  */
 
-import React, { memo, useEffect, useState, useCallback } from 'react';
+import React, { memo } from 'react';
 import { useParams } from 'react-router-dom';
-import { Select, Form, message } from 'antd';
+import { Select, Form } from 'antd';
 import Title from '@/components/Title';
 import PublishTable from '@/components/PublishTable';
 import styles from './index.module.scss';
@@ -35,10 +35,9 @@ interface InitParams {
   userId: number;
   appId: number;
   iterationId?: number;
-  publishType: string[];
   publishEnv: string[];
   publishStatus: string[];
-  publisherId?: number[];
+  publisherId: string[];
 }
 
 const { Option } = Select;
@@ -49,7 +48,6 @@ const getInitParams = (appId: number) => {
   return (formValues: FormValues): InitParams => {
     const params: any = {};
 
-    params.userId = parseInt(sessionStorage.getItem('userId') || '');
     params.appId = appId;
 
     // 查询所有状态时，传入 []
@@ -77,7 +75,7 @@ const SearchForm = memo(
       <Form layout="inline" form={form} className={styles.form}>
         <Title title="发布列表" />
         <div className={styles.actions}>
-          <Form.Item name="publishType">
+          {/* <Form.Item name="publishType">
             <Select
               className={styles.typeSelect}
               onChange={updateList}
@@ -90,7 +88,7 @@ const SearchForm = memo(
                 </Option>
               ))}
             </Select>
-          </Form.Item>
+          </Form.Item> */}
           <Form.Item name="publishEnv">
             <Select
               className={styles.typeSelect}

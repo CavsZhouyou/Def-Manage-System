@@ -346,13 +346,11 @@ export interface ChangeMemberRightsParams {
 
 // 获取发布列表请求参数格式
 export interface GetPublishListParams {
-  userId: number;
   appId: number;
   iterationId?: number;
-  publishType: string[];
   publishEnv: string[];
   publishStatus: string[];
-  publisherId?: number;
+  publisherId: string[];
   page: number;
   pageSize: number;
 }

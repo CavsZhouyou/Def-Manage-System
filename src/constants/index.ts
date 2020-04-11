@@ -77,6 +77,10 @@ export const publishStatus = [
   {
     name: '未发布',
     value: '4003'
+  },
+  {
+    name: '发布中',
+    value: '4004'
   }
 ];
 

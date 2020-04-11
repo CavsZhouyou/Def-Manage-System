@@ -89,14 +89,14 @@ const columns: ColumnProps<PublishInfo>[] = [
     key: 'commit',
     render: (text: string): JSX.Element => <a>{text}</a>
   },
-  {
-    title: '发布类型',
-    dataIndex: 'publishType',
-    key: 'publishType',
-    render: (text: string) => {
-      return publishTypes.filter(item => item.value === text)[0].name;
-    }
-  },
+  // {
+  //   title: '发布类型',
+  //   dataIndex: 'publishType',
+  //   key: 'publishType',
+  //   render: (text: string) => {
+  //     return publishTypes.filter(item => item.value === text)[0].name;
+  //   }
+  // },
   {
     title: '发布环境',
     key: 'publishEnv',
@@ -122,8 +122,10 @@ const columns: ColumnProps<PublishInfo>[] = [
           return <Tag color="green">成功</Tag>;
         case '4002':
           return <Tag color="red">失败</Tag>;
-        default:
+        case '4003':
           return <Tag color="orange">未发布</Tag>;
+        default:
+          return <Tag color="blue">发布中</Tag>;
       }
     }
   },
