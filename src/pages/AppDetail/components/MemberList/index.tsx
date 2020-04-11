@@ -91,13 +91,13 @@ const getColumns = (
       render: (text: string): string =>
         text === '9999' ? '无' : formatTimestamp(parseInt(text || ''))
     },
-    {
-      title: '最后发布',
-      dataIndex: 'lastPublishTime',
-      key: 'lastPublishTime',
-      render: (text: string): string =>
-        formatTimeToInterval(parseInt(text || ''))
-    },
+    // {
+    //   title: '最后发布',
+    //   dataIndex: 'lastPublishTime',
+    //   key: 'lastPublishTime',
+    //   render: (text: string): string =>
+    //     formatTimeToInterval(parseInt(text || ''))
+    // },
     {
       title: '角色',
       dataIndex: 'role',
