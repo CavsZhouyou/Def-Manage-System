@@ -188,7 +188,6 @@ const getColumns = (
           case '4002':
             return <CloseCircleTwoTone twoToneColor="#FF4D50" />;
           default:
-            // return <CloseCircleTwoTone twoToneColor="#FF4D50" />;
             return <MinusCircleTwoTone twoToneColor="#808080" />;
         }
       }
