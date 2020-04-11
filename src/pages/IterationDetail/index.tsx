@@ -6,9 +6,9 @@
  * @Last Modified by: zhouyou@werun
  * @Last Modified time: 2020-03-29 14:49:41
  */
-import React, { memo, useState, useEffect } from 'react';
+import React, { memo } from 'react';
 import { useParams } from 'react-router-dom';
-import { Tag, message } from 'antd';
+import { Tag } from 'antd';
 import {
   ClockCircleOutlined,
   BranchesOutlined,
@@ -82,14 +82,10 @@ const getIterationStatus = (value: string): JSX.Element => {
   }
 };
 
-const IterationInfo = (props: {
-  appId: number;
-  iterationId: number;
-}): JSX.Element => {
-  const { appId, iterationId } = props;
+const IterationInfo = (props: { iterationId: number }): JSX.Element => {
+  const { iterationId } = props;
   const [iterationDetail] = useAsyncState<IterationDetail>(initialState, () =>
     getIterationDetailRequest({
-      appId,
       iterationId
     })
   );
@@ -165,7 +161,7 @@ export default memo(function IterationDetail() {
         iterationName={iterationName}
       />
       <div className={styles.content}>
-        <IterationInfo appId={appId} iterationId={iterationId} />
+        <IterationInfo iterationId={iterationId} />
         <div className={styles.publishList}>
           <Title title="发布记录" />
           <div className={styles.tableWrapper}>

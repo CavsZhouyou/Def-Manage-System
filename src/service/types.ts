@@ -479,7 +479,6 @@ export interface GetCodeReviewSettingResponse {
 
 // 请求迭代详情参数格式
 export interface GetIterationDetailParams {
-  appId: number;
   iterationId: number;
 }
 
