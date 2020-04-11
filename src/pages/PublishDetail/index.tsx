@@ -7,9 +7,9 @@
  * @Last Modified time: 2020-03-29 12:12:00
  */
 
-import React, { memo, useState, useEffect } from 'react';
+import React, { memo } from 'react';
 import { useParams } from 'react-router-dom';
-import { Modal, Button, Tag, Avatar, Radio, message } from 'antd';
+import { Modal, Button, Tag, Avatar, Radio } from 'antd';
 import Title from '@/components/Title';
 import BreadcrumbNavbar from '@/components/BreadcrumbNavbar';
 import { PublishDetail, PublishLog } from '@/service/types';
@@ -27,7 +27,7 @@ const initialState = {
   publisherAvatar: '暂无',
   createTime: '0',
   commit: '暂无',
-  publishType: '1002',
+  // publishType: '1002',
   publishEnv: 'online',
   publishStatus: '4003',
   reviewId: 0,
@@ -104,26 +104,25 @@ const PublishInfo = (props: {
   const [visible, showModal, hideModal] = useModal();
   const [publishDetail] = useAsyncState<PublishDetail>(initialState, () =>
     getPublishDetailRequest({
-      appId,
-      iterationId,
       publishId
     })
   );
+
   const {
     publisher,
     publisherAvatar,
     commit,
     createTime,
-    publishType,
+    // publishType,
     publishEnv,
     publishStatus,
     reviewId,
     reviewStatus,
     failReason
   } = publishDetail;
-  const publishTypeName = publishTypes.filter(
-    item => item.value === publishType
-  )[0].name;
+  // const publishTypeName = publishTypes.filter(
+  //   item => item.value === publishType
+  // )[0].name;
 
   return (
     <div className={styles.publishInfo}>
@@ -154,10 +153,10 @@ const PublishInfo = (props: {
           <span className={styles.label}>commit：</span>
           <span className={styles.commit}>{commit}</span>
         </div>
-        <div className={styles.infoItem}>
+        {/* <div className={styles.infoItem}>
           <span className={styles.label}>类型：</span>
           <span className={styles.type}>{publishTypeName}</span>
-        </div>
+        </div> */}
         <div className={styles.infoItem}>
           <span className={styles.label}>环境：</span>
           {getPublishEnv(publishEnv)}
@@ -168,36 +167,32 @@ const PublishInfo = (props: {
         </div>
         <br />
         <br />
-        <div className={styles.infoItem}>
-          <span className={styles.label}>审阅状态：</span>
-          {getReviewStatus(reviewStatus, showModal, failReason)}
-          <SelectReviewerModal
-            visible={visible}
-            publishInfo={{
-              appId,
-              iterationId,
-              publishId
-            }}
-            hideModal={hideModal}
-          />
-        </div>
+        {publishEnv === 'online' && (
+          <div className={styles.infoItem}>
+            <span className={styles.label}>审阅状态：</span>
+            {getReviewStatus(reviewStatus, showModal, failReason)}
+            <SelectReviewerModal
+              visible={visible}
+              publishInfo={{
+                appId,
+                iterationId,
+                publishId
+              }}
+              hideModal={hideModal}
+            />
+          </div>
+        )}
       </div>
     </div>
   );
 };
 
-const PublishResult = (props: {
-  appId: number;
-  iterationId: number;
-  publishId: number;
-}): JSX.Element => {
-  const { appId, iterationId, publishId } = props;
+const PublishResult = (props: { publishId: number }): JSX.Element => {
+  const { publishId } = props;
   const [logData] = useAsyncState<PublishLog>(
     { log: 'initial ref transaction called with existing refs' },
     () =>
       getPublishLogRequest({
-        appId,
-        iterationId,
         publishId
       })
   );
@@ -261,11 +256,7 @@ export default memo(function PublishDetail() {
           iterationId={iterationId}
           publishId={publishId}
         />
-        <PublishResult
-          appId={appId}
-          iterationId={iterationId}
-          publishId={publishId}
-        />
+        <PublishResult publishId={publishId} />
       </div>
     </div>
   );

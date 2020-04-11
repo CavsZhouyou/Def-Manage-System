@@ -445,9 +445,12 @@ export function getIterationDetailRequest(
 export function getPublishDetailRequest(
   params: GetPublishDetailParams
 ): Promise<BaseResponse<GetPublishDetailResponse>> {
-  return axios.post<GetPublishDetailResponse>('/def/publish/getPublishDetail', {
-    ...params
-  });
+  return axios.post<GetPublishDetailResponse>(
+    '/def/publish/getAppPublishDetail',
+    {
+      ...params
+    }
+  );
 }
 
 /**
@@ -479,7 +482,7 @@ export function getReviewerOptionsRequest(
 export function getPublishLogRequest(
   params: GetPublishLogParams
 ): Promise<BaseResponse<GetPublishLogResponse>> {
-  return axios.post<GetPublishLogResponse>('/def/publish/getPublishLog', {
+  return axios.post<GetPublishLogResponse>('/def/publish/getAppPublishLog', {
     ...params
   });
 }

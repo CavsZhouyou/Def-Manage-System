@@ -498,8 +498,6 @@ export type GetIterationDetailResponse = IterationDetail;
 
 // 请求发布详情参数格式
 export interface GetPublishDetailParams {
-  appId: number;
-  iterationId: number;
   publishId: number;
 }
 
@@ -510,7 +508,7 @@ export interface PublishDetail {
   publisherAvatar: string;
   commit: string;
   createTime: string;
-  publishType: string;
+  // publishType: string;
   publishEnv: string;
   publishStatus: string;
   reviewId: number;
@@ -546,8 +544,6 @@ export interface GetReviewerOptionsResponse {
 
 // 请求发布日志参数格式
 export interface GetPublishLogParams {
-  appId: number;
-  iterationId: number;
   publishId: number;
 }
 
