@@ -8,7 +8,7 @@
  */
 
 import React, { memo, useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { Modal, Avatar, Tag, Table, Button, message } from 'antd';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { ColumnProps } from 'antd/es/table';
@@ -24,10 +24,6 @@ import styles from './index.module.scss';
 
 const PAGE_SIZE = 7;
 const { confirm } = Modal;
-
-const initParams = () => {
-  return {};
-};
 
 const showTotal = (total: number): string => `共 ${total} 条`;
 
@@ -51,9 +47,9 @@ const passReview = (
     content: `你确定通过审核 “${reviewTitle}” 吗？`,
     onOk: async () => {
       const result = await reviewPublishRequest({
-        userId: parseInt(sessionStorage.getItem('userId') || ''),
+        userId: sessionStorage.getItem('userId') || '',
         reviewId,
-        reviewResult: 'pass'
+        reviewResult: '7001'
       });
 
       if (result.success) {
@@ -168,13 +164,10 @@ const getColumns = (
       title: '操作',
       key: 'action',
       render: (text: string, record: CodeReviewInfo): JSX.Element => {
-        const userId = parseInt(sessionStorage.getItem('userId') || '');
-        let isShowReviewAction =
+        const userId = sessionStorage.getItem('userId') || '';
+        const isShowReviewAction =
           record.reviewStatus === '7003' && record.reviewerId === userId;
-        let isShowFailReason = record.reviewStatus === '7002';
-
-        isShowReviewAction = true;
-        isShowFailReason = true;
+        const isShowFailReason = record.reviewStatus === '7002';
 
         const reviewAction = (
           <span>
@@ -226,11 +219,19 @@ const getColumns = (
 };
 
 export default memo(function CodeReviewList() {
+  const { appInfo } = useParams();
+  const { appId } = JSON.parse(decodeURIComponent(appInfo || '{}'));
   const [reviewId, setReviewId] = useState<number>(0);
   const { loading, list, total, page, onPageChange, updateList } = useList<
     CodeReviewInfo,
     GetCodeReviewListParams
-  >(PAGE_SIZE, initParams, getCodeReviewListRequest);
+  >(
+    PAGE_SIZE,
+    () => ({
+      appId
+    }),
+    getCodeReviewListRequest
+  );
   const [visible, showModal, hideModal] = useModal();
   const columns = useMemo(
     () => getColumns(updateList, showModal, setReviewId),

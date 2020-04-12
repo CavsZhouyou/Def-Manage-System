@@ -59,9 +59,9 @@ export default memo(function NotPassModal(props: Props) {
       const { failReason } = values;
 
       notPassReview({
-        userId: parseInt(sessionStorage.getItem('userId') || ''),
+        userId: sessionStorage.getItem('userId') || '',
         reviewId,
-        reviewResult: 'fail',
+        reviewResult: '7002',
         failReason
       });
     });

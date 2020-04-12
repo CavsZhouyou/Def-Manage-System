@@ -1,5 +1,3 @@
-import { type } from 'os';
-
 /*
  * @Author: zhouyou@werun
  * @Descriptions: request 和 response types 定义文件
@@ -410,7 +408,7 @@ export interface CodeReviewInfo {
   creator: string;
   creatorAvatar: string;
   reviewer: string;
-  reviewerId: number;
+  reviewerId: string;
   reviewerAvatar: string;
   reviewStatus: string;
   failReason?: string;
@@ -420,9 +418,9 @@ export type GetCodeReviewListResponse = ListResponse<CodeReviewInfo>;
 
 // 审核代码发布参数格式
 export interface ReviewPublishParams {
-  userId: number;
+  userId: string;
   reviewId: number;
-  reviewResult: 'pass' | 'fail';
+  reviewResult: '7001' | '7002';
   failReason?: string;
 }
 
