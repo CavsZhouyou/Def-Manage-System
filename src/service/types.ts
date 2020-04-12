@@ -502,6 +502,7 @@ export interface GetPublishDetailParams {
 // 请求发布详情返回数据格式
 export interface PublishDetail {
   publishId: number;
+  publisherId: string;
   publisher: string;
   publisherAvatar: string;
   commit: string;

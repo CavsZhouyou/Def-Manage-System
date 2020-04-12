@@ -23,6 +23,7 @@ import styles from './index.module.scss';
 
 const initialState = {
   publishId: 0,
+  publisherId: '',
   publisher: '暂无',
   publisherAvatar: '暂无',
   createTime: '0',
@@ -63,10 +64,13 @@ const getPublishEnv = (value: string): JSX.Element => {
 };
 
 const getReviewStatus = (
+  publisherId: string,
   value: string,
   showModal: any,
   failReason?: string
 ): JSX.Element => {
+  const userId = sessionStorage.getItem('userId') || '';
+
   switch (value) {
     case '7001':
       return <Tag color="green">通过</Tag>;
@@ -87,10 +91,12 @@ const getReviewStatus = (
     case '7003':
       return <Tag color="orange">审阅中</Tag>;
     default:
-      return (
+      return publisherId === userId ? (
         <Button className={styles.link} type="link" onClick={() => showModal()}>
           发起审阅
         </Button>
+      ) : (
+        <Tag color="orange">未创建</Tag>
       );
   }
 };
@@ -109,6 +115,7 @@ const PublishInfo = (props: {
   );
 
   const {
+    publisherId,
     publisher,
     publisherAvatar,
     commit,
@@ -170,7 +177,7 @@ const PublishInfo = (props: {
         {publishEnv === 'online' && (
           <div className={styles.infoItem}>
             <span className={styles.label}>审阅状态：</span>
-            {getReviewStatus(reviewStatus, showModal, failReason)}
+            {getReviewStatus(publisherId, reviewStatus, showModal, failReason)}
             <SelectReviewerModal
               visible={visible}
               publishInfo={{
