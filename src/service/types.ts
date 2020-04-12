@@ -520,16 +520,16 @@ export type GetPublishDetailResponse = PublishDetail;
 
 // 发起代码审阅设置参数格式
 export interface ApplyCodeReviewParams {
-  appId: number;
-  iterationId: number;
   publishId: number;
-  userId: number;
+  userId: string;
   reviewerId: number;
+  reviewTitle: string;
 }
 
 // 请求审阅者列表参数格式
 export interface GetReviewerOptionsParams {
   appId: number;
+  creatorId: string;
 }
 
 // 请求成员列表 option 返回数据格式

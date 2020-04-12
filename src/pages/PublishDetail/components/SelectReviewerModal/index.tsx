@@ -8,7 +8,7 @@
  */
 
 import React, { memo, useState, useCallback } from 'react';
-import { Modal, Form, Select, message } from 'antd';
+import { Modal, Form, Select, message, Input } from 'antd';
 import { ApplyCodeReviewParams, ReviewerOption } from '@/service/types';
 import {
   applyCodeReviewRequest,
@@ -42,10 +42,13 @@ const formItemLayout = {
 
 export default memo(function SelectReviewerModal(props: Props) {
   const { visible, publishInfo, hideModal } = props;
-  const { appId, iterationId, publishId } = publishInfo;
+  const { appId, publishId } = publishInfo;
   const [loading, setLoading] = useState(false);
   const [reviewerOptions] = useAsyncOptions<ReviewerOption>(() => {
-    return getReviewerOptionsRequest({ appId });
+    return getReviewerOptionsRequest({
+      creatorId: sessionStorage.getItem('userId') || '',
+      appId
+    });
   });
   const [form] = Form.useForm();
 
@@ -72,17 +75,16 @@ export default memo(function SelectReviewerModal(props: Props) {
 
   const submit = useCallback(() => {
     form.validateFields().then(values => {
-      const { reviewerId } = values;
+      const { reviewerId, reviewTitle } = values;
 
       applyCodeReview({
-        appId,
-        iterationId,
         publishId,
-        userId: parseInt(sessionStorage.getItem('userId') || ''),
-        reviewerId
+        userId: sessionStorage.getItem('userId') || '',
+        reviewerId,
+        reviewTitle
       });
     });
-  }, [form, appId, iterationId, publishId, applyCodeReview]);
+  }, [form, publishId, applyCodeReview]);
 
   const onCancel = useCallback(() => {
     form.resetFields();
@@ -116,6 +118,20 @@ export default memo(function SelectReviewerModal(props: Props) {
                 </Option>
               ))}
             </Select>
+          </Form.Item>
+          <Form.Item
+            name="reviewTitle"
+            label="审阅标题"
+            rules={[
+              {
+                required: true,
+                message: '审阅标题不能为空！'
+              },
+              { max: 15, message: '审阅标题不能超过 15 个字符！' }
+            ]}
+            hasFeedback
+          >
+            <Input placeholder="请输入审阅标题" />
           </Form.Item>
         </Form>
       </Modal>
