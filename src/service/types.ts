@@ -420,6 +420,7 @@ export type GetCodeReviewListResponse = ListResponse<CodeReviewInfo>;
 
 // 审核代码发布参数格式
 export interface ReviewPublishParams {
+  appId: number;
   userId: string;
   reviewId: number;
   reviewResult: '7001' | '7002';
@@ -521,6 +522,7 @@ export type GetPublishDetailResponse = PublishDetail;
 
 // 发起代码审阅设置参数格式
 export interface ApplyCodeReviewParams {
+  appId: number;
   publishId: number;
   userId: string;
   reviewerId: number;

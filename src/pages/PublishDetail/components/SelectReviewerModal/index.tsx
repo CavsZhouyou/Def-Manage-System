@@ -79,13 +79,14 @@ export default memo(function SelectReviewerModal(props: Props) {
       const { reviewerId, reviewTitle } = values;
 
       applyCodeReview({
+        appId,
         publishId,
         userId: sessionStorage.getItem('userId') || '',
         reviewerId,
         reviewTitle
       });
     });
-  }, [form, publishId, applyCodeReview]);
+  }, [form, publishId, applyCodeReview, appId]);
 
   const onCancel = useCallback(() => {
     form.resetFields();

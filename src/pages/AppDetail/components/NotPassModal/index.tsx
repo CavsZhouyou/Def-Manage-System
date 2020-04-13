@@ -13,6 +13,7 @@ import { ReviewPublishParams } from '@/service/types';
 import { reviewPublishRequest } from '@/service/apis';
 
 interface Props {
+  appId: number;
   reviewId: number;
   visible: boolean;
   hideModal: () => void;
@@ -31,41 +32,45 @@ const formItemLayout = {
 };
 
 export default memo(function NotPassModal(props: Props) {
-  const { visible, hideModal, reviewId, updateList } = props;
+  const { appId, visible, hideModal, reviewId, updateList } = props;
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
 
-  const notPassReview = async (props: ReviewPublishParams): Promise<void> => {
-    setLoading(true);
+  const notPassReview = useCallback(
+    async (props: ReviewPublishParams): Promise<void> => {
+      setLoading(true);
 
-    const result = await reviewPublishRequest(props);
+      const result = await reviewPublishRequest(props);
 
-    if (result.success) {
-      message.success('审核成功！');
+      if (result.success) {
+        message.success('审核成功！');
 
-      // 清空表单，隐藏 modal
-      form.resetFields();
-      setLoading(false);
-      hideModal();
-      updateList();
-    } else {
-      message.error(result.message);
-      setLoading(false);
-    }
-  };
+        // 清空表单，隐藏 modal
+        form.resetFields();
+        setLoading(false);
+        hideModal();
+        updateList();
+      } else {
+        message.error(result.message);
+        setLoading(false);
+      }
+    },
+    [form, hideModal, updateList]
+  );
 
   const submit = useCallback(() => {
     form.validateFields().then(values => {
       const { failReason } = values;
 
       notPassReview({
+        appId,
         userId: sessionStorage.getItem('userId') || '',
         reviewId,
         reviewResult: '7002',
         failReason
       });
     });
-  }, [reviewId]);
+  }, [reviewId, appId, notPassReview, form]);
 
   const onCancel = useCallback(() => {
     form.resetFields();

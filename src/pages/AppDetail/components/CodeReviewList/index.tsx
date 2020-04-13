@@ -37,6 +37,7 @@ const viewFailReason = (reason: string): void => {
 };
 
 const passReview = (
+  appId: number,
   reviewId: number,
   reviewTitle: string,
   updateList: () => void
@@ -47,6 +48,7 @@ const passReview = (
     content: `你确定通过审核 “${reviewTitle}” 吗？`,
     onOk: async () => {
       const result = await reviewPublishRequest({
+        appId,
         userId: sessionStorage.getItem('userId') || '',
         reviewId,
         reviewResult: '7001'
@@ -175,7 +177,12 @@ const getColumns = (
               className={styles.link}
               type="link"
               onClick={() =>
-                passReview(record.reviewId, record.reviewTitle, updateList)
+                passReview(
+                  record.appId,
+                  record.reviewId,
+                  record.reviewTitle,
+                  updateList
+                )
               }
             >
               通过
@@ -243,6 +250,7 @@ export default memo(function CodeReviewList() {
       <div className={styles.header}>
         <Title title="代码审阅记录" />
         <NotPassModal
+          appId={appId}
           visible={visible}
           hideModal={hideModal}
           reviewId={reviewId}
