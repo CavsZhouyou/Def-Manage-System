@@ -96,7 +96,7 @@ export default memo(function MyAppList() {
   return (
     <div className={styles.myAppList}>
       <Header />
-      <div className={commonStyles.content}>
+      <div className={styles.content}>
         <List
           itemLayout="horizontal"
           loadMore={
