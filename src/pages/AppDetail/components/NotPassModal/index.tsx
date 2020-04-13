@@ -65,7 +65,7 @@ export default memo(function NotPassModal(props: Props) {
         failReason
       });
     });
-  }, []);
+  }, [reviewId]);
 
   const onCancel = useCallback(() => {
     form.resetFields();

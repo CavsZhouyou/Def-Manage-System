@@ -174,7 +174,7 @@ const getColumns = (
       key: 'latestPublish',
       dataIndex: 'latestPublish',
       render: (text: string): string =>
-        formatTimeToInterval(parseInt(text || ''))
+        text !== '0' ? formatTimeToInterval(parseInt(text || '')) : '无'
     },
     {
       title: '最近发布状态',
