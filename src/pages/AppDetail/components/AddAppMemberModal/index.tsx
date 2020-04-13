@@ -71,7 +71,7 @@ export default memo(function AddAppMemberModal(props: Props) {
         role
       });
     });
-  }, [form, addAppMember]);
+  }, [form, addAppMember, appId]);
 
   const onCancel = useCallback(() => {
     form.resetFields();
