@@ -44,6 +44,8 @@ const SearchForm = memo(
   (props: { form: any; appId: number; updateList: () => void }) => {
     const { form, updateList, appId } = props;
     const [visible, showModal, hideModal] = useModal();
+    const memberRole = sessionStorage.getItem('memberRole');
+    const isNewButtonShow = memberRole && memberRole !== '0';
 
     return (
       <Form
@@ -54,10 +56,16 @@ const SearchForm = memo(
       >
         <div className={styles.leftActions}>
           <Title title="迭代" />
-          <Button className={styles.addButton} type="link" onClick={showModal}>
-            <PlusCircleOutlined className={styles.addIcon} />
-            新建迭代
-          </Button>
+          {isNewButtonShow && (
+            <Button
+              className={styles.addButton}
+              type="link"
+              onClick={showModal}
+            >
+              <PlusCircleOutlined className={styles.addIcon} />
+              新建迭代
+            </Button>
+          )}
           <NewIterationModal
             visible={visible}
             hideModal={hideModal}
