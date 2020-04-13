@@ -27,6 +27,7 @@ interface InitParams {
 const excludeColumns: string[] = [
   'timeConsumption',
   'creator',
+  'branch',
   'iterationStatus',
   'version',
   'action'
