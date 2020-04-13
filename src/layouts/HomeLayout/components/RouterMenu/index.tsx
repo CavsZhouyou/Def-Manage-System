@@ -28,7 +28,16 @@ const DEFAULT_SELECTED_KEYS = ['0'];
 const RouterMenu = React.memo(
   (props: Props): JSX.Element => {
     let { routes } = props;
-    routes = routes.filter(item => item.menu);
+    const userRole = sessionStorage.getItem('userRole');
+
+    // 路由权限过滤
+    routes = routes.filter(item => {
+      if (!item.menu) return false;
+
+      if (item.path === '/home/userList' && userRole !== '6002') return false;
+
+      return true;
+    });
 
     return (
       <Menu

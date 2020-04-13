@@ -46,7 +46,7 @@ export interface LoginResponse {
     userName: string;
     userId: number;
     userAvatar: string;
-    role: string;
+    userRole: string;
   };
 }
 

@@ -33,11 +33,11 @@ const UserList = lazy(() => import('@/pages/UserList'));
  * 登录权限验证
  */
 const requireAuth = (Layout: React.ComponentType, props: any) => {
-  // if (sessionStorage.getItem('token')) {
-  return <Layout {...props} />;
-  // } else {
-  //   return <Redirect to="/login" />;
-  // }
+  if (sessionStorage.getItem('token')) {
+    return <Layout {...props} />;
+  } else {
+    return <Redirect to="/login" />;
+  }
 };
 
 export default [
@@ -47,7 +47,7 @@ export default [
   },
   {
     path: '/home',
-    component: (props: any): JSX.Element => requireAuth(HomeLayout, props),
+    component: HomeLayout,
     routes: [
       {
         name: '工作台',
