@@ -1,5 +1,6 @@
 import React, { Suspense } from 'react';
 import { Spin } from 'antd';
+import styles from './index.module.scss';
 
 const SuspenseWrapper: Function = (
   Component: React.ComponentType
@@ -8,7 +9,7 @@ const SuspenseWrapper: Function = (
     return (
       <Suspense
         fallback={
-          <div className="example">
+          <div className={styles.suspenseWrapper}>
             <Spin />
           </div>
         }
