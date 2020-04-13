@@ -76,7 +76,7 @@ export interface GetAppListByCountParams {
 
 // 请求应用列表返回数据格式
 export interface AppInfo {
-  appId: number;
+  appId: string;
   appLogo: string;
   appName: string;
   publishType: PublishType;

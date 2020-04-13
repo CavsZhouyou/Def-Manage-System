@@ -65,6 +65,7 @@ export default memo(function SelectReviewerModal(props: Props) {
         setLoading(false);
         form.resetFields();
         hideModal();
+        window.location.reload();
       } else {
         message.error(result.message);
         setLoading(false);

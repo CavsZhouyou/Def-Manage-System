@@ -7,8 +7,8 @@
  * @Last Modified time: 2020-03-29 16:07:29
  */
 
-import React, { memo, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { memo, useEffect, useCallback } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import { Skeleton, Avatar, List, Button } from 'antd';
 import { RightOutlined } from '@ant-design/icons';
 import LoadMore from '@/components/LoadMore';
@@ -57,12 +57,25 @@ const Header = memo(() => {
 
 const App = memo((props: any) => {
   const {
+    appId,
     appName,
     appLogo,
     progressingIterationCount,
     description,
     loading
   } = props;
+  const history = useHistory();
+
+  const viewDetail = useCallback(() => {
+    history.push(
+      `/home/appDetail/${encodeURIComponent(
+        JSON.stringify({
+          appId,
+          appName
+        })
+      )}`
+    );
+  }, [history, appId, appName]);
 
   return (
     <List.Item>
@@ -72,7 +85,7 @@ const App = memo((props: any) => {
           title={<a>{appName}</a>}
           description={description}
         />
-        <Button className={styles.iteration} type="link">
+        <Button className={styles.iteration} type="link" onClick={viewDetail}>
           {`${progressingIterationCount} 个进行中的迭代`}
           <RightOutlined className={styles.rightIcon} />
         </Button>

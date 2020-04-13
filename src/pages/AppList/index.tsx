@@ -131,7 +131,7 @@ const AppCard = memo((props: AppInfo) => {
         })
       )}`
     );
-  }, [history]);
+  }, [appId, appName, history]);
 
   return (
     <Card className={styles.appCard} onClick={viewDetail} hoverable>
