@@ -59,10 +59,11 @@ const deleteMember = (
 const getColumns = (
   appId: number,
   setUserInfo: any,
+  isJoin: boolean,
   showModal: () => void,
   updateList: () => void
 ): ColumnProps<MemberInfo>[] => {
-  return [
+  let columns = [
     {
       title: '用户',
       dataIndex: 'userName',
@@ -107,7 +108,7 @@ const getColumns = (
     {
       title: '操作',
       key: 'action',
-      render: (text, record) => {
+      render: (text: string, record: MemberInfo) => {
         if (record.role.roleId === '5001') return '无';
 
         return (
@@ -139,6 +140,15 @@ const getColumns = (
       }
     }
   ];
+
+  columns = columns.filter(item => {
+    if (item.key === 'action' && !isJoin) {
+      return false;
+    }
+    return true;
+  });
+
+  return columns;
 };
 
 const showTotal = (total: number): string => `共 ${total} 条`;
@@ -174,10 +184,18 @@ export default memo(function MemberList() {
   });
   const { appInfo } = useParams();
   const { appId } = JSON.parse(decodeURIComponent(appInfo || '{}'));
+  const memberRole = sessionStorage.getItem('memberRole');
+  const isJoin = !!(memberRole && memberRole !== '0');
   const columns = useMemo(
     () =>
-      getColumns(appId, setUserInfo, showChangeMemberRightModal, updateList),
-    [appId, setUserInfo, showChangeMemberRightModal, updateList]
+      getColumns(
+        appId,
+        setUserInfo,
+        isJoin,
+        showChangeMemberRightModal,
+        updateList
+      ),
+    [appId, setUserInfo, showChangeMemberRightModal, updateList, isJoin]
   );
 
   return (
@@ -185,9 +203,11 @@ export default memo(function MemberList() {
       <div className={styles.header}>
         <Title title="成员列表" />
         <div>
-          <Button type="primary" onClick={showAddMemberModal}>
-            添加成员
-          </Button>
+          {isJoin && (
+            <Button type="primary" onClick={showAddMemberModal}>
+              添加成员
+            </Button>
+          )}
           <AddAppMemberModal
             appId={appId}
             visible={addMemberModalVisible}
