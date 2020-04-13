@@ -22,12 +22,11 @@ interface Props {
   routes: Array<RouteType>;
 }
 
-// 默认选中菜单
-const DEFAULT_SELECTED_KEYS = ['0'];
-
 const RouterMenu = React.memo(
   (props: Props): JSX.Element => {
     let { routes } = props;
+    const selectedMenu = sessionStorage.getItem('selectedMenu') || '0';
+    const defaultSelectedKeys = [selectedMenu];
     const userRole = sessionStorage.getItem('userRole');
 
     // 路由权限过滤
@@ -43,11 +42,16 @@ const RouterMenu = React.memo(
       <Menu
         theme="dark"
         mode="inline"
-        defaultSelectedKeys={DEFAULT_SELECTED_KEYS}
+        defaultSelectedKeys={defaultSelectedKeys}
       >
         {routes.map((route: RouteType, key) => {
           return (
-            <Menu.Item key={key}>
+            <Menu.Item
+              key={key}
+              onClick={() => {
+                sessionStorage.setItem('selectedMenu', key.toString());
+              }}
+            >
               {route.icon()}
               <NavLink to={route.path}>
                 <span>{route.name}</span>
