@@ -41,11 +41,14 @@ const initialValues = {
 };
 
 const SearchForm = memo(
-  (props: { form: any; appId: number; updateList: () => void }) => {
-    const { form, updateList, appId } = props;
+  (props: {
+    form: any;
+    appId: number;
+    isJoin: boolean;
+    updateList: () => void;
+  }) => {
+    const { form, updateList, isJoin, appId } = props;
     const [visible, showModal, hideModal] = useModal();
-    const memberRole = sessionStorage.getItem('memberRole');
-    const isNewButtonShow = memberRole && memberRole !== '0';
 
     return (
       <Form
@@ -56,7 +59,7 @@ const SearchForm = memo(
       >
         <div className={styles.leftActions}>
           <Title title="迭代" />
-          {isNewButtonShow && (
+          {isJoin && (
             <Button
               className={styles.addButton}
               type="link"
@@ -124,10 +127,18 @@ export default memo(function IterationList() {
     initParams,
     getIterationListRequest
   );
+  const memberRole = sessionStorage.getItem('memberRole');
+  const isJoin = !!(memberRole && memberRole !== '0');
+  if (!isJoin) excludeColumns.push('action');
 
   return (
     <div className={styles.iterationList}>
-      <SearchForm form={form} updateList={updateList} appId={appId} />
+      <SearchForm
+        form={form}
+        updateList={updateList}
+        appId={appId}
+        isJoin={isJoin}
+      />
       <div className={styles.content}>
         <IterationTable
           excludeColumns={excludeColumns}
