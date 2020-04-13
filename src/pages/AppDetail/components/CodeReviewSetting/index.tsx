@@ -72,6 +72,7 @@ export default memo(function CodeReviewSetting() {
         message.success('修改成功');
         await delay(1000);
         setLoading(false);
+        window.location.reload();
       } else {
         message.error(result.message);
         setLoading(false);
