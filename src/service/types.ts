@@ -322,12 +322,14 @@ export type GetAppMemberListResponse = ListResponse<MemberInfo>;
 
 // 删除应用成员参数格式
 export interface DeleteAppMemberParams {
+  operatorId: string;
   appId: number;
   userId: string;
 }
 
 // 添加应用成员参数格式
 export interface AddAppMemberParams {
+  operatorId: string;
   appId: number;
   userName: string;
   useTime: string;

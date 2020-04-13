@@ -44,7 +44,11 @@ const deleteMember = (
     content: `你确定要删除成员${userName}吗？`,
     okType: 'danger',
     onOk: async () => {
-      const result = await deleteAppMemberRequest({ userId, appId });
+      const result = await deleteAppMemberRequest({
+        operatorId: sessionStorage.getItem('userId') || '',
+        userId,
+        appId
+      });
 
       if (result.success) {
         message.success('删除成功!');

@@ -65,6 +65,7 @@ export default memo(function AddAppMemberModal(props: Props) {
       const { userName, role, useTime } = values;
 
       addAppMember({
+        operatorId: sessionStorage.getItem('userId') || '',
         appId,
         userName,
         useTime,
