@@ -552,3 +552,14 @@ export interface PublishLog {
 }
 
 export type GetPublishLogResponse = PublishLog;
+
+// 请求获取应用成员角色参数格式
+export interface GetAppMemberRoleParams {
+  appId: number;
+  userId: string;
+}
+
+// 请获取应用成员角色返回数据格式
+export interface GetAppMemberRoleResponse {
+  memberRole: string;
+}

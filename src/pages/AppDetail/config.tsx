@@ -27,6 +27,13 @@ const CodeReviewList = lazy(() => import('./components/CodeReviewList'));
 const PageList = lazy(() => import('./components/PageList'));
 const AppSettings = lazy(() => import('./components/AppSettings'));
 
+export interface Route {
+  key: string;
+  name: string;
+  icon: any;
+  component: any;
+}
+
 export default [
   {
     key: '1',

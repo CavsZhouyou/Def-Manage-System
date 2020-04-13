@@ -69,7 +69,9 @@ import {
   GetUserRoleListResponse,
   GetProductTypeListResponse,
   GetPublishTypeListResponse,
-  GetAppListByCountParams
+  GetAppListByCountParams,
+  GetAppMemberRoleParams,
+  GetAppMemberRoleResponse
 } from './types';
 
 export function getToken(): Promise<BaseResponse<TokenResponse>> {
@@ -483,6 +485,17 @@ export function getPublishLogRequest(
   params: GetPublishLogParams
 ): Promise<BaseResponse<GetPublishLogResponse>> {
   return axios.post<GetPublishLogResponse>('/def/publish/getAppPublishLog', {
+    ...params
+  });
+}
+
+/**
+ * 获取应用成员角色请求
+ */
+export function getAppMemberRoleRequest(
+  params: GetAppMemberRoleParams
+): Promise<BaseResponse<GetAppMemberRoleResponse>> {
+  return axios.post<GetAppMemberRoleResponse>('/def/app/getAppMemberRole', {
     ...params
   });
 }
