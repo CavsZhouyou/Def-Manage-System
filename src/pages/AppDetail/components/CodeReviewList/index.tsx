@@ -21,6 +21,7 @@ import { formatTimestamp } from '@/utils';
 import useModal from '@/utils/hooks/useModal';
 import NotPassModal from '../NotPassModal';
 import styles from './index.module.scss';
+import { GOGS_HOST } from '@/constants';
 
 const PAGE_SIZE = 7;
 const { confirm } = Modal;
@@ -166,10 +167,12 @@ const getColumns = (
       title: '操作',
       key: 'action',
       render: (text: string, record: CodeReviewInfo): JSX.Element => {
+        const { appName, version, reviewStatus, reviewerId } = record;
         const userId = sessionStorage.getItem('userId') || '';
         const isShowReviewAction =
-          record.reviewStatus === '7003' && record.reviewerId === userId;
+          reviewStatus === '7003' && reviewerId === userId;
         const isShowFailReason = record.reviewStatus === '7002';
+        const diffAddress = `${GOGS_HOST}/${appName}/compare/master...daily/${version}`;
 
         const reviewAction = (
           <span>
@@ -213,9 +216,9 @@ const getColumns = (
         );
         return (
           <span>
-            <Button className={styles.link} type="link">
+            <a className={styles.link} href={diffAddress} target="_blank">
               查看详情
-            </Button>
+            </a>
             {isShowReviewAction && reviewAction}
             {isShowFailReason && failReason}
           </span>
