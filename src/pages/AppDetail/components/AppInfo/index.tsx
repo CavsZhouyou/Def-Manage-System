@@ -81,7 +81,11 @@ export default memo(function AppInfo() {
         <Description label="产品" value={productType.name} />
         <Description
           label="仓库"
-          value={<a href={repository}>{repository}</a>}
+          value={
+            <a href={repository} target="blank">
+              {repository}
+            </a>
+          }
         />
         <Description
           label="加入时间"
