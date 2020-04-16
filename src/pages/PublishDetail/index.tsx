@@ -14,7 +14,7 @@ import Title from '@/components/Title';
 import BreadcrumbNavbar from '@/components/BreadcrumbNavbar';
 import { PublishDetail, PublishLog } from '@/service/types';
 import { getPublishDetailRequest, getPublishLogRequest } from '@/service/apis';
-import { publishTypes } from '@/constants';
+import { publishTypes, GOGS_HOST } from '@/constants';
 import { formatTimeToInterval } from '@/utils';
 import useModal from '@/utils/hooks/useModal';
 import useAsyncState from '@/utils/hooks/useAsyncState';
@@ -103,10 +103,11 @@ const getReviewStatus = (
 
 const PublishInfo = (props: {
   appId: number;
+  appName: string;
   iterationId: number;
   publishId: number;
 }): JSX.Element => {
-  const { appId, iterationId, publishId } = props;
+  const { appId, appName, iterationId, publishId } = props;
   const [visible, showModal, hideModal] = useModal();
   const [publishDetail] = useAsyncState<PublishDetail>(initialState, () =>
     getPublishDetailRequest({
@@ -130,6 +131,8 @@ const PublishInfo = (props: {
   // const publishTypeName = publishTypes.filter(
   //   item => item.value === publishType
   // )[0].name;
+
+  const commitAddress = `${GOGS_HOST}/${appName}/commit/${commit}`;
 
   return (
     <div className={styles.publishInfo}>
@@ -158,7 +161,9 @@ const PublishInfo = (props: {
         </div>
         <div className={styles.infoItem}>
           <span className={styles.label}>commit：</span>
-          <span className={styles.commit}>{commit}</span>
+          <a href={commitAddress} target="_blank">
+            {commit}
+          </a>
         </div>
         {/* <div className={styles.infoItem}>
           <span className={styles.label}>类型：</span>
@@ -254,6 +259,7 @@ export default memo(function PublishDetail() {
       <div className={styles.content}>
         <PublishInfo
           appId={appId}
+          appName={appName}
           iterationId={iterationId}
           publishId={publishId}
         />

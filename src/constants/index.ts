@@ -154,3 +154,5 @@ export const reviewerScopeTypes = [
     value: '8003'
   }
 ];
+
+export const GOGS_HOST = 'http://192.168.3.61:10080';

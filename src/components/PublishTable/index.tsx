@@ -12,7 +12,7 @@ import { Avatar, Tag, Table } from 'antd';
 import { ClockCircleOutlined } from '@ant-design/icons';
 import { ColumnProps } from 'antd/es/table';
 import { PublishInfo } from '@/service/types';
-import { publishTypes } from '@/constants';
+import { publishTypes, GOGS_HOST } from '@/constants';
 import { formatTimestamp } from '@/utils';
 import styles from './index.module.scss';
 
@@ -87,7 +87,16 @@ const columns: ColumnProps<PublishInfo>[] = [
     title: 'commit',
     dataIndex: 'commit',
     key: 'commit',
-    render: (text: string): JSX.Element => <a>{text}</a>
+    render: (text: string, record: PublishInfo): JSX.Element => {
+      const { appName } = record;
+      const commitAddress = `${GOGS_HOST}/${appName}/commit/${text}`;
+
+      return (
+        <a href={commitAddress} target="_blank">
+          {text}
+        </a>
+      );
+    }
   },
   // {
   //   title: '发布类型',
