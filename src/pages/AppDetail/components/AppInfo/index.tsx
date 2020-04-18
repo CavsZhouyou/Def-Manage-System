@@ -40,7 +40,9 @@ const initialState = {
     name: '无'
   },
   repository: '暂无',
-  onlineAddress: '未发布',
+  onlineAddress: '',
+  dailyAddress: '',
+  version: '',
   isJoin: false,
   joinTime: '',
   publishType: {
@@ -68,7 +70,9 @@ export default memo(function AppInfo() {
     joinTime,
     publishType,
     pagePrefix,
-    onlineAddress
+    onlineAddress,
+    dailyAddress,
+    version
   } = appInfo;
 
   return (
@@ -92,10 +96,31 @@ export default memo(function AppInfo() {
           value={isJoin ? formatTimestamp(parseInt(joinTime || '')) : '未加入'}
         />
         <Description label="发布类型" value={publishType.name} />
-        <Description label="页面前缀" value={pagePrefix} />
+        {/* <Description label="页面前缀" value={pagePrefix} /> */}
+        <Description label="当前版本" value={version ? version : '暂无发布'} />
+        <Description
+          label="预发地址"
+          value={
+            dailyAddress ? (
+              <a href={dailyAddress} target="blank">
+                {dailyAddress}
+              </a>
+            ) : (
+              '暂无发布'
+            )
+          }
+        />
         <Description
           label="线上地址"
-          value={<a href={onlineAddress}>{onlineAddress}</a>}
+          value={
+            onlineAddress ? (
+              <a href={onlineAddress} target="blank">
+                {onlineAddress}
+              </a>
+            ) : (
+              '暂无发布'
+            )
+          }
         />
       </div>
     </div>

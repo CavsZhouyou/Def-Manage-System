@@ -272,6 +272,8 @@ export interface AppBasicInfo {
   productType: ProductType;
   repository: string;
   onlineAddress: string;
+  dailyAddress: string;
+  version: string;
   isJoin: boolean;
   joinTime?: string;
   publishType: PublishType;
