@@ -102,7 +102,7 @@ export default memo(function AppInfo() {
           label="预发地址"
           value={
             dailyAddress ? (
-              <a href={dailyAddress} target="blank">
+              <a href={dailyAddress} target="_blank">
                 {dailyAddress}
               </a>
             ) : (
@@ -114,7 +114,7 @@ export default memo(function AppInfo() {
           label="线上地址"
           value={
             onlineAddress ? (
-              <a href={onlineAddress} target="blank">
+              <a href={onlineAddress} target="_blank">
                 {onlineAddress}
               </a>
             ) : (
