@@ -103,7 +103,7 @@ export default memo(function MyAppList() {
 
   useEffect(() => {
     // 初始化列表数据
-    loadMore(5);
+    loadMore(7);
   }, []);
 
   return (
