@@ -33,7 +33,7 @@ interface InitParams {
 }
 
 const { Option } = Select;
-const excludeColumns: string[] = ['appName'];
+const excludeColumns: string[] = ['appName', 'action'];
 const PAGE_SIZE = 7;
 
 const initialValues = {
